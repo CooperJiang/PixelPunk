@@ -2,7 +2,7 @@
 
 <div align="center">
   
-![PixelPunk Logo](/image/logo.png)
+<!-- ![PixelPunk Logo](/image/logo.png) -->
 
 _🔥 一个赛博朋克风格的AI智能图床系统 🔥_
 
@@ -61,11 +61,11 @@ PixelPunk（像素朋克）是一款拥有赛博朋克视觉风格的AI智能图
 
 [官方网站](http://cyber.mmmss.com/)
 
-### 系统截图展示
+### 系统功能
 
 <div align="center">
   <h4>赛博朋克风格界面</h4>
-  <img src="" alt="系统界面总览" width="800px"/>
+  <img src="/image/home.png" alt="系统界面总览" width="800px"/>
   <p><i>赛博朋克风格的用户界面设计</i></p>
 </div>
 
@@ -154,8 +154,8 @@ PixelPunk 图床系统使用 Go 编写的后端，前端文件已打包并编译
 <div align="center">
   <table>
     <tr>
-      <td><img src="" alt="登录界面"/></td>
-      <td><img src="" alt="仪表盘"/></td>
+      <td><img src="/image/login.png" alt="登录界面"/></td>
+      <td><img src="/image/admin.png" alt="仪表盘"/></td>
     </tr>
   </table>
 </div>
@@ -169,7 +169,7 @@ PixelPunk 图床系统使用 Go 编写的后端，前端文件已打包并编译
 3. 配置AI功能（可选）
 
 <div align="center">
-  <img src="" alt="存储配置界面" width="600px"/>
+  <img src="/image/addChannel.png" alt="存储配置界面" width="600px"/>
   <p><i>存储服务配置界面</i></p>
 </div>
 
@@ -183,10 +183,10 @@ PixelPunk 图床系统使用 Go 编写的后端，前端文件已打包并编译
 4. 获取图片链接并使用
 5. ai将在后台对ai智能分类打标，并进行nsfw安全检测
 
-<div align="center">
+<!-- <div align="center">
   <img src="" alt="上传流程演示" width="600px"/>
   <p><i>简单直观的上传流程</i></p>
-</div>
+</div> -->
 
 ## 技术栈
 

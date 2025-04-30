@@ -10,7 +10,7 @@ _🔥 一个赛博朋克风格的AI智能图床系统 🔥_
 
 <p align="center">
   <a href="https://github.com/CooperJiang/PixelPunk"><img src="https://img.shields.io/badge/官方仓库-PixelPunk-blue" alt="官方仓库"></a>
-  <a href="http://cyber.mmmss.com/"><img src="https://img.shields.io/badge/官方网站-cyber.mmmss.com-ff69b4" alt="官方网站"></a>
+  <a href="https://pixelpunk.cc/"><img src="https://img.shields.io/badge/官方网站-pixelpunk.cc-ff69b4" alt="官方网站"></a>
   <a href="#许可证"><img src="https://img.shields.io/badge/license-免费使用-green" alt="license"></a>
 </p>
 
@@ -59,7 +59,7 @@ PixelPunk（像素朋克）是一款拥有赛博朋克视觉风格的AI智能图
 
 ### 在线体验
 
-[官方网站](http://cyber.mmmss.com/)
+[官方网站](https://pixelpunk.cc/)
 
 ### 系统功能
 
@@ -196,7 +196,7 @@ PixelPunk 图床系统使用 Go 编写的后端，前端文件已打包并编译
 
 ## 联系我们
 
-- 官方网站: [http://cyber.mmmss.com/](http://cyber.mmmss.com/)
+- 官方网站: [https://pixelpunk.cc/](https://pixelpunk.cc/)
 - 官方仓库: [https://github.com/CooperJiang/PixelPunk](https://github.com/CooperJiang/PixelPunk)
 - QQ群: 826708512
 - 微信: J_longyan

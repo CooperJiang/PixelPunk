@@ -1,0 +1,88 @@
+/* MainLayout 基础样式 */
+.main-layout {
+  height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  display: flex;
+  background-color: var(--color-background-900);
+}
+
+/* Top布局模式 */
+.layout-top {
+  flex-direction: column;
+  background: var(--color-background-900);
+}
+
+/* Left布局模式 */
+.layout-left {
+  flex-direction: row;
+  background: var(--color-background-900);
+}
+
+/* 主内容区域 */
+.main-content {
+  padding-bottom: 1rem;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  overflow-y: auto;
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Left布局的主内容 */
+.layout-left .main-content {
+  padding: 0;
+  overflow: hidden; /* 防止双重滚动条 */
+}
+
+/* 后台管理风格的主内容 */
+.admin-style-content {
+  padding: 1rem; /* 减少 padding，统一间距 */
+  box-sizing: border-box;
+  height: 100vh; /* 确保高度填满 */
+}
+
+.content-with-sidebar {
+  margin-left: 0; /* 通过 store 动态设置 */
+}
+
+.main-content.full-width-content {
+  padding-bottom: 0;
+}
+
+/* Docs页面特殊处理 */
+.main-content.docs-content {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* 响应式样式 */
+@media (min-width: 768px) {
+  .main-content {
+    padding-top: 5rem;
+  }
+
+  .main-content.docs-content {
+    padding-top: 0;
+  }
+
+  .layout-top .main-content {
+    padding-top: 4.5rem;
+  }
+
+  .layout-left .main-content {
+    padding: 0;
+  }
+}
+
+/* 滚动条样式 */
+.main-layout {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.main-layout::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

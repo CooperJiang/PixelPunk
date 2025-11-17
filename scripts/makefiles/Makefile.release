@@ -1,0 +1,155 @@
+# PixelPunk 发布构建系统
+# 用于生成跨平台部署包
+
+.PHONY: build-release release release-help release-clean release-list
+
+# 版本信息
+DEFAULT_VERSION := v1.0.0
+
+# 发布目录
+RELEASE_DIR := build/release
+
+## 交互式发布构建
+build-release: release
+
+release:
+	@chmod +x scripts/build/build-release.sh
+	@echo "$(GREEN)═══════════════════════════════════════$(NC)"
+	@echo "$(GREEN)  PixelPunk 发布构建$(NC)"
+	@echo "$(GREEN)═══════════════════════════════════════$(NC)"
+	@echo ""
+	@echo "$(YELLOW)请输入版本号（默认: $(DEFAULT_VERSION)）:$(NC)"
+	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
+	if [ -z "$$VERSION_INPUT" ]; then \
+		VERSION_INPUT="$(DEFAULT_VERSION)"; \
+	fi; \
+	if ! echo "$$VERSION_INPUT" | grep -qE '^v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?$$'; then \
+		echo "$(RED)✗ 版本号格式错误！请使用格式：v1.0.0 或 1.0.0$(NC)"; \
+		exit 1; \
+	fi; \
+	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then \
+		VERSION_INPUT="v$$VERSION_INPUT"; \
+	fi; \
+	echo ""; \
+	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
+	echo ""; \
+	BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh; \
+	BUILD_END=$$(date +%s); \
+	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
+	echo ""; \
+	echo "$(YELLOW)清理临时构建文件...$(NC)"; \
+	rm -rf build/linux_amd64 build/linux_arm64 build/darwin_amd64 build/darwin_arm64 build/windows_amd64 2>/dev/null || true; \
+	echo "$(GREEN)═══════════════════════════════════════$(NC)"; \
+	echo "$(GREEN)✅ 发布构建完成! 总用时: $${BUILD_TIME}s$(NC)"; \
+	echo "$(GREEN)═══════════════════════════════════════$(NC)"
+
+## 显示发布命令帮助信息
+release-help:
+	@echo "$(GREEN)PixelPunk 发布构建系统$(NC)"
+	@echo ""
+	@echo "$(YELLOW)快速命令:$(NC)"
+	@echo "  make release            - 交互式发布构建"
+	@echo "  make build-release      - 同上（别名）"
+	@echo ""
+	@echo "$(YELLOW)构建命令:$(NC)"
+	@echo "  make release-linux-amd64   - 构建 Linux x86_64"
+	@echo "  make release-linux-arm64   - 构建 Linux ARM64"
+	@echo "  make release-darwin-amd64  - 构建 macOS Intel"
+	@echo "  make release-darwin-arm64  - 构建 macOS Apple Silicon"
+	@echo "  make release-windows-amd64 - 构建 Windows x86_64"
+	@echo ""
+	@echo "$(YELLOW)管理命令:$(NC)"
+	@echo "  make release-clean      - 清理发布目录"
+	@echo "  make release-list       - 查看已构建的发布包"
+	@echo ""
+	@echo "$(YELLOW)发布目录:$(NC)"
+	@echo "  $(RELEASE_DIR)/"
+	@echo ""
+	@echo "$(YELLOW)默认版本:$(NC) $(DEFAULT_VERSION)"
+
+## 单独构建特定平台
+release-linux-amd64:
+	@echo "$(GREEN)构建 Linux x86_64 发布版本...$(NC)"
+	@chmod +x scripts/build/build-release.sh
+	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
+	VERSION_INPUT=$${VERSION_INPUT:-$(DEFAULT_VERSION)}; \
+	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then VERSION_INPUT="v$$VERSION_INPUT"; fi; \
+	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
+	BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh --platform linux-amd64; \
+	BUILD_END=$$(date +%s); \
+	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
+	echo "$(GREEN)✅ Linux x86_64 构建完成! 用时: $${BUILD_TIME}s$(NC)"
+
+release-linux-arm64:
+	@echo "$(GREEN)构建 Linux ARM64 发布版本...$(NC)"
+	@chmod +x scripts/build/build-release.sh
+	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
+	VERSION_INPUT=$${VERSION_INPUT:-$(DEFAULT_VERSION)}; \
+	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then VERSION_INPUT="v$$VERSION_INPUT"; fi; \
+	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
+	BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh --platform linux-arm64; \
+	BUILD_END=$$(date +%s); \
+	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
+	echo "$(GREEN)✅ Linux ARM64 构建完成! 用时: $${BUILD_TIME}s$(NC)"
+
+release-darwin-amd64:
+	@echo "$(GREEN)构建 macOS Intel 发布版本...$(NC)"
+	@chmod +x scripts/build/build-release.sh
+	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
+	VERSION_INPUT=$${VERSION_INPUT:-$(DEFAULT_VERSION)}; \
+	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then VERSION_INPUT="v$$VERSION_INPUT"; fi; \
+	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
+	BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh --platform darwin-amd64; \
+	BUILD_END=$$(date +%s); \
+	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
+	echo "$(GREEN)✅ macOS Intel 构建完成! 用时: $${BUILD_TIME}s$(NC)"
+
+release-darwin-arm64:
+	@echo "$(GREEN)构建 macOS Apple Silicon 发布版本...$(NC)"
+	@chmod +x scripts/build/build-release.sh
+	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
+	VERSION_INPUT=$${VERSION_INPUT:-$(DEFAULT_VERSION)}; \
+	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then VERSION_INPUT="v$$VERSION_INPUT"; fi; \
+	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
+	BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh --platform darwin-arm64; \
+	BUILD_END=$$(date +%s); \
+	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
+	echo "$(GREEN)✅ macOS Apple Silicon 构建完成! 用时: $${BUILD_TIME}s$(NC)"
+
+release-windows-amd64:
+	@echo "$(GREEN)构建 Windows x86_64 发布版本...$(NC)"
+	@chmod +x scripts/build/build-release.sh
+	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
+	VERSION_INPUT=$${VERSION_INPUT:-$(DEFAULT_VERSION)}; \
+	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then VERSION_INPUT="v$$VERSION_INPUT"; fi; \
+	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
+	BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh --platform windows-amd64; \
+	BUILD_END=$$(date +%s); \
+	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
+	echo "$(GREEN)✅ Windows x86_64 构建完成! 用时: $${BUILD_TIME}s$(NC)"
+
+## 清理发布目录
+release-clean:
+	@echo "$(GREEN)清理发布目录和临时构建文件...$(NC)"
+	@rm -rf $(RELEASE_DIR)
+	@rm -rf build/linux_amd64
+	@rm -rf build/linux_arm64
+	@rm -rf build/darwin_amd64
+	@rm -rf build/darwin_arm64
+	@rm -rf build/windows_amd64
+	@echo "$(GREEN)清理完成!$(NC)"
+
+## 查看发布包列表
+release-list:
+	@echo "$(GREEN)已构建的发布包:$(NC)"
+	@if [ -d "$(RELEASE_DIR)" ]; then \
+		ls -lh $(RELEASE_DIR)/ | grep -E '\.(tar\.gz|zip)$$' || echo "$(YELLOW)暂无发布包$(NC)"; \
+	else \
+		echo "$(YELLOW)发布目录不存在$(NC)"; \
+	fi

@@ -1,0 +1,38 @@
+storage:
+  storage_path: ./data/qdrant
+  write_consistency_factor: 1
+  snapshots_path: ./data/qdrant/snapshots
+
+service:
+  http_port: 6333
+  grpc_port: 6334
+  host: 0.0.0.0
+  enable_cors: true
+
+log_level: INFO
+
+cluster:
+  enabled: false
+
+optimizer:
+  indexing_threshold: 100
+  flush_interval_sec: 3
+  vacuum_min_vector_number: 50
+  max_optimization_threads: 1
+
+wal:
+  wal_capacity_mb: 128
+  wal_segments_ahead: 4
+  wal_sync_interval_ms: 100
+
+hnsw_config:
+  m: 16
+  ef_construct: 128
+  full_scan_threshold: 1000
+
+quantization:
+  scalar:
+    type: int8
+    always_ram: true
+
+telemetry_disabled: true

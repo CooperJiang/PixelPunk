@@ -1,0 +1,343 @@
+/* 管理员文件页面样式 */
+
+/* 选择模式工具栏 */
+.selection-toolbar {
+  @apply mb-4 flex items-center pb-3;
+  gap: var(--space-sm);
+  @apply border-b border-subtle;
+}
+
+/* 文件网格布局 */
+.images-grid-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-md);
+  padding: 0; /* 移除内部 padding，使用 Layout 统一的 padding */
+  margin: 0;
+  will-change: contents;
+  min-height: max-content;
+}
+
+@media (max-width: 1536px) {
+  .images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 1280px) {
+  .images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 1024px) {
+  .images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--space-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: var(--space-xs);
+  }
+}
+
+/* 空状态 - 使用规范工具类 + 动画效果 */
+.empty-state {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  height: 100%;
+  padding: var(--space-3xl) var(--space-2xl);
+}
+
+.empty-content {
+  text-align: center;
+  max-width: 400px;
+  animation: fadeInUp var(--transition-slow) var(--ease-out);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-lg));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.empty-icon-wrapper {
+  margin-bottom: var(--space-xl);
+  position: relative;
+  display: inline-block;
+}
+
+.empty-icon {
+  font-size: var(--text-4xl);
+  color: var(--color-brand-500);
+  filter: drop-shadow(var(--shadow-glow-md));
+  animation: floatIcon 3s var(--ease-in-out) infinite;
+}
+
+@keyframes floatIcon {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(calc(var(--space-sm) * -1));
+  }
+}
+
+.empty-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-content-default);
+  margin-bottom: var(--space-sm);
+  letter-spacing: var(--tracking-tight);
+}
+
+.empty-desc {
+  font-size: var(--text-sm);
+  color: var(--color-content-muted);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-xl);
+}
+
+/* 骨架屏 */
+.skeleton-item {
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+}
+
+/* 选择按钮样式 */
+.select-btn {
+  border-radius: var(--radius-md);
+  @apply border px-3 py-1.5 font-medium;
+  font-size: var(--text-xs);
+  @apply border-default bg-background-700 text-content;
+  @apply hover:border-brand-500 hover:bg-background-600 hover:text-brand-400;
+  @apply flex items-center;
+  gap: var(--space-xs);
+  transition: all var(--transition-normal);
+}
+
+.select-btn.active {
+  @apply border-brand-500 bg-background-600 text-brand-400;
+}
+
+.select-btn:disabled {
+  @apply cursor-not-allowed;
+  opacity: var(--opacity-disabled);
+  @apply hover:border-default hover:bg-background-700 hover:text-content;
+}
+
+.select-btn i {
+  font-size: var(--text-xs);
+}
+
+/* 选择信息样式 */
+.selection-info {
+  @apply flex items-center;
+  gap: var(--space-sm);
+  border-radius: var(--radius-lg);
+  @apply bg-background-700 px-3 py-2;
+  @apply border;
+  border-color: rgba(var(--color-brand-500-rgb), 0.2);
+}
+
+.selection-count {
+  @apply flex items-center rounded px-2 py-1;
+  gap: var(--space-xs);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  @apply text-brand-400;
+  background: linear-gradient(135deg, rgba(var(--color-brand-500-rgb), 0.15) 0%, rgba(var(--color-brand-500-rgb), 0.08) 100%);
+}
+
+/* 响应式优化 */
+@media (max-width: 1024px) {
+  .header-main {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-md);
+  }
+
+  .page-title {
+    text-align: center;
+  }
+
+  .header-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: 0;
+  }
+
+  .header-main {
+    padding: var(--space-md);
+  }
+
+  .toolbar {
+    padding: var(--space-xs) var(--space-md);
+  }
+
+  .page-content {
+    padding: var(--space-md);
+  }
+
+  .batch-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-xs);
+  }
+
+  .selection-info {
+    justify-content: center;
+    padding: var(--space-xs);
+  }
+
+  .selection-toolbar {
+    padding: var(--space-xs) 0;
+    gap: var(--space-xs);
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .selection-toolbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .select-btn {
+    font-size: var(--text-xs);
+    padding: var(--space-xs) var(--space-sm);
+    min-width: fit-content;
+  }
+
+  .grid {
+    gap: var(--space-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-xs);
+  }
+
+  .toolbar-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+}
+
+.admin-files {
+  @apply text-sm;
+  color: var(--color-content);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* 确保内容区域可以正确滚动 */
+.admin-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.images-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* 文件网格容器滚动条样式 - 使用规范颜色 */
+.images-grid-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--color-brand-500-rgb), 0.5) transparent;
+}
+
+.images-grid-container::-webkit-scrollbar {
+  width: var(--space-sm);
+  background: transparent;
+}
+
+.images-grid-container::-webkit-scrollbar-track {
+  background: rgba(var(--color-brand-500-rgb), 0.05);
+  border-radius: var(--radius-sm);
+  margin: var(--space-xs) 0;
+}
+
+.images-grid-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-brand-500-rgb), 0.4) 0%,
+    rgba(var(--color-brand-500-rgb), 0.6) 50%,
+    rgba(var(--color-error-rgb), 0.3) 100%
+  );
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: all var(--transition-normal) var(--ease-out);
+}
+
+.images-grid-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-brand-500-rgb), 0.6) 0%,
+    rgba(var(--color-brand-500-rgb), 0.8) 50%,
+    rgba(var(--color-error-rgb), 0.5) 100%
+  );
+  box-shadow: var(--shadow-glow-sm);
+}
+
+/* 简单的骨架屏样式 - 移除动画 */
+.simple-skeleton-item {
+  opacity: 1;
+  transform: none;
+}
+
+/* 简单的文件卡片样式 - 移除动画 */
+.simple-image-card {
+  opacity: 1;
+  transform: none;
+}
+
+/* 简单的筛选面板样式 */
+.simple-filter-panel {
+  /* 移除复杂动画效果 */
+}
+
+.hover\:shadow-glow:hover {
+  box-shadow: var(--shadow-glow-sm);
+}

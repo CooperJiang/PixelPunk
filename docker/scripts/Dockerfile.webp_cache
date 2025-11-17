@@ -1,0 +1,32 @@
+# 缓存挂载优化版 - 使用BuildKit缓存特性
+FROM pixelpunk-builder:latest AS builder
+
+WORKDIR /build
+
+# 复制依赖文件
+COPY go.mod go.sum ./
+
+# 使用缓存挂载下载依赖
+RUN --mount=type=cache,target=/go/pkg/mod \
+    go mod download
+
+# 复制源代码
+COPY . .
+
+# 使用缓存挂载构建 - 这是关键优化！
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    echo "开始缓存挂载构建..." && \
+    go build -v -ldflags="-w -s" -o pixelpunk ./cmd/main.go && \
+    echo "缓存挂载构建完成！" && \
+    ls -lah pixelpunk
+
+# 运行时镜像
+FROM pixelpunk-runtime:latest
+
+USER root
+COPY --from=builder /build/pixelpunk /app/
+RUN chmod +x /app/pixelpunk && chown pixelpunk:pixelpunk /app/pixelpunk
+USER pixelpunk
+
+CMD ["./pixelpunk"]

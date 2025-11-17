@@ -1,0 +1,287 @@
+@import url('/fonts/fonts.css');
+
+@import './design-system/tokens.css';
+@import './design-system/theme-light.css';
+@import './design-system/theme-dark.css';
+@import './design-system/theme-cyberpunk-cyan.css';
+@import './design-system/theme-cyberpunk-neon.css';
+@import './design-system/theme-midnight-ocean.css';
+@import './design-system/theme-forest-night.css';
+@import './design-system/theme-lavender-dream.css';
+@import './design-system/theme-lemon-yellow.css';
+@import './design-system/theme-cotton-candy.css';
+@import './design-system/theme-coral-sunset.css';
+/* 新增主题 */
+@import './design-system/theme-aurora-night.css';
+@import './design-system/theme-sky-azure.css';
+@import './design-system/animations.css';
+@import './design-system/typography.css';
+@import './admin-utilities.css';
+@import './admin-modern.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background-900 text-content;
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'Arial', sans-serif;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(var(--color-brand-500-rgb), 0.1) 0%, transparent 30%),
+      radial-gradient(circle at 80% 70%, rgba(var(--color-error-rgb), 0.1) 0%, transparent 30%);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'Arial', sans-serif;
+    font-weight: 600;
+  }
+
+  /* 等宽字体用于代码相关元素 */
+  code,
+  pre,
+  .font-mono,
+  .font-roboto-mono {
+    font-family: 'SF Mono', 'Monaco', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+  }
+}
+
+@layer components {
+  /* 面板样式 */
+  .cyber-panel {
+    @apply bg-background-800 backdrop-blur-sm;
+    border: 1px solid rgba(var(--color-brand-500-rgb), 0.3);
+    box-shadow: 0 0 5px rgba(var(--color-brand-500-rgb), 0.3);
+  }
+
+  /* 按钮样式 */
+  .cyber-btn {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+
+  .cyber-btn::after {
+    content: '';
+    @apply absolute -left-full top-0 h-full w-full transition-all duration-500;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .cyber-btn:hover::after {
+    @apply left-full;
+  }
+
+  /* 赛博朋克阴影效果 */
+  .shadow-cyber {
+    box-shadow:
+      0 0 20px rgba(var(--color-brand-500-rgb), 0.3),
+      0 8px 32px rgba(var(--color-brand-500-rgb), 0.2);
+  }
+
+  /* 故障文字效果 */
+  .glitch-text {
+    @apply relative inline-block;
+  }
+
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    @apply absolute left-0 top-0 h-full w-full;
+  }
+
+  .glitch-text::before {
+    @apply left-[2px];
+    color: var(--color-error-500);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch 1s linear infinite;
+  }
+
+  .glitch-text::after {
+    @apply -left-[2px] text-content;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch 2s linear infinite;
+  }
+}
+
+/* 代码高亮样式 */
+.hljs {
+  background-color: transparent !important;
+}
+
+/* 原生颜色选择器 */
+input[type='color']::-webkit-color-picker-panel {
+  background-color: var(--color-background-800) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+input[type='color']::-moz-color-picker-panel {
+  background-color: var(--color-background-800) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+/* Quill 编辑器主题覆盖 */
+.ql-toolbar.ql-snow {
+  background: var(--color-background-800) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--color-border-default) !important;
+  padding: var(--space-md) !important;
+}
+
+/* 容器样式 */
+.ql-container.ql-snow {
+  background: var(--color-background-900) !important;
+  border: none !important;
+  font-size: var(--text-base);
+}
+
+/* 编辑器内容区域 */
+.ql-editor {
+  color: var(--color-content-default) !important;
+  line-height: 1.6;
+}
+
+.ql-editor.ql-blank::before {
+  color: var(--color-content-muted) !important;
+  font-style: normal;
+  opacity: 0.6;
+}
+
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3 {
+  color: var(--color-content-heading) !important;
+  text-shadow: 0 0 10px rgba(var(--color-brand-500-rgb), 0.3);
+}
+
+.ql-editor a {
+  color: var(--color-brand-400) !important;
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--color-brand-500-rgb), 0.3);
+}
+
+.ql-editor a:hover {
+  color: var(--color-brand-300) !important;
+  text-shadow: 0 0 8px rgba(var(--color-brand-500-rgb), 0.6);
+}
+
+/* 工具栏按钮图标 */
+.ql-toolbar .ql-stroke {
+  stroke: var(--color-content-muted) !important;
+}
+
+.ql-toolbar .ql-fill {
+  fill: var(--color-content-muted) !important;
+}
+
+/* 选择器标签 */
+.ql-toolbar .ql-picker-label {
+  color: var(--color-content-default) !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--radius-sm);
+}
+
+.ql-toolbar .ql-picker-label:hover {
+  border-color: rgba(var(--color-brand-500-rgb), 0.3) !important;
+  background: rgba(var(--color-brand-500-rgb), 0.05) !important;
+}
+
+/* 工具栏按钮 */
+.ql-toolbar button {
+  border-radius: var(--radius-sm);
+}
+
+.ql-toolbar button:hover {
+  background: rgba(var(--color-brand-500-rgb), 0.1) !important;
+}
+
+.ql-toolbar button:hover .ql-stroke {
+  stroke: var(--color-brand-400) !important;
+}
+
+.ql-toolbar button:hover .ql-fill {
+  fill: var(--color-brand-400) !important;
+}
+
+.ql-toolbar button.ql-active {
+  background: rgba(var(--color-brand-500-rgb), 0.2) !important;
+  box-shadow: 0 0 8px rgba(var(--color-brand-500-rgb), 0.3);
+}
+
+.ql-toolbar button.ql-active .ql-stroke {
+  stroke: var(--color-brand-400) !important;
+}
+
+.ql-toolbar button.ql-active .ql-fill {
+  fill: var(--color-brand-400) !important;
+}
+
+/* 下拉菜单 */
+.ql-picker-options {
+  background: var(--color-background-800) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-md);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 20px rgba(var(--color-brand-500-rgb), 0.2);
+  padding: var(--space-xs);
+}
+
+.ql-picker-item {
+  color: var(--color-content-default) !important;
+  border-radius: var(--radius-sm);
+  margin: 2px 0;
+}
+
+.ql-picker-item:hover {
+  background: rgba(var(--color-brand-500-rgb), 0.15) !important;
+  color: var(--color-brand-300) !important;
+}
+
+.ql-picker-item.ql-selected {
+  background: rgba(var(--color-brand-500-rgb), 0.25) !important;
+  color: var(--color-brand-400) !important;
+  box-shadow: 0 0 6px rgba(var(--color-brand-500-rgb), 0.4);
+}
+
+/* 链接工具提示 */
+.ql-tooltip {
+  background: var(--color-background-800) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-md);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 20px rgba(var(--color-brand-500-rgb), 0.2);
+  color: var(--color-content-default) !important;
+  padding: var(--space-sm);
+}
+
+.ql-tooltip input[type='text'] {
+  background: var(--color-background-900) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-sm);
+  color: var(--color-content-default) !important;
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.ql-tooltip input[type='text']:focus {
+  border-color: var(--color-brand-500) !important;
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(var(--color-brand-500-rgb), 0.3);
+}
+
+.ql-tooltip .ql-action,
+.ql-tooltip .ql-remove {
+  color: var(--color-brand-400) !important;
+}
+
+.ql-tooltip .ql-action:hover,
+.ql-tooltip .ql-remove:hover {
+  color: var(--color-brand-300) !important;
+}

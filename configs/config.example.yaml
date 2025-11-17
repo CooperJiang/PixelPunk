@@ -1,0 +1,24 @@
+app:
+  port: 9520
+  mode: "release"
+  ns: "PixelPunk"
+
+database:
+  type: ""
+  host: ""
+  port: 3306
+  username: ""
+  password: ""
+  name: ""
+  path: ""
+
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  password: ""
+  db: 0
+
+vector:
+  enabled: true
+  qdrant_url: "http://localhost:6333"
+  timeout: 30

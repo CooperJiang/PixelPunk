@@ -1,0 +1,61 @@
+# 使用本地镜像，不检查远程
+# 统一使用 Go 1.23 版本（与项目其他 Dockerfile 保持一致）
+FROM golang:1.23 AS builder
+
+# 安装依赖
+RUN apt-get update && \
+    apt-get install -y \
+    gcc g++ \
+    libwebp-dev \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+
+# 复制依赖文件
+COPY go.mod go.sum ./
+
+# 设置 Go 代理（使用缓存或离线模式）
+ENV GOPROXY=https://goproxy.cn,direct
+ENV GO111MODULE=on
+
+# 下载依赖
+RUN go mod download || true
+
+# 复制源代码
+COPY . .
+
+# 构建设置
+ENV CGO_ENABLED=1
+ENV GOOS=linux
+ENV GOARCH=amd64
+
+# 构建二进制 - 重要：不使用 no_webp 标签
+# 默认会包含 WebP 支持（因为 webp.go 使用 //go:build !no_webp）
+RUN echo "开始构建，CGO_ENABLED=$CGO_ENABLED" && \
+    go build -ldflags="-w -s" -o pixelpunk ./cmd/main.go && \
+    echo "构建完成，检查二进制..." && \
+    ls -lh pixelpunk
+
+# 运行时镜像
+FROM ubuntu:22.04
+
+# 安装运行时库
+RUN apt-get update && \
+    apt-get install -y \
+    libwebp7 \
+    ca-certificates \
+    tzdata \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# 复制二进制文件
+COPY --from=builder /build/pixelpunk .
+
+# 创建必要目录
+RUN mkdir -p uploads data logs
+
+EXPOSE 9520 9521
+
+CMD ["./pixelpunk"]

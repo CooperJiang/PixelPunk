@@ -1,0 +1,111 @@
+/**
+ * 分享页面文案 - 赛博风格
+ */
+export const share = {
+  social: {
+    linkCopied: '链接已复制到缓冲区',
+    copyFailed: '复制失败，请手动复制',
+    defaultTitle: '数据共享',
+    defaultText: '查看这个共享的数据内容',
+    shareSuccess: '共享成功',
+    shareFailed: '共享失败，请手动复制链接',
+    wechatQRCode: '请使用微信扫描量子码共享',
+  },
+  emptyState: {
+    title: '当前数据目录为空',
+    description: '此数据目录中没有任何内容',
+  },
+  error: {
+    notFound: '共享链接不存在',
+    notFoundDesc: '该共享链接可能已被销毁或链接已失效',
+    expired: '共享链接已过期',
+    expiredDesc: '该共享链接已超过有效期',
+    disabled: '共享链接已被禁用',
+    disabledDesc: '该共享链接已被管理员禁用',
+    backHome: '返回主控界面',
+    defaultTitle: '系统错误',
+    defaultMessage: '发生了一个系统错误，请稍后重试。',
+  },
+  visitor: {
+    dialogTitle: '欢迎访问数据节点',
+    welcomeTitle: '留下您的数字足迹',
+    message: '共享者希望了解您的反馈和建议，这将帮助提供更优质的数据内容。您的信息仅供交流使用，不会被公开。',
+    name: {
+      label: '您的称呼',
+      placeholder: '请输入您的称呼',
+    },
+    email: {
+      label: '联系方式（可选）',
+      placeholder: '邮箱地址，方便后续交流',
+    },
+    submit: '提交信息',
+    dismiss: '稍后再说',
+  },
+  header: {
+    title: '共享',
+    views: '访问',
+    downloads: '下载',
+    avatar: '头像',
+    userAvatar: '用户头像',
+    permanent: '永久有效',
+    passwordProtected: '密码保护',
+    viewCount: '访问次数',
+    maxViews: '最大访问',
+    validUntil: '有效期至',
+    description: '共享描述',
+  },
+  file: {
+    title: '当前目录数据单元',
+    download: '下载',
+    rootFiles: '根目录数据单元',
+  },
+  folder: {
+    title: '数据文件夹',
+  },
+  mobile: {
+    backToRoot: '返回根目录',
+    viewCount: '{count} 次访问',
+  },
+  gridSize: {
+    title: '调整网格大小',
+  },
+  layout: {
+    title: '选择布局方式',
+  },
+  passwordDialog: {
+    title: '访问密码',
+    message: '此共享链接需要密码才能访问',
+    placeholder: '请输入访问密码',
+    verify: '验证',
+  },
+  sort: {
+    date: '日期',
+    name: '名称',
+    size: '大小',
+    newest: '最新注入',
+    oldest: '最早注入',
+    largest: '数据单元最大',
+    smallest: '数据单元最小',
+    nameAsc: '名称升序',
+    nameDesc: '名称降序',
+    adjustGridSize: '调整网格大小',
+    fullscreen: '全屏浏览',
+    exitFullscreen: '退出全屏',
+    selectLayout: '选择布局方式',
+    multiSelect: '多选',
+    exitSelect: '退出选择',
+  },
+  footer: {
+    poweredBy: '由 {siteName} · 赛博朋克风格AI智能资源管理系统提供技术支持',
+  },
+  selection: {
+    noFilesSelected: '请先选择要下载的数据单元',
+    createZipFailed: '创建压缩包失败',
+    packFailedRetry: '数据打包失败，请稍后重试',
+    downloadSuccess: '数据单元下载成功',
+    downloadFailed: '下载数据单元失败，请稍后重试',
+    preparing: '正在准备下载 {count} 个数据单元...',
+    progress: '已处理 {completed}/{total} 个数据单元...',
+    successSummary: '已成功打包下载 {count} 个数据单元',
+  },
+}

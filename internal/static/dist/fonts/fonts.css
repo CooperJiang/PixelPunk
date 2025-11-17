@@ -1,0 +1,19 @@
+/* 使用系统默认字体，避免字体文件加载问题 */
+
+/* CSS类定义 - 支持中英文的优雅字体组合 */
+.font-heading {
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'Arial', sans-serif;
+}
+
+.font-mono {
+  font-family: 'SF Mono', 'Monaco', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+}
+
+/* 兼容性别名 - 保持现有代码工作 */
+.font-orbitron {
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'Arial', sans-serif;
+}
+
+.font-roboto-mono {
+  font-family: 'SF Mono', 'Monaco', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+}

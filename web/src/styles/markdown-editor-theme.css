@@ -1,0 +1,570 @@
+/* ===================================
+ * Markdown Editor 主题覆盖样式
+ * 适配项目主题系统
+ * =================================== */
+
+/* 编辑器主容器 */
+.md-editor {
+  --md-bk-color: var(--color-background-800) !important;
+  --md-theme-color: var(--color-brand-500) !important;
+  --md-color: var(--color-content-default) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--color-content-default) !important;
+}
+
+/* 强制覆盖所有编辑区域文本颜色 */
+.md-editor *,
+.md-editor textarea,
+.md-editor input {
+  color: var(--color-content-default) !important;
+}
+
+/* 工具栏 */
+.md-editor-toolbar {
+  background: var(--color-background-700) !important;
+  border-bottom: 1px solid var(--color-border-default) !important;
+  padding: var(--space-xs) var(--space-sm) !important;
+}
+
+.md-editor-toolbar-wrapper {
+  background: var(--color-background-700) !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: thin !important;
+  flex-shrink: 0 !important;
+  padding: 4px !important;
+  border-bottom: 1px solid var(--color-border-default) !important;
+}
+
+/* 工具栏按钮 */
+.md-editor-toolbar-item {
+  color: var(--color-content-muted) !important;
+  border-radius: var(--radius-sm) !important;
+  transition: all 0.2s ease !important;
+}
+
+.md-editor-toolbar-item:hover {
+  background: rgba(var(--color-brand-500-rgb), 0.15) !important;
+  color: var(--color-brand-400) !important;
+}
+
+.md-editor-toolbar-item.active {
+  background: rgba(var(--color-brand-500-rgb), 0.2) !important;
+  color: var(--color-brand-400) !important;
+}
+
+/* 工具栏激活状态 */
+.md-editor-toolbar-active {
+  background: rgba(var(--color-brand-500-rgb), 0.2) !important;
+  color: var(--color-brand-400) !important;
+}
+
+/* 分隔线 */
+.md-editor-toolbar-divider {
+  background: var(--color-border-default) !important;
+  opacity: 0.5;
+}
+
+/* 编辑区域 */
+.md-editor-input-wrapper {
+  background: var(--color-background-800) !important;
+}
+
+.md-editor-input {
+  color: var(--color-content-default) !important;
+  background: var(--color-background-800) !important;
+  caret-color: var(--color-brand-500) !important;
+  font-family: 'Monaco', 'Menlo', 'Consolas', 'Courier New', monospace !important;
+  font-size: var(--text-sm) !important;
+  line-height: 1.6 !important;
+}
+
+/* 编辑区域内的文本 */
+.md-editor-input-wrapper .md-editor-input,
+.md-editor-input-wrapper textarea {
+  color: var(--color-content-default) !important;
+}
+
+/* Markdown语法高亮 - CodeMirror */
+.md-editor .cm-editor {
+  background: var(--color-background-800) !important;
+}
+
+.md-editor .cm-editor .cm-content,
+.md-editor .cm-editor .cm-line,
+.md-editor .cm-editor .cm-line * {
+  color: var(--color-content-default) !important;
+}
+
+.md-editor .cm-scroller {
+  color: var(--color-content-default) !important;
+}
+
+/* CodeMirror 光标 */
+.md-editor .cm-cursor,
+.md-editor .cm-cursor-primary {
+  border-left-color: var(--color-brand-500) !important;
+}
+
+/* CodeMirror 选中文本 */
+.md-editor .cm-selectionBackground {
+  background: rgba(var(--color-brand-500-rgb), 0.3) !important;
+}
+
+/* Markdown语法元素颜色 */
+.md-editor .cm-line .cm-header,
+.md-editor .cm-line .cm-strong,
+.md-editor .cm-line .cm-em,
+.md-editor .cm-line .cm-link,
+.md-editor .cm-line .cm-quote,
+.md-editor .cm-line .cm-list,
+.md-editor .cm-line .cm-meta {
+  color: var(--color-content-default) !important;
+  opacity: 1 !important;
+}
+
+/* 标题语法高亮 */
+.md-editor .cm-line .cm-header {
+  color: var(--color-brand-400) !important;
+  font-weight: var(--font-semibold) !important;
+}
+
+/* 列表标记 */
+.md-editor .cm-line .cm-list {
+  color: var(--color-brand-500) !important;
+}
+
+/* 引用块 */
+.md-editor .cm-line .cm-quote {
+  color: var(--color-content-muted) !important;
+  font-style: italic;
+}
+
+/* 链接 */
+.md-editor .cm-line .cm-link {
+  color: var(--color-brand-400) !important;
+  text-decoration: underline;
+}
+
+/* 预览区域 */
+.md-editor-preview-wrapper {
+  background: var(--color-background-800) !important;
+  padding: var(--space-md) !important;
+}
+
+.md-editor-preview {
+  background: var(--color-background-800) !important;
+  color: var(--color-content-default) !important;
+}
+
+/* 滚动条样式 */
+.md-editor-input::-webkit-scrollbar,
+.md-editor-preview::-webkit-scrollbar,
+.md-editor-toolbar-wrapper::-webkit-scrollbar,
+.md-editor-custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.md-editor-input::-webkit-scrollbar-track,
+.md-editor-preview::-webkit-scrollbar-track,
+.md-editor-toolbar-wrapper::-webkit-scrollbar-track,
+.md-editor-custom-scrollbar__track {
+  background: var(--color-background-900) !important;
+  border-radius: var(--radius-full);
+}
+
+.md-editor-input::-webkit-scrollbar-thumb,
+.md-editor-preview::-webkit-scrollbar-thumb,
+.md-editor-toolbar-wrapper::-webkit-scrollbar-thumb,
+.md-editor-custom-scrollbar__thumb {
+  background: rgba(var(--color-brand-500-rgb), 0.4) !important;
+  border-radius: var(--radius-full);
+  transition: background 0.2s ease;
+}
+
+.md-editor-input::-webkit-scrollbar-thumb:hover,
+.md-editor-preview::-webkit-scrollbar-thumb:hover,
+.md-editor-toolbar-wrapper::-webkit-scrollbar-thumb:hover,
+.md-editor-custom-scrollbar__thumb:hover {
+  background: rgba(var(--color-brand-500-rgb), 0.6) !important;
+}
+
+/* 底部状态栏 */
+.md-editor-footer {
+  background: var(--color-background-700) !important;
+  border-top: 1px solid var(--color-border-default) !important;
+  color: var(--color-content-muted) !important;
+  font-size: var(--text-xs) !important;
+}
+
+/* 模态框和弹出层 */
+.md-editor-modal-mask {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px);
+}
+
+.md-editor-modal {
+  background: var(--color-background-800) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5) !important;
+}
+
+.md-editor-modal-container {
+  background: var(--color-background-800) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5) !important;
+}
+
+.md-editor-modal-header {
+  background: var(--color-background-700) !important;
+  border-bottom: 1px solid var(--color-border-default) !important;
+  color: var(--color-content-heading) !important;
+  border-top-left-radius: var(--radius-lg) !important;
+  border-top-right-radius: var(--radius-lg) !important;
+}
+
+.md-editor-modal-body {
+  background: var(--color-background-800) !important;
+  color: var(--color-content-default) !important;
+  border-bottom-left-radius: var(--radius-lg) !important;
+  border-bottom-right-radius: var(--radius-lg) !important;
+}
+
+.md-editor-modal-footer {
+  background: var(--color-background-700) !important;
+  border-top: 1px solid var(--color-border-default) !important;
+  border-bottom-left-radius: var(--radius-lg) !important;
+  border-bottom-right-radius: var(--radius-lg) !important;
+}
+
+/* 输入框 */
+.md-editor-input-wrapper input,
+.md-editor-input-wrapper textarea {
+  background: var(--color-background-900) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--color-content-default) !important;
+  padding: var(--space-xs) var(--space-sm) !important;
+}
+
+.md-editor-input-wrapper input:focus,
+.md-editor-input-wrapper textarea:focus {
+  border-color: var(--color-brand-500) !important;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(var(--color-brand-500-rgb), 0.2) !important;
+}
+
+/* 按钮 */
+.md-editor-btn {
+  background: var(--color-background-700) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--color-content-default) !important;
+  padding: var(--space-xs) var(--space-md) !important;
+  transition: all 0.2s ease !important;
+}
+
+.md-editor-btn:hover {
+  background: var(--color-background-600) !important;
+  border-color: var(--color-brand-500) !important;
+  color: var(--color-brand-400) !important;
+}
+
+.md-editor-btn-primary {
+  background: var(--color-brand-500) !important;
+  border-color: var(--color-brand-500) !important;
+  color: var(--color-background-900) !important;
+}
+
+.md-editor-btn-primary:hover {
+  background: var(--color-brand-400) !important;
+  border-color: var(--color-brand-400) !important;
+}
+
+/* 下拉菜单 */
+.md-editor-dropdown {
+  background: var(--color-background-800) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.md-editor-dropdown-item {
+  color: var(--color-content-default) !important;
+  transition: all 0.2s ease !important;
+}
+
+.md-editor-dropdown-item:hover {
+  background: rgba(var(--color-brand-500-rgb), 0.15) !important;
+  color: var(--color-brand-400) !important;
+}
+
+/* 菜单 */
+.md-editor-menu {
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: var(--radius-sm) !important;
+  border: 1px solid var(--color-border-default) !important;
+  background: var(--color-background-800) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.md-editor-menu-item {
+  color: var(--color-content-default) !important;
+  transition: all 0.2s ease !important;
+}
+
+.md-editor-menu-item:hover {
+  background: rgba(var(--color-brand-500-rgb), 0.15) !important;
+  color: var(--color-brand-400) !important;
+}
+
+/* 裁剪上传面板 */
+.md-editor-clip-main,
+.md-editor-clip-preview {
+  width: 50%;
+  height: 100%;
+  border: 1px solid var(--color-border-default) !important;
+  background: var(--color-background-800) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+}
+
+.md-editor-clip-main .md-editor-clip-cropper .md-editor-clip-delete {
+  background: var(--color-background-700) !important;
+  color: var(--color-content-default) !important;
+  border-bottom-left-radius: var(--radius-sm) !important;
+  transition: all 0.2s ease !important;
+}
+
+.md-editor-clip-main .md-editor-clip-cropper .md-editor-clip-delete:hover {
+  background: var(--color-error-500) !important;
+  color: var(--color-background-900) !important;
+}
+
+/* 复选框 */
+.md-editor-checkbox {
+  border: 1px solid var(--color-border-default) !important;
+  background: var(--color-background-800) !important;
+  color: var(--color-content-default) !important;
+  transition: all 0.2s ease !important;
+}
+
+.md-editor-checkbox:hover {
+  border-color: var(--color-brand-500) !important;
+}
+
+.md-editor-checkbox-checked {
+  background: var(--color-brand-500) !important;
+  border-color: var(--color-brand-500) !important;
+  color: var(--color-background-900) !important;
+}
+
+/* Tooltip 提示 */
+.md-editor-tooltip {
+  background: var(--color-background-900) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--color-content-default) !important;
+  font-size: var(--text-xs) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 代码高亮 - 编辑区域的 Markdown 语法高亮 */
+.md-editor-input .code-block {
+  background: rgba(var(--color-brand-500-rgb), 0.1) !important;
+  border-left: 3px solid var(--color-brand-500) !important;
+  padding: var(--space-xs) !important;
+}
+
+/* 预览区域的样式覆盖 */
+.md-editor-preview-wrapper h1,
+.md-editor-preview-wrapper h2,
+.md-editor-preview-wrapper h3,
+.md-editor-preview-wrapper h4,
+.md-editor-preview-wrapper h5,
+.md-editor-preview-wrapper h6 {
+  color: var(--color-content-heading) !important;
+  border-bottom: 1px solid rgba(var(--color-brand-500-rgb), 0.2) !important;
+  padding-bottom: var(--space-xs) !important;
+  margin-top: var(--space-lg) !important;
+  margin-bottom: var(--space-sm) !important;
+}
+
+.md-editor-preview-wrapper a {
+  color: var(--color-brand-500) !important;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(var(--color-brand-500-rgb), 0.3);
+}
+
+.md-editor-preview-wrapper a:hover {
+  color: var(--color-brand-400) !important;
+  border-bottom-color: var(--color-brand-400);
+}
+
+.md-editor-preview-wrapper code {
+  background: rgba(var(--color-background-900-rgb), 0.8) !important;
+  border: 1px solid rgba(var(--color-brand-500-rgb), 0.2) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--color-brand-400) !important;
+  padding: 2px var(--space-xs) !important;
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace !important;
+}
+
+.md-editor-preview-wrapper pre {
+  background: rgba(var(--color-background-900-rgb), 0.9) !important;
+  border: 1px solid rgba(var(--color-brand-500-rgb), 0.3) !important;
+  border-left: 3px solid var(--color-brand-500) !important;
+  border-radius: var(--radius-md) !important;
+  padding: var(--space-md) !important;
+}
+
+.md-editor-preview-wrapper pre code {
+  background: transparent !important;
+  border: none !important;
+  color: var(--color-content-default) !important;
+}
+
+.md-editor-preview-wrapper blockquote {
+  background: rgba(var(--color-brand-500-rgb), 0.05) !important;
+  border-left: 3px solid var(--color-brand-500) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--color-content-muted) !important;
+  padding: var(--space-sm) var(--space-md) !important;
+  margin: var(--space-sm) 0 !important;
+}
+
+.md-editor-preview-wrapper table {
+  border: 1px solid rgba(var(--color-brand-500-rgb), 0.2) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+}
+
+.md-editor-preview-wrapper th {
+  background: rgba(var(--color-brand-500-rgb), 0.1) !important;
+  color: var(--color-content-heading) !important;
+  border: 1px solid rgba(var(--color-brand-500-rgb), 0.2) !important;
+}
+
+.md-editor-preview-wrapper td {
+  border: 1px solid rgba(var(--color-brand-500-rgb), 0.2) !important;
+}
+
+.md-editor-preview-wrapper tr:nth-child(even) {
+  background: rgba(var(--color-background-900-rgb), 0.3) !important;
+}
+
+/* 表格行样式 - 通用样式 */
+.md-editor-preview table tr,
+.md-editor-preview-wrapper table tr {
+  background-color: rgba(var(--color-background-800-rgb), 0.5) !important;
+}
+
+/* 水平分割线样式 */
+.md-editor-preview hr,
+.md-editor-preview-wrapper hr {
+  height: 1px !important;
+  margin: 10px 0 !important;
+  border: none !important;
+  border-top: 1px solid var(--color-border-default) !important;
+  background: none !important;
+}
+
+/* 选中文本颜色 */
+.md-editor ::selection {
+  background: rgba(var(--color-brand-500-rgb), 0.3) !important;
+  color: var(--color-content-default) !important;
+}
+
+/* 占位符文本 */
+.md-editor-input::placeholder {
+  color: var(--color-content-muted) !important;
+  opacity: 0.5;
+}
+
+/* 加载动画 */
+.md-editor-loading {
+  color: var(--color-brand-500) !important;
+}
+
+/* 目录 */
+.md-editor-catalog {
+  background: var(--color-background-800) !important;
+  border-left: 1px solid var(--color-border-default) !important;
+}
+
+.md-editor-catalog-link {
+  color: var(--color-content-default) !important;
+  transition: all 0.2s ease !important;
+}
+
+.md-editor-catalog-link:hover {
+  color: var(--color-brand-400) !important;
+  background: rgba(var(--color-brand-500-rgb), 0.1) !important;
+}
+
+.md-editor-catalog-link.active {
+  color: var(--color-brand-500) !important;
+  border-left: 2px solid var(--color-brand-500) !important;
+  background: rgba(var(--color-brand-500-rgb), 0.15) !important;
+}
+
+/* 全屏模式 */
+.md-editor-fullscreen {
+  background: var(--color-background-800) !important;
+  width: 90vw !important;
+  height: 90vh !important;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  position: fixed !important;
+  top: 5vh !important;
+  left: 5vw !important;
+  right: 5vw !important;
+  bottom: 5vh !important;
+  transform: none !important;
+  z-index: 99999 !important;
+  margin: 0 !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 强制全屏编辑器脱离父容器限制 */
+body:has(.md-editor-fullscreen) .dialog-overlay {
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+body:has(.md-editor-fullscreen) .dialog-container {
+  overflow: visible !important;
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  pointer-events: none !important;
+}
+
+body:has(.md-editor-fullscreen) .dialog-content {
+  overflow: visible !important;
+  transform: none !important;
+  pointer-events: none !important;
+}
+
+/* 全屏编辑器恢复指针事件 */
+body:has(.md-editor-fullscreen) .md-editor-fullscreen {
+  pointer-events: auto !important;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .md-editor-toolbar {
+    padding: var(--space-xs) !important;
+  }
+
+  .md-editor-toolbar-item {
+    padding: var(--space-xs) !important;
+    font-size: var(--text-xs) !important;
+  }
+}

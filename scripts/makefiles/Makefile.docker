@@ -1,0 +1,129 @@
+# PixelPunk Docker Makefile
+# Docker 相关命令
+
+# Docker 镜像信息
+DOCKER_USERNAME := snine98
+DOCKER_IMAGE := pixelpunk
+DOCKER_FULL_IMAGE := $(DOCKER_USERNAME)/$(DOCKER_IMAGE)
+DOCKER_VERSION ?= latest
+
+# ============================================
+# Docker 多架构构建和推送
+# ============================================
+
+.PHONY: docker-build
+docker-build:
+	@echo "$(GREEN)═══════════════════════════════════════$(NC)"
+	@echo "$(GREEN)  PixelPunk 多架构镜像构建和推送$(NC)"
+	@echo "$(GREEN)═══════════════════════════════════════$(NC)"
+	@chmod +x scripts/docker/build-push-multiarch.sh
+	@DOCKER_VERSION=$(DOCKER_VERSION) ./scripts/docker/build-push-multiarch.sh
+
+.PHONY: docker-push
+docker-push: docker-build
+
+.PHONY: docker-login
+docker-login:
+	@echo "$(YELLOW)登录到 Docker Hub...$(NC)"
+	@docker login
+
+# ============================================
+# Docker Compose 部署
+# ============================================
+
+.PHONY: docker-up
+docker-up:
+	@echo "$(GREEN)启动 Docker Compose 服务...$(NC)"
+	@docker-compose up -d
+	@echo ""
+	@echo "$(GREEN)✓ 服务已启动$(NC)"
+	@echo "$(BLUE)访问地址: http://localhost:9520$(NC)"
+	@echo ""
+	@echo "$(YELLOW)查看日志: make docker-logs$(NC)"
+	@echo "$(YELLOW)查看状态: make docker-ps$(NC)"
+
+.PHONY: docker-down
+docker-down:
+	@echo "$(YELLOW)停止 Docker Compose 服务...$(NC)"
+	@docker-compose down
+	@echo "$(GREEN)✓ 服务已停止$(NC)"
+
+.PHONY: docker-restart
+docker-restart:
+	@echo "$(YELLOW)重启 Docker Compose 服务...$(NC)"
+	@docker-compose restart
+	@echo "$(GREEN)✓ 服务已重启$(NC)"
+
+.PHONY: docker-ps
+docker-ps:
+	@echo "$(BLUE)Docker Compose 服务状态：$(NC)"
+	@docker-compose ps
+
+.PHONY: docker-logs
+docker-logs:
+	@echo "$(BLUE)查看服务日志：$(NC)"
+	@docker-compose logs -f --tail=100
+
+.PHONY: docker-logs-app
+docker-logs-app:
+	@echo "$(BLUE)查看 PixelPunk 应用日志：$(NC)"
+	@docker-compose logs -f --tail=100 pixelpunk
+
+# ============================================
+# Docker 清理
+# ============================================
+
+.PHONY: docker-clean
+docker-clean:
+	@echo "$(YELLOW)清理 Docker 资源...$(NC)"
+	@docker-compose down -v
+	@docker system prune -f
+	@echo "$(GREEN)✓ 清理完成$(NC)"
+
+.PHONY: docker-clean-all
+docker-clean-all:
+	@echo "$(RED)警告：这将删除所有 Docker 数据（包括数据库）！$(NC)"
+	@read -p "确认继续？[y/N] " -n 1 -r; \
+	echo; \
+	if [[ $$REPLY =~ ^[Yy]$$ ]]; then \
+		docker-compose down -v --remove-orphans; \
+		docker rmi $(DOCKER_FULL_IMAGE):latest $(DOCKER_FULL_IMAGE):$(DOCKER_VERSION) 2>/dev/null || true; \
+		docker system prune -af; \
+		echo "$(GREEN)✓ 完全清理完成$(NC)"; \
+	else \
+		echo "$(YELLOW)已取消$(NC)"; \
+	fi
+
+# ============================================
+# Docker 帮助
+# ============================================
+
+.PHONY: docker-help
+docker-help:
+	@echo "$(GREEN)═══════════════════════════════════════$(NC)"
+	@echo "$(GREEN)  PixelPunk Docker 命令帮助$(NC)"
+	@echo "$(GREEN)═══════════════════════════════════════$(NC)"
+	@echo ""
+	@echo "$(BLUE)构建和推送：$(NC)"
+	@echo "  make docker-build          - 构建并推送多架构镜像"
+	@echo "  make docker-push           - 构建并推送多架构镜像（同 docker-build）"
+	@echo "  make docker-login          - 登录 Docker Hub"
+	@echo ""
+	@echo "$(BLUE)部署管理：$(NC)"
+	@echo "  make docker-up             - 启动所有服务"
+	@echo "  make docker-down           - 停止所有服务"
+	@echo "  make docker-restart        - 重启所有服务"
+	@echo "  make docker-ps             - 查看服务状态"
+	@echo ""
+	@echo "$(BLUE)日志查看：$(NC)"
+	@echo "  make docker-logs           - 查看所有服务日志"
+	@echo "  make docker-logs-app       - 查看应用日志"
+	@echo ""
+	@echo "$(BLUE)清理：$(NC)"
+	@echo "  make docker-clean          - 清理容器和缓存"
+	@echo "  make docker-clean-all      - 完全清理（包括镜像和数据）"
+	@echo ""
+	@echo "$(BLUE)示例：$(NC)"
+	@echo "  make docker-build DOCKER_VERSION=v1.0.0"
+	@echo "  make docker-push DOCKER_VERSION=v1.0.0"
+	@echo ""

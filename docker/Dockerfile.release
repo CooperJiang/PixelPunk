@@ -1,0 +1,89 @@
+FROM golang:1.23 AS builder
+
+# 配置 Go 代理（国内镜像加速）
+ENV GOPROXY=https://goproxy.cn,https://goproxy.io,https://proxy.golang.org,direct
+
+# 安装构建依赖
+# vegidio/heif-go 已经内置了所有 HEIC/HEIF 依赖，无需额外安装
+RUN apt-get update && \
+    apt-get install -y \
+        gcc g++ make pkg-config libwebp-dev \
+        mingw-w64 \
+        gcc-aarch64-linux-gnu g++-aarch64-linux-gnu \
+        wget unzip ca-certificates autoconf automake libtool && \
+    update-ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+
+# ⚡ 性能优化：分层缓存策略
+# 第一步：只复制依赖文件 - 只要 go.mod/go.sum 不变，后续层都会使用缓存
+COPY go.mod go.sum ./
+
+# 第二步：下载依赖 - 使用 BuildKit 缓存挂载，避免每次重新下载
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    go mod download
+
+# 第三步：复制源代码 - 源代码改动不会影响前面的依赖缓存
+COPY . .
+
+# 如果目标为 Windows，则交叉编译并安装 x86_64-w64-mingw32 目标的 libwebp（静态库）
+ARG GOOS
+ARG GOARCH
+RUN set -e; \
+    if [ "${GOOS}" = "windows" ]; then \
+      LIBWEBP_VER=1.3.2; \
+      echo "==> Building libwebp ${LIBWEBP_VER} for x86_64-w64-mingw32"; \
+      wget -q https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-${LIBWEBP_VER}.tar.gz; \
+      tar -xzf libwebp-${LIBWEBP_VER}.tar.gz; \
+      cd libwebp-${LIBWEBP_VER}; \
+      CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ \
+      ./configure --host=x86_64-w64-mingw32 --prefix=/usr/local/x86_64-w64-mingw32 \
+        --enable-static --disable-shared \
+        --disable-examples --disable-png --disable-jpeg --disable-tiff \
+        --disable-gif --disable-webpmux --disable-webpdemux --disable-wic; \
+      make -j$(nproc); \
+      make install; \
+      cd ..; \
+      rm -rf libwebp-${LIBWEBP_VER} libwebp-${LIBWEBP_VER}.tar.gz; \
+    fi
+
+# 构建参数
+ARG VERSION=dev
+
+# 第四步：构建二进制文件
+# vegidio/heif-go 支持所有平台的 CGO 交叉编译
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    set -e && \
+    if [ "${GOOS}" = "linux" ]; then \
+        if [ "${GOARCH}" = "arm64" ]; then \
+            export CC=aarch64-linux-gnu-gcc; \
+            export CXX=aarch64-linux-gnu-g++; \
+        else \
+            export CC=gcc; \
+            export CXX=g++; \
+        fi; \
+        export CGO_ENABLED=1; \
+    elif [ "${GOOS}" = "windows" ]; then \
+        export CC=x86_64-w64-mingw32-gcc; \
+        export CXX=x86_64-w64-mingw32-g++; \
+        export CGO_ENABLED=1; \
+        export PKG_CONFIG_PATH=/usr/local/x86_64-w64-mingw32/lib/pkgconfig; \
+        export PKG_CONFIG_LIBDIR=/usr/local/x86_64-w64-mingw32/lib/pkgconfig; \
+        export CGO_CFLAGS="-I/usr/local/x86_64-w64-mingw32/include"; \
+        export CGO_LDFLAGS="-L/usr/local/x86_64-w64-mingw32/lib -lwebp -lsharpyuv -lwinpthread"; \
+    else \
+        export CGO_ENABLED=0; \
+    fi && \
+    GOOS=${GOOS} \
+    GOARCH=${GOARCH} \
+    go build \
+        -ldflags="-w -s -X main.Version=${VERSION}" \
+        -o /build/pixelpunk \
+        ./cmd/main.go
+
+# 最终镜像（仅用于提取二进制文件）
+FROM scratch
+COPY --from=builder /build/pixelpunk /pixelpunk

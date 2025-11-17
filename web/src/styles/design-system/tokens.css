@@ -1,0 +1,194 @@
+/**
+ * PixelPunk 设计系统 - 主题入口文件
+ *
+ * 本文件定义了所有主题共用的基础变量和尺寸系统
+ * 具体的颜色主题请查看对应的主题文件：
+ * - theme-cyberpunk-cyan.css (霓虹青主题)
+ * - theme-cyberpunk-neon.css (霓虹都市主题)
+ */
+
+:root {
+  /* ================================
+   * 📐 尺寸系统（所有主题共用）
+   * ================================ */
+
+  /* 间距系统 */
+  --space-xs: 0.25rem; /* 4px */
+  --space-sm: 0.5rem; /* 8px */
+  --space-md: 1rem; /* 16px */
+  --space-lg: 1.5rem; /* 24px */
+  --space-xl: 2rem; /* 32px */
+  --space-2xl: 2.5rem; /* 40px */
+  --space-3xl: 3rem; /* 48px */
+
+  /* 圆角系统 - 调整为更小的圆角 */
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.25rem; /* 4px - 减小 */
+  --radius-lg: 0.5rem; /* 8px - 减小 */
+  --radius-xl: 0.75rem; /* 12px - 减小 */
+  --radius-2xl: 1rem; /* 16px - 减小 */
+  --radius-full: 9999px; /* 完全圆角 */
+
+  /* 过渡时间 */
+  --transition-fast: 150ms;
+  --transition-normal: 200ms;
+  --transition-slow: 300ms;
+
+  /* 缓动函数 */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  /* ================================
+   * 📏 层级系统（所有主题共用）
+   * 层级规划：
+   * 1-999:      基础层级（表格、工具提示等）
+   * 1000-1999:  下拉菜单、弹出层
+   * 2000-4999:  对话框、遮罩层
+   * 5000-9999:  抽屉、全屏模态框
+   * 10000+:     最高优先级（Toast、Loading等）
+   * ================================ */
+
+  --z-index-base: 1;
+  --z-index-content: 10;
+  --z-index-tooltip: 500;
+  --z-index-dropdown: 1000;
+  --z-index-popover: 1500;
+  --z-index-modal: 2000;
+  --z-index-overlay: 5000;
+  --z-index-drawer: 9500; /* 抽屉层级 - 需要高于 FileViewer (9000) */
+  --z-index-drawer-modal: 5100; /* Dialog 在 Drawer 内部时使用 */
+  --z-index-toast: 10000;
+  --z-index-loading: 10100;
+
+  /* ================================
+   * 📱 组件尺寸系统（所有主题共用）
+   * ================================ */
+
+  /* 按钮尺寸 */
+  --size-button-sm: 32px;
+  --size-button-md: 40px;
+  --size-button-lg: 48px;
+
+  /* 输入框尺寸 */
+  --size-input-sm: 32px;
+  --size-input-md: 40px;
+  --size-input-lg: 48px;
+
+  /* 头像尺寸 */
+  --size-avatar-sm: 32px;
+  --size-avatar-md: 40px;
+  --size-avatar-lg: 48px;
+  --size-avatar-xl: 64px;
+
+  /* 图标尺寸 */
+  --size-icon-sm: 16px;
+  --size-icon-md: 20px;
+  --size-icon-lg: 24px;
+
+  /* ================================
+   * 📝 字体系统（所有主题共用）
+   * ================================ */
+
+  /* 字体家族 */
+  --font-sans: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'Arial', sans-serif;
+  --font-mono: 'SF Mono', 'Monaco', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+
+  /* 字体大小 */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem; /* 36px */
+
+  /* 字体粗细 */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* 行高 */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+  --leading-loose: 2;
+
+  /* 字间距 */
+  --tracking-tighter: -0.02em;
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+
+  /* ================================
+   * 🎯 透明度系统（所有主题共用）
+   * ================================ */
+
+  --opacity-disabled: 0.5;
+  --opacity-loading: 0.7;
+  --opacity-hover: 0.8;
+  --opacity-active: 0.9;
+
+  /* ================================
+   * ✨ 通用阴影系统（所有主题共用）
+   * ================================ */
+
+  /* 常规阴影 */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.7), 0 4px 6px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.8), 0 10px 10px rgba(0, 0, 0, 0.7);
+
+  /* 内阴影 */
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  /* 毛玻璃效果 */
+  --backdrop-blur-sm: blur(4px);
+  --backdrop-blur-md: blur(8px);
+  --backdrop-blur-lg: blur(16px);
+  --backdrop-blur-xl: blur(24px);
+
+  /* 遮罩 */
+  --color-overlay-light: rgba(0, 0, 0, 0.5);
+  --color-overlay-medium: rgba(0, 0, 0, 0.7);
+  --color-overlay-heavy: rgba(0, 0, 0, 0.85);
+
+  /* 骨架屏 */
+  --color-skeleton-base: rgba(255, 255, 255, 0.05);
+  --color-skeleton-highlight: rgba(255, 255, 255, 0.08);
+}
+
+/* ================================
+ * 通用圆角类
+ * 使用 @layer utilities 以便在 @apply 中使用
+ * ================================ */
+@layer utilities {
+  .radius-sm {
+    border-radius: var(--radius-sm) !important;
+  }
+
+  .radius-md {
+    border-radius: var(--radius-md) !important;
+  }
+
+  .radius-lg {
+    border-radius: var(--radius-sm) !important;
+  }
+
+  .radius-xl {
+    border-radius: var(--radius-sm) !important;
+  }
+
+  .radius-2xl {
+    border-radius: var(--radius-2xl) !important;
+  }
+
+  .radius-full {
+    border-radius: var(--radius-full) !important;
+  }
+}

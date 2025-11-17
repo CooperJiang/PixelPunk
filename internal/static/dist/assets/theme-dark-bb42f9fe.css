@@ -1,0 +1,166 @@
+/**
+ * PixelPunk 暗色主题（Dark Theme）
+ * 舒适护眼的深色界面
+ */
+
+:root[data-theme='dark'] {
+  /* Brand 品牌域 */
+  --color-brand-300: #bfdbfe;
+  --color-brand-300-rgb: 191, 219, 254;
+  --color-brand-400: #93c5fd; /* 浅品牌色 */
+  --color-brand-500: #60a5fa; /* 主品牌色 - 柔和蓝 */
+  --color-brand-500-rgb: 96, 165, 250;
+  --color-brand-600: #3b82f6; /* 深品牌色 */
+  --color-brand-700: #2563eb; /* 更深品牌色 */
+  --color-brand-400-rgb: 147, 197, 253;
+  --color-brand-600-rgb: 59, 130, 246;
+
+  /* Background 背景域 */
+  --color-background-50: #6b7280;
+  --color-background-100: #4b5563;
+  --color-background-200: #374151;
+  --color-background-300: #2d3748;
+  --color-background-400: #252d3a;
+  --color-background-500: #1e2530;
+  --color-background-600: #1f2937; /* 面板背景 - 深灰 */
+  --color-background-700: #1a202c; /* 卡片背景 - 更深灰 */
+  --color-background-800: #151b26; /* 容器背景 - 极深灰 */
+  --color-background-900: #0f1419; /* 页面主背景 - 接近黑 */
+  --color-background-900-rgb: 15, 20, 25;
+  --color-background-800-rgb: 21, 27, 38;
+  --color-background-700-rgb: 26, 32, 44;
+
+  /* Content 文本域 */
+  --color-content-default: #e5e7eb;
+  --color-content-heading: #f9fafb;
+  --color-content-muted: #9ca3af;
+  --color-content-disabled: #6b7280;
+  --color-content-rgb: 229, 231, 235;
+  --color-text-on-brand: #0f1419;
+  --color-text-on-success: #0f1419;
+  --color-text-on-warning: #0f1419;
+  --color-text-on-error: #ffffff;
+
+  /* State 状态域 */
+  --color-success-400: #4ade80; /* 浅成功色 */
+  --color-success-500: #34d399; /* 柔和绿 */
+  --color-success-600: #10b981; /* 深成功色 */
+  --color-success-rgb: 52, 211, 153;
+  --color-success-400-rgb: 74, 222, 128;
+  --color-success-600-rgb: 16, 185, 129;
+
+  --color-warning-400: #fcd34d; /* 浅警告色 */
+  --color-warning-500: #fbbf24; /* 柔和橙 */
+  --color-warning-600: #f59e0b; /* 深警告色 */
+  --color-warning-rgb: 251, 191, 36;
+  --color-warning-400-rgb: 252, 211, 77;
+  --color-warning-600-rgb: 245, 158, 11;
+
+  --color-error-400: #fca5a5; /* 浅错误色 */
+  --color-error-500: #f87171; /* 柔和红 */
+  --color-error-600: #ef4444; /* 深错误色 */
+  --color-error-rgb: 248, 113, 113;
+  --color-error-400-rgb: 252, 165, 165;
+  --color-error-600-rgb: 239, 68, 68;
+
+  --color-info-500: #60a5fa; /* 柔和蓝 */
+  --color-info-rgb: 96, 165, 250;
+
+  /* ⭐️ 功能色系统（多彩风格 - 经典多彩配色）*/
+  --color-func-primary: #3b82f6; /* 蓝色 */
+  --color-func-primary-rgb: 59, 130, 246;
+  --color-func-secondary: #10b981; /* 绿色 */
+  --color-func-secondary-rgb: 16, 185, 129;
+  --color-func-accent: #a855f7; /* 紫色 */
+  --color-func-info: #f59e0b; /* 橙色 */
+  --color-func-info-rgb: 245, 158, 11;
+
+  /* 首页专用颜色 */
+  --color-home-btn-blue: #60a5fa; /* 探索广场 - 柔和蓝 */
+  --color-home-btn-blue-rgb: 96, 165, 250;
+  --color-home-btn-pink: #f472b6; /* 开始上传 - 柔和粉 */
+  --color-home-btn-pink-rgb: 244, 114, 182;
+  --color-home-btn-purple: #a78bfa; /* 登录注册 - 柔和紫 */
+  --color-home-btn-purple-rgb: 167, 139, 250;
+
+  /* Border/Divider 边框域 */
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-default: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.24);
+  --color-divider-light: rgba(255, 255, 255, 0.04);
+  --color-divider-medium: rgba(255, 255, 255, 0.08);
+  --color-divider-strong: rgba(255, 255, 255, 0.16);
+
+  /* 交互状态系统 */
+  --color-hover-bg: rgba(96, 165, 250, 0.12);
+  --color-hover-bg-neutral: rgba(255, 255, 255, 0.06);
+  --color-hover-border: rgba(96, 165, 250, 0.4);
+  --color-hover-text: #93c5fd;
+  --color-active-bg: rgba(96, 165, 250, 0.18);
+  --color-active-border: rgba(96, 165, 250, 0.6);
+  --color-focus-ring: rgba(96, 165, 250, 0.3);
+  --color-focus-border: rgba(96, 165, 250, 0.8);
+  --color-selected-bg: rgba(96, 165, 250, 0.15);
+  --color-selected-border: rgba(96, 165, 250, 0.5);
+  --color-disabled-bg: rgba(255, 255, 255, 0.04);
+  --color-disabled-text: #6b7280;
+  --color-disabled-border: rgba(255, 255, 255, 0.12);
+
+  /* 表单专用系统 */
+  --color-input-bg: rgba(26, 32, 44, 0.6);
+  --color-input-bg-focus: rgba(26, 32, 44, 0.8);
+  --color-input-bg-disabled: rgba(26, 32, 44, 0.3);
+  --color-input-text: #e5e7eb;
+  --color-input-text-disabled: #6b7280;
+  --color-input-border: rgba(255, 255, 255, 0.12);
+  --color-input-border-hover: rgba(255, 255, 255, 0.24);
+  --color-input-border-focus: rgba(96, 165, 250, 0.6);
+  --color-input-border-error: rgba(248, 113, 113, 0.6);
+  --color-placeholder: #9ca3af;
+  --color-placeholder-focus: #6b7280;
+  --color-label: #e5e7eb;
+  --color-label-required: var(--color-error-500);
+
+  /* 特效系统 */
+  --shadow-glow-sm: 0 0 15px rgba(96, 165, 250, 0.3);
+  --shadow-glow-md: 0 0 25px rgba(96, 165, 250, 0.35);
+  --shadow-glow-lg: 0 0 35px rgba(96, 165, 250, 0.4);
+  --shadow-glow-xl: 0 0 45px rgba(96, 165, 250, 0.45);
+  --shadow-cyber-sm: 0 1px 3px rgba(0, 0, 0, 0.15);
+  --shadow-cyber-md: 0 2px 6px rgba(0, 0, 0, 0.2);
+  --shadow-cyber-lg: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-cyber-xl: 0 6px 20px rgba(0, 0, 0, 0.3);
+
+  /* 覆盖通用阴影系统 - 暗色主题使用中等阴影 */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.45), 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.45);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+
+  /* 徽章/标签系统 */
+  --color-badge-primary-bg: rgba(96, 165, 250, 0.15);
+  --color-badge-primary-text: #93c5fd;
+  --color-badge-primary-border: rgba(96, 165, 250, 0.4);
+  --color-badge-accent-bg: rgba(167, 139, 250, 0.15);
+  --color-badge-accent-text: #c4b5fd;
+  --color-badge-accent-border: rgba(167, 139, 250, 0.4);
+  --color-badge-success-bg: rgba(52, 211, 153, 0.15);
+  --color-badge-success-text: #6ee7b7;
+  --color-badge-success-border: rgba(52, 211, 153, 0.4);
+  --color-badge-warning-bg: rgba(251, 191, 36, 0.15);
+  --color-badge-warning-text: #fcd34d;
+  --color-badge-warning-border: rgba(251, 191, 36, 0.4);
+  --color-badge-error-bg: rgba(248, 113, 113, 0.15);
+  --color-badge-error-text: #fca5a5;
+  --color-badge-error-border: rgba(248, 113, 113, 0.4);
+  --color-badge-neutral-bg: rgba(255, 255, 255, 0.08);
+  --color-badge-neutral-text: #9ca3af;
+  --color-badge-neutral-border: rgba(255, 255, 255, 0.16);
+
+  /* 遮罩 */
+  --color-overlay-light: rgba(0, 0, 0, 0.5); /* 轻遮罩 */
+  --color-overlay-medium: rgba(0, 0, 0, 0.7); /* 中遮罩 */
+  --color-overlay-heavy: rgba(0, 0, 0, 0.85); /* 重遮罩 */
+}

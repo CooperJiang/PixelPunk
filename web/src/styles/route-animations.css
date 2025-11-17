@@ -1,0 +1,157 @@
+/**
+ * 路由切换动画样式
+ * 包含所有页面和布局的过渡动画效果
+ */
+
+/* ===== 通用动画变量 ===== */
+:root {
+  --route-transition-fast: 200ms;
+  --route-transition-normal: 300ms;
+  --route-transition-slow: 400ms;
+
+  --route-ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+  --route-ease-quick: cubic-bezier(0.4, 0, 0.2, 1);
+  --route-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ===== 主站点动画（MainLayout使用） ===== */
+
+/* 淡入滑动动画 */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all var(--route-transition-normal) var(--route-ease-quick);
+}
+
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateX(8px);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateX(-8px);
+}
+
+/* 缩放淡入动画（认证页面） */
+.fade-scale-enter-active,
+.fade-scale-leave-active {
+  transition: all var(--route-transition-slow) var(--route-ease-quick);
+}
+
+.fade-scale-enter-from {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.fade-scale-leave-to {
+  opacity: 0;
+  transform: scale(1.05);
+}
+
+/* 右滑动画（文档页面） */
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all var(--route-transition-normal) var(--route-ease-quick);
+}
+
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+/* ===== 管理后台专用动画 ===== */
+
+/* 管理后台内容区动画 - 专业简洁 */
+.admin-content-enter-active,
+.admin-content-leave-active {
+  transition: all var(--route-transition-fast) var(--route-ease-quick);
+}
+
+.admin-content-enter-from {
+  opacity: 0;
+  transform: translateX(12px);
+}
+
+.admin-content-leave-to {
+  opacity: 0;
+  transform: translateX(-12px);
+}
+
+/* 管理后台备选动画方案 */
+
+/* 选项1: 纯淡入淡出（极简） */
+.admin-fade-enter-active,
+.admin-fade-leave-active {
+  transition: opacity var(--route-transition-fast) var(--route-ease-quick);
+}
+
+.admin-fade-enter-from,
+.admin-fade-leave-to {
+  opacity: 0;
+}
+
+/* 选项2: 垂直轻移（优雅） */
+.admin-gentle-enter-active,
+.admin-gentle-leave-active {
+  transition: all var(--route-transition-normal) var(--route-ease-smooth);
+}
+
+.admin-gentle-enter-from {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.admin-gentle-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+/* 选项3: 缩放效果（现代） */
+.admin-scale-enter-active,
+.admin-scale-leave-active {
+  transition: all var(--route-transition-fast) var(--route-ease-quick);
+}
+
+.admin-scale-enter-from {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.admin-scale-leave-to {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+/* ===== 响应式优化 ===== */
+@media (max-width: 768px) {
+  :root {
+    --route-transition-fast: 150ms;
+    --route-transition-normal: 250ms;
+    --route-transition-slow: 300ms;
+  }
+}
+
+/* 减少动画偏好支持 */
+@media (prefers-reduced-motion: reduce) {
+  .fade-slide-enter-active,
+  .fade-slide-leave-active,
+  .fade-scale-enter-active,
+  .fade-scale-leave-active,
+  .slide-right-enter-active,
+  .slide-right-leave-active,
+  .admin-content-enter-active,
+  .admin-content-leave-active,
+  .admin-fade-enter-active,
+  .admin-fade-leave-active,
+  .admin-gentle-enter-active,
+  .admin-gentle-leave-active,
+  .admin-scale-enter-active,
+  .admin-scale-leave-active {
+    transition: none !important;
+  }
+}

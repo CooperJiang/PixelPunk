@@ -1,0 +1,429 @@
+/**
+ * PixelPunk 动画系统
+ *
+ * 包含所有常用的动画 keyframes 和工具类
+ */
+
+/* ================================
+ * 🎬 基础动画 Keyframes
+ * ================================ */
+
+/* 淡入淡出 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* 滑入动画 */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 缩放动画 */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* 旋转动画 */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinReverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* 脉冲动画 */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* 弹跳动画 */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 摇晃动画 */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+/* 闪烁动画 */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* 渐变流动动画 */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* ================================
+ * 🎨 动画工具类
+ * ================================ */
+
+/* 淡入淡出 */
+.animate-fade-in {
+  animation: fadeIn var(--transition-normal) var(--ease-out);
+}
+
+.animate-fade-out {
+  animation: fadeOut var(--transition-normal) var(--ease-in);
+}
+
+/* 滑入 */
+.animate-slide-up {
+  animation: slideUp var(--transition-normal) var(--ease-out);
+}
+
+.animate-slide-down {
+  animation: slideDown var(--transition-normal) var(--ease-out);
+}
+
+.animate-slide-left {
+  animation: slideLeft var(--transition-normal) var(--ease-out);
+}
+
+.animate-slide-right {
+  animation: slideRight var(--transition-normal) var(--ease-out);
+}
+
+/* 缩放 */
+.animate-scale-in {
+  animation: scaleIn var(--transition-fast) var(--ease-out);
+}
+
+.animate-scale-out {
+  animation: scaleOut var(--transition-fast) var(--ease-in);
+}
+
+/* 旋转 */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 2s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spinReverse 1s linear infinite;
+}
+
+/* 脉冲 */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 弹跳 */
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+/* 摇晃 */
+.animate-shake {
+  animation: shake 0.5s;
+}
+
+/* 闪烁 */
+.animate-blink {
+  animation: blink 1s infinite;
+}
+
+/* ================================
+ * 🎯 Vue Transition 类
+ * ================================ */
+
+/* 页面切换 - 淡入 */
+.page-enter-active {
+  animation: fadeIn var(--transition-normal) var(--ease-out);
+}
+
+.page-leave-active {
+  animation: fadeOut var(--transition-fast) var(--ease-in);
+}
+
+/* 页面切换 - 滑动 */
+.slide-enter-active {
+  animation: slideUp var(--transition-normal) var(--ease-out);
+}
+
+.slide-leave-active {
+  animation: slideDown var(--transition-fast) var(--ease-in);
+}
+
+/* 模态框 - 缩放 */
+.modal-enter-active {
+  animation: scaleIn var(--transition-normal) var(--ease-out);
+}
+
+.modal-leave-active {
+  animation: scaleOut var(--transition-fast) var(--ease-in);
+}
+
+/* 下拉菜单 - 滑动 */
+.dropdown-enter-active {
+  animation: slideDown var(--transition-fast) var(--ease-out);
+}
+
+.dropdown-leave-active {
+  animation: fadeOut var(--transition-fast) var(--ease-in);
+}
+
+/* ================================
+ * 💫 交互动效辅助类
+ * ================================ */
+
+/* 标准过渡 */
+.transition-all {
+  transition: all var(--transition-normal) var(--ease-in-out);
+}
+
+.transition-fast {
+  transition: all var(--transition-fast) var(--ease-in-out);
+}
+
+.transition-slow {
+  transition: all var(--transition-slow) var(--ease-in-out);
+}
+
+/* 仅过渡特定属性 */
+.transition-colors {
+  transition:
+    color var(--transition-fast) var(--ease-in-out),
+    background-color var(--transition-fast) var(--ease-in-out),
+    border-color var(--transition-fast) var(--ease-in-out);
+}
+
+.transition-transform {
+  transition: transform var(--transition-fast) var(--ease-out);
+}
+
+.transition-opacity {
+  transition: opacity var(--transition-fast) var(--ease-in-out);
+}
+
+/* Hover 效果 */
+.hover-lift {
+  transition: transform var(--transition-fast) var(--ease-out);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-scale {
+  transition: transform var(--transition-fast) var(--ease-out);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  transition: box-shadow var(--transition-fast) var(--ease-out);
+}
+
+.hover-glow:hover {
+  box-shadow: var(--shadow-glow-md);
+}
+
+/* ================================
+ * 🎪 加载动画
+ * ================================ */
+
+/* 加载点 */
+@keyframes loadingDots {
+  0%,
+  80%,
+  100% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+.loading-dots span {
+  animation: loadingDots 1.4s infinite;
+}
+
+.loading-dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* 加载条 */
+@keyframes loadingBar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.loading-bar {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(var(--color-brand-500-rgb), 0.3), transparent);
+  animation: loadingBar 1.5s infinite;
+}
+
+/* 骨架屏 */
+@keyframes skeleton {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 骨架屏工具类 */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-background-700) 25%,
+    var(--color-background-600) 50%,
+    var(--color-background-700) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton 1.5s infinite;
+}

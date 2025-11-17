@@ -1,0 +1,109 @@
+# PixelPunk Docker Compose 配置
+# 推荐使用一键安装脚本：
+#   curl -fsSL https://download.pixelpunk.cc/shell/docker-install.sh | bash
+
+version: '3.8'
+
+services:
+  # PixelPunk 主应用
+  pixelpunk:
+    image: snine98/pixelpunk:latest
+    container_name: pixelpunk
+    ports:
+      - "${PORT:-9520}:9520"
+    volumes:
+      - ./configs/config.docker.yaml:/app/configs/config.yaml:ro
+      - ${DATA_DIR:-./data}:/app/data
+      - ${LOGS_DIR:-./logs}:/app/logs
+      - ${UPLOADS_DIR:-./uploads}:/app/uploads
+    environment:
+      - TZ=Asia/Shanghai
+      - DEPLOY_MODE=compose
+      - CONFIG_PRESET=true
+      - APP_PORT=9520
+    depends_on:
+      mysql:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+      redis:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - pixelpunk-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9520/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # MySQL 数据库
+  mysql:
+    image: mysql:8.0
+    container_name: pixelpunk-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_change_me
+      MYSQL_DATABASE: pixelpunk
+      MYSQL_USER: pixelpunk
+      MYSQL_PASSWORD: pixelpunk_pass
+      TZ: Asia/Shanghai
+    # 端口不对外暴露，仅容器内部访问
+    # ports:
+    #   - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - ${MYSQL_DATA_DIR:-./data/mysql}:/var/lib/mysql
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    networks:
+      - pixelpunk-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "pixelpunk", "-ppixelpunk_pass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Qdrant 向量数据库
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: pixelpunk-qdrant
+    # 端口不对外暴露，仅容器内部访问
+    # ports:
+    #   - "${QDRANT_PORT:-6333}:6333"
+    #   - "${QDRANT_GRPC_PORT:-6334}:6334"
+    volumes:
+      - ${QDRANT_DATA_DIR:-./data/qdrant}:/qdrant/storage
+    environment:
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
+    networks:
+      - pixelpunk-network
+
+  # Redis 缓存（可选）
+  redis:
+    image: redis:7-alpine
+    container_name: pixelpunk-redis
+    # 端口不对外暴露，仅容器内部访问
+    # ports:
+    #   - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - ${REDIS_DATA_DIR:-./data/redis}:/data
+    environment:
+      - TZ=Asia/Shanghai
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    networks:
+      - pixelpunk-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+# 网络配置
+networks:
+  pixelpunk-network:
+    driver: bridge

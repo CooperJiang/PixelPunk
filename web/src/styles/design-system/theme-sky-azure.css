@@ -1,0 +1,165 @@
+/**
+ * PixelPunk 主题 - 天空蔚蓝 (Sky Azure)
+ * 清新明朗的天空蓝，如晴空万里般的舒适视觉
+ * 主色：天空蓝 + 纯白背景
+ */
+
+:root[data-theme='sky-azure'] {
+  /* Brand 品牌域 */
+  --color-brand-300: #7dd3fc;
+  --color-brand-300-rgb: 125, 211, 252;
+  --color-brand-400: #38bdf8;
+  --color-brand-400-rgb: 56, 189, 248;
+  --color-brand-500: #0ea5e9; /* 主品牌色 - 天空蓝 */
+  --color-brand-500-rgb: 14, 165, 233;
+  --color-brand-600: #0284c7;
+  --color-brand-600-rgb: 2, 132, 199;
+  --color-brand-700: #0369a1;
+
+  /* Background 背景域 - 纯白清新色调 */
+  --color-background-50: #f0f9ff;
+  --color-background-100: #e0f2fe;
+  --color-background-200: #bae6fd;
+  --color-background-300: #7dd3fc;
+  --color-background-400: #38bdf8;
+  --color-background-500: #0ea5e9;
+  --color-background-600: #f8fafc; /* 面板背景 */
+  --color-background-700: #ffffff; /* 卡片背景 */
+  --color-background-800: #f8fbff; /* 容器背景 */
+  --color-background-900: #ffffff; /* 页面主背景 */
+  --color-background-900-rgb: 255, 255, 255;
+  --color-background-800-rgb: 248, 251, 255;
+  --color-background-700-rgb: 255, 255, 255;
+
+  /* Content 文本域 */
+  --color-content-default: #334155;
+  --color-content-heading: #0f172a;
+  --color-content-muted: #64748b;
+  --color-content-disabled: #cbd5e1;
+  --color-content-rgb: 51, 65, 85;
+  --color-text-on-brand: #ffffff;
+  --color-text-on-success: #ffffff;
+  --color-text-on-warning: #ffffff;
+  --color-text-on-error: #ffffff;
+
+  /* 通用颜色覆盖 - 亮色主题必须覆盖这些变量 */
+  --color-white: #0f172a; /* 深色文字，用于亮色背景 */
+  --color-white-rgb: 15, 23, 42;
+  --color-black: #ffffff; /* 白色背景 */
+  --color-black-rgb: 255, 255, 255;
+
+  /* State 状态域 - 补充完整的色阶 */
+  --color-success-400: #4ade80;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-rgb: 34, 197, 94;
+  --color-success-400-rgb: 74, 222, 128;
+  --color-success-600-rgb: 22, 163, 74;
+
+  --color-warning-400: #fb923c;
+  --color-warning-500: #f97316;
+  --color-warning-600: #ea580c;
+  --color-warning-rgb: 249, 115, 22;
+  --color-warning-400-rgb: 251, 146, 60;
+  --color-warning-600-rgb: 234, 88, 12;
+
+  --color-error-400: #f87171;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+  --color-error-rgb: 239, 68, 68;
+  --color-error-400-rgb: 248, 113, 113;
+  --color-error-600-rgb: 220, 38, 38;
+
+  --color-info-500: #0ea5e9;
+  --color-info-rgb: 14, 165, 233;
+
+  /* 功能色系统 */
+  --color-func-primary: var(--color-brand-500);
+  --color-func-primary-rgb: var(--color-brand-500-rgb);
+  --color-func-secondary: #22c55e;
+  --color-func-secondary-rgb: 34, 197, 94;
+  --color-func-accent: #a855f7;
+  --color-func-info: #f97316;
+  --color-func-info-rgb: 249, 115, 22;
+
+  /* 首页专用颜色 */
+  --color-home-btn-blue: #0ea5e9;
+  --color-home-btn-blue-rgb: 14, 165, 233;
+  --color-home-btn-pink: #38bdf8;
+  --color-home-btn-pink-rgb: 56, 189, 248;
+  --color-home-btn-purple: #7dd3fc;
+  --color-home-btn-purple-rgb: 125, 211, 252;
+
+  /* Border/Divider 边框域 */
+  --color-border-subtle: #e2e8f0;
+  --color-border-default: #cbd5e1;
+  --color-border-strong: #94a3b8;
+  --color-divider-light: #f1f5f9;
+  --color-divider-medium: #e2e8f0;
+  --color-divider-strong: #cbd5e1;
+
+  /* 交互状态系统 */
+  --color-hover-bg: rgba(14, 165, 233, 0.08);
+  --color-hover-bg-neutral: rgba(51, 65, 85, 0.04);
+  --color-hover-border: #0284c7;
+  --color-hover-text: #0369a1;
+  --color-active-bg: rgba(14, 165, 233, 0.12);
+  --color-active-border: #0ea5e9;
+  --color-focus-ring: rgba(14, 165, 233, 0.2);
+  --color-focus-border: #0ea5e9;
+  --color-selected-bg: rgba(14, 165, 233, 0.1);
+  --color-selected-border: #0284c7;
+  --color-disabled-bg: #f1f5f9;
+  --color-disabled-text: #cbd5e1;
+  --color-disabled-border: #e2e8f0;
+
+  /* 表单专用系统 */
+  --color-input-bg: #ffffff;
+  --color-input-bg-focus: #ffffff;
+  --color-input-bg-disabled: #f8fafc;
+  --color-input-text: #334155;
+  --color-input-text-disabled: #cbd5e1;
+  --color-input-border: #cbd5e1;
+  --color-input-border-hover: #94a3b8;
+  --color-input-border-focus: #0ea5e9;
+  --color-input-border-error: #dc2626;
+  --color-placeholder: #94a3b8;
+  --color-placeholder-focus: #cbd5e1;
+  --color-label: #334155;
+  --color-label-required: var(--color-error-500);
+
+  /* 特效系统 */
+  --shadow-glow-sm: 0 0 10px rgba(14, 165, 233, 0.15);
+  --shadow-glow-md: 0 0 20px rgba(14, 165, 233, 0.2);
+  --shadow-glow-lg: 0 0 30px rgba(14, 165, 233, 0.25);
+  --shadow-glow-xl: 0 0 40px rgba(14, 165, 233, 0.3);
+  --shadow-cyber-sm: 0 1px 3px rgba(100, 116, 139, 0.12), 0 1px 2px rgba(100, 116, 139, 0.08);
+  --shadow-cyber-md: 0 2px 6px rgba(100, 116, 139, 0.15), 0 1px 3px rgba(100, 116, 139, 0.1);
+  --shadow-cyber-lg: 0 4px 12px rgba(100, 116, 139, 0.18), 0 2px 6px rgba(100, 116, 139, 0.12);
+  --shadow-cyber-xl: 0 6px 20px rgba(100, 116, 139, 0.2), 0 4px 12px rgba(100, 116, 139, 0.15);
+
+  /* 徽章/标签系统 */
+  --color-badge-primary-bg: #dbeafe;
+  --color-badge-primary-text: #0369a1;
+  --color-badge-primary-border: #bae6fd;
+  --color-badge-accent-bg: #e0f2fe;
+  --color-badge-accent-text: #0284c7;
+  --color-badge-accent-border: #7dd3fc;
+  --color-badge-success-bg: #dcfce7;
+  --color-badge-success-text: #16a34a;
+  --color-badge-success-border: #bbf7d0;
+  --color-badge-warning-bg: #ffedd5;
+  --color-badge-warning-text: #ea580c;
+  --color-badge-warning-border: #fed7aa;
+  --color-badge-error-bg: #fee2e2;
+  --color-badge-error-text: #dc2626;
+  --color-badge-error-border: #fecaca;
+  --color-badge-neutral-bg: #f1f5f9;
+  --color-badge-neutral-text: #64748b;
+  --color-badge-neutral-border: #e2e8f0;
+
+  /* 遮罩 */
+  --color-overlay-light: rgba(15, 23, 42, 0.3);
+  --color-overlay-medium: rgba(15, 23, 42, 0.5);
+  --color-overlay-heavy: rgba(15, 23, 42, 0.7);
+}

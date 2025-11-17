@@ -1,0 +1,436 @@
+/**
+ * Admin Modern Design System
+ * 现代化后台管理样式系统
+ */
+
+/* ================================
+   页面容器优化
+   ================================ */
+
+/* 统一的页面内边距 */
+.admin-page-wrapper {
+  padding: 1.5rem;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* 页面标题区域 */
+.admin-page-header {
+  margin-bottom: 1.5rem;
+}
+
+.admin-page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-content-heading);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
+}
+
+.admin-page-subtitle {
+  font-size: 0.875rem;
+  color: var(--color-content-muted);
+  margin: 0;
+}
+
+/* ================================
+   网格布局系统
+   ================================ */
+
+/* 响应式网格 */
+.admin-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.admin-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.admin-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.admin-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* 响应式断点 */
+@media (max-width: 1200px) {
+  .admin-grid-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .admin-grid-3,
+  .admin-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-grid-2,
+  .admin-grid-3,
+  .admin-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================
+   卡片组件优化
+   ================================ */
+
+/* 现代化卡片 */
+.admin-card-modern {
+  background: var(--color-background-700);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-cyber-sm);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-card-modern:hover {
+  border-color: var(--color-hover-border);
+  box-shadow: var(--shadow-cyber-md);
+  transform: translateY(-2px);
+}
+
+/* 卡片标题 */
+.admin-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-content-heading);
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-card-title-icon {
+  color: var(--color-brand-500);
+  font-size: 1.125rem;
+}
+
+/* 卡片内容 */
+.admin-card-content {
+  color: var(--color-content-default);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* 卡片底部 */
+.admin-card-footer {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+/* ================================
+   统计卡片
+   ================================ */
+
+.admin-stat-card {
+  background: var(--color-background-700);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-cyber-sm);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-brand-500), var(--color-badge-accent-text));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.admin-stat-card:hover::before {
+  opacity: 1;
+}
+
+.admin-stat-card:hover {
+  border-color: var(--color-hover-border);
+  box-shadow: var(--shadow-cyber-md);
+  transform: translateY(-2px);
+}
+
+.admin-stat-label {
+  font-size: 0.875rem;
+  color: var(--color-content-muted);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.admin-stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-content-heading);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.admin-stat-trend {
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.admin-stat-trend.up {
+  color: var(--color-success-500);
+}
+
+.admin-stat-trend.down {
+  color: var(--color-error-500);
+}
+
+/* ================================
+   表格优化
+   ================================ */
+
+.admin-table-container {
+  background: var(--color-background-700);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-cyber-sm);
+}
+
+.admin-table-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-border-default);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-background-800);
+}
+
+.admin-table-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-content-heading);
+  margin: 0;
+}
+
+/* ================================
+   空状态
+   ================================ */
+
+.admin-empty-state {
+  padding: 4rem 2rem;
+  text-align: center;
+  background: var(--color-background-700);
+  border: 1px dashed var(--color-border-default);
+  border-radius: var(--radius-lg);
+}
+
+.admin-empty-icon {
+  font-size: 3rem;
+  color: var(--color-content-muted);
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.admin-empty-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-content-heading);
+  margin: 0 0 0.5rem 0;
+}
+
+.admin-empty-description {
+  font-size: 0.875rem;
+  color: var(--color-content-muted);
+  margin: 0 0 1.5rem 0;
+}
+
+/* ================================
+   间距工具类
+   ================================ */
+
+.admin-section {
+  margin-bottom: 2rem;
+}
+
+.admin-section:last-child {
+  margin-bottom: 0;
+}
+
+.admin-divider {
+  height: 1px;
+  background: var(--color-border-subtle);
+  margin: 2rem 0;
+  border: none;
+}
+
+/* ================================
+   加载状态
+   ================================ */
+
+.admin-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  color: var(--color-content-muted);
+  font-size: 0.875rem;
+}
+
+.admin-loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-border-default);
+  border-top-color: var(--color-brand-500);
+  border-radius: var(--radius-full);
+  animation: spin 0.8s linear infinite;
+  margin-right: 0.75rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================================
+   标签优化
+   ================================ */
+
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.admin-badge-primary {
+  background: var(--color-badge-primary-bg);
+  color: var(--color-badge-primary-text);
+  border: 1px solid var(--color-badge-primary-border);
+}
+
+.admin-badge-success {
+  background: var(--color-badge-success-bg);
+  color: var(--color-badge-success-text);
+  border: 1px solid var(--color-badge-success-border);
+}
+
+.admin-badge-warning {
+  background: var(--color-badge-warning-bg);
+  color: var(--color-badge-warning-text);
+  border: 1px solid var(--color-badge-warning-border);
+}
+
+.admin-badge-error {
+  background: var(--color-badge-error-bg);
+  color: var(--color-badge-error-text);
+  border: 1px solid var(--color-badge-error-border);
+}
+
+.admin-badge-neutral {
+  background: var(--color-badge-neutral-bg);
+  color: var(--color-badge-neutral-text);
+  border: 1px solid var(--color-badge-neutral-border);
+}
+
+/* ================================
+   按钮组
+   ================================ */
+
+.admin-button-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* ================================
+   信息提示
+   ================================ */
+
+.admin-alert {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.admin-alert-icon {
+  flex-shrink: 0;
+  font-size: 1.125rem;
+  margin-top: 0.125rem;
+}
+
+.admin-alert-info {
+  background: var(--color-badge-primary-bg);
+  border-color: var(--color-badge-primary-border);
+  color: var(--color-content-default);
+}
+
+.admin-alert-success {
+  background: var(--color-badge-success-bg);
+  border-color: var(--color-badge-success-border);
+  color: var(--color-content-default);
+}
+
+.admin-alert-warning {
+  background: var(--color-badge-warning-bg);
+  border-color: var(--color-badge-warning-border);
+  color: var(--color-content-default);
+}
+
+.admin-alert-error {
+  background: var(--color-badge-error-bg);
+  border-color: var(--color-badge-error-border);
+  color: var(--color-content-default);
+}
+
+/* ================================
+   滚动条优化
+   ================================ */
+
+.admin-scrollable {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--color-brand-500-rgb), 0.25) transparent;
+}
+
+.admin-scrollable::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.admin-scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-scrollable::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, rgba(var(--color-brand-500-rgb), 0.25) 0%, rgba(var(--color-brand-400-rgb), 0.2) 100%);
+  border-radius: var(--radius-full);
+  transition: all 0.3s ease;
+}
+
+.admin-scrollable::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, rgba(var(--color-brand-600-rgb), 0.45) 0%, rgba(var(--color-brand-500-rgb), 0.4) 100%);
+  box-shadow: 0 0 6px rgba(var(--color-brand-500-rgb), 0.25);
+}

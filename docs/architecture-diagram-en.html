@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelPunk System Architecture</title>
+    <script src="https://cdn.tailwindcss.com?v=20250117d"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+        .arrow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+        }
+        .arrow {
+            font-size: 36px;
+            color: #64748b;
+            font-weight: bold;
+        }
+        .layer-card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border: 2px solid #e2e8f0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        .layer-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        .layer-header {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            color: #1e293b;
+        }
+        .layer-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* 不同层的配色 */
+        .layer-user { border-color: #3b82f6; }
+        .layer-user .layer-header { color: #3b82f6; background: linear-gradient(to right, #3b82f6, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .layer-frontend { border-color: #10b981; }
+        .layer-frontend .layer-header { color: #10b981; background: linear-gradient(to right, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .layer-core { border-color: #f59e0b; }
+        .layer-core .layer-header { color: #f59e0b; background: linear-gradient(to right, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .layer-ai { border-color: #8b5cf6; }
+        .layer-ai .layer-header { color: #8b5cf6; background: linear-gradient(to right, #8b5cf6, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .layer-data { border-color: #06b6d4; }
+        .layer-data .layer-header { color: #06b6d4; background: linear-gradient(to right, #06b6d4, #0891b2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .layer-service { border-color: #ec4899; }
+        .layer-service .layer-header { color: #ec4899; background: linear-gradient(to right, #ec4899, #db2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .item-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 10px 12px;
+            transition: all 0.2s;
+        }
+        .item-box:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .item-title {
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 1.4;
+            color: #334155;
+        }
+        .item-desc {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.3;
+            margin-top: 3px;
+        }
+        .grid-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: #334155;
+        }
+        .grid-item:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+    <div class="w-full max-w-[1600px] bg-white rounded-xl shadow-xl p-8">
+        <!-- Title -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">
+                PixelPunk System Architecture
+            </h1>
+            <p class="text-gray-600 text-base">Full-Stack Intelligent Image Hosting & Resource Management Platform</p>
+        </div>
+
+        <!-- Main Architecture Layers -->
+        <div class="flex items-stretch gap-3 mb-6" style="max-height: 500px;">
+            <!-- Column 1: User Layer -->
+            <div class="flex-1">
+                <div class="layer-card layer-user">
+                    <div class="layer-header">🌐 User Layer</div>
+                    <div class="layer-content">
+                        <div class="item-box">
+                            <div class="item-title">💻 Web Browser</div>
+                            <div class="item-desc">Chrome / Firefox / Safari</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🔌 API Clients</div>
+                            <div class="item-desc">PicGo / uPic / CLI</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🤖 Automation Tools</div>
+                            <div class="item-desc">CI/CD / Webhook</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🔗 Embed Integration</div>
+                            <div class="item-desc">Markdown / CMS</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">📤 Share Access</div>
+                            <div class="item-desc">Public / Password Protected</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="arrow-container">
+                <div class="arrow">→</div>
+            </div>
+
+            <!-- Column 2: Frontend Layer -->
+            <div class="flex-1">
+                <div class="layer-card layer-frontend">
+                    <div class="layer-header">⚡ Frontend Layer</div>
+                    <div class="layer-content">
+                        <div class="item-box">
+                            <div class="item-title">🎨 Core Framework</div>
+                            <div class="item-desc">Vue 3 + TypeScript<br>Pinia + Vue Router</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🎭 UI Components</div>
+                            <div class="item-desc">TailwindCSS / Custom Components</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🌈 Theme System</div>
+                            <div class="item-desc">10+ Themes<br>Cyberpunk / Fresh / Cute</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🌍 Internationalization</div>
+                            <div class="item-desc">Chinese / English / Japanese</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">📦 State Management</div>
+                            <div class="item-desc">Global State / Reactive Updates</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="arrow-container">
+                <div class="arrow">→</div>
+            </div>
+
+            <!-- Column 3: Application Core Layer -->
+            <div class="flex-1">
+                <div class="layer-card layer-core">
+                    <div class="layer-header">🚀 Application Core Layer</div>
+                    <div class="layer-content">
+                        <!-- Business Modules Grid -->
+                        <div class="grid grid-cols-2 gap-2" style="margin-bottom: 10px;">
+                            <div class="grid-item">👥 Users</div>
+                            <div class="grid-item">📁 Files</div>
+                            <div class="grid-item">🏷️ Tags</div>
+                            <div class="grid-item">🔗 Share</div>
+                            <div class="grid-item">🔐 Auth</div>
+                            <div class="grid-item">🔧 API</div>
+                        </div>
+
+                        <!-- Middleware Layer -->
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div class="item-box">
+                                <div class="item-title">🔒 Security Middleware</div>
+                                <div class="item-desc">JWT / CORS / Anti-Hotlinking</div>
+                            </div>
+                            <div class="item-box">
+                                <div class="item-title">⚙️ Go + Gin</div>
+                                <div class="item-desc">GORM + Viper + Zap</div>
+                            </div>
+                            <div class="item-box">
+                                <div class="item-title">📸 Image Processing</div>
+                                <div class="item-desc">Compression / Watermark / Format Conversion</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="arrow-container">
+                <div class="arrow">→</div>
+            </div>
+
+            <!-- Column 4: AI Processing Layer -->
+            <div class="flex-1">
+                <div class="layer-card layer-ai">
+                    <div class="layer-header">🤖 AI Processing Layer</div>
+                    <div class="layer-content">
+                        <div class="item-box">
+                            <div class="item-title">🎯 Auto Classification</div>
+                            <div class="item-desc">Identify Image Categories (Landscape/Portrait/Animal/Architecture)</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🏷️ Smart Tagging</div>
+                            <div class="item-desc">Auto Extract Tags and Keywords</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🔞 NSFW Detection</div>
+                            <div class="item-desc">Content Safety Review & Sensitive Marking</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🧠 Semantic Analysis</div>
+                            <div class="item-desc">AI Description & Language Understanding</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🔮 Vector Generation</div>
+                            <div class="item-desc">Embedding / Image Search / OpenAI</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="arrow-container">
+                <div class="arrow">→</div>
+            </div>
+
+            <!-- Column 5: Data Storage Layer -->
+            <div class="flex-1">
+                <div class="layer-card layer-data">
+                    <div class="layer-header">💾 Data Storage Layer</div>
+                    <div class="layer-content">
+                        <div class="item-box">
+                            <div class="item-title">🗄️ MySQL / SQLite</div>
+                            <div class="item-desc">Users/Files/Tags/Shares</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">⚡ Redis</div>
+                            <div class="item-desc">Session/Token/Hot Data</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🧠 Qdrant</div>
+                            <div class="item-desc">Vector Index/Similarity Search</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">📂 Local Storage</div>
+                            <div class="item-desc">Original/Thumbnail/Temp Files</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">☁️ Cloud Storage</div>
+                            <div class="item-desc">Upyun/Qiniu/Aliyun OSS<br>Tencent COS/AWS S3 & 10+ Platforms</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Down Arrow -->
+        <div class="text-center mb-6">
+            <div class="text-4xl text-gray-400 font-bold">↓</div>
+        </div>
+
+        <!-- External Services Layer -->
+        <div>
+            <div class="layer-card layer-service">
+                <div class="layer-header">🌟 External Services Layer</div>
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">🚀</div>
+                        <div class="font-bold text-sm text-gray-700">CDN Acceleration</div>
+                        <div class="text-xs text-gray-500 mt-1">Upyun/Qiniu</div>
+                    </div>
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">📧</div>
+                        <div class="font-bold text-sm text-gray-700">Email Service</div>
+                        <div class="text-xs text-gray-500 mt-1">SMTP</div>
+                    </div>
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">☁️</div>
+                        <div class="font-bold text-sm text-gray-700">Object Storage</div>
+                        <div class="text-xs text-gray-500 mt-1">OSS/COS</div>
+                    </div>
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">📊</div>
+                        <div class="font-bold text-sm text-gray-700">Monitoring & Logging</div>
+                        <div class="text-xs text-gray-500 mt-1">Logging</div>
+                    </div>
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">🔔</div>
+                        <div class="font-bold text-sm text-gray-700">Message Push</div>
+                        <div class="text-xs text-gray-500 mt-1">Webhook</div>
+                    </div>
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">🔐</div>
+                        <div class="font-bold text-sm text-gray-700">SSL Certificate</div>
+                        <div class="text-xs text-gray-500 mt-1">HTTPS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

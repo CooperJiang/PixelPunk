@@ -1,0 +1,359 @@
+/**
+ * PixelPunk 赛博朋克主题 - 霓虹青（Neon Cyan）
+ * 主色：霓虹青 + 深蓝紫背景
+ * 风格：经典赛博朋克风格
+ */
+
+:root[data-theme='cyberpunk-cyan'] {
+  /* ================================
+   * 🎨 1. Brand 品牌域（色板型）
+   * 用途：按钮主色、链接/强调、可交互主色
+   * 使用：bg-brand-{50-900}、text-brand-{50-900}、border-brand-{50-900}
+   * ================================ */
+
+  /* 品牌色 - 霓虹青蓝（Neon Cyan）*/
+  --color-brand-50: #ecfeff;
+  --color-brand-100: #cffafe;
+  --color-brand-200: #a5f3fc;
+  --color-brand-300: #67e8f9;
+  --color-brand-400: #22d3ee;
+  --color-brand-500: #00d9ff; /* 主品牌色 - 霓虹青 */
+  --color-brand-600: #0891b2;
+  --color-brand-700: #0e7490;
+  --color-brand-800: #155e75;
+  --color-brand-900: #164e63;
+
+  /* RGB 值（用于 rgba 透明度）*/
+  --color-brand-400-rgb: 34, 211, 238;
+  --color-brand-500-rgb: 0, 217, 255;
+  --color-brand-600-rgb: 8, 145, 178;
+
+  /* ================================
+   * 🖼️ 2. Background 背景域（色板型）
+   * 用途：页面、容器、卡片、浮层等一切背景
+   * 使用：bg-background-{50-900}
+   * 建议：页面用 bg-background-900，容器用 bg-background-800，卡片用 bg-background-700
+   * ================================ */
+
+  /* 背景色 - 深蓝紫色调（Dark Blue-Purple）*/
+  --color-background-50: #1e293b; /* 最深（特殊场景）*/
+  --color-background-100: #334155;
+  --color-background-200: #475569;
+  --color-background-300: #64748b;
+  --color-background-400: #94a3b8;
+  --color-background-500: #cbd5e1;
+  --color-background-600: #1a1b2e; /* 面板背景 - 深蓝紫 */
+  --color-background-700: #16162a; /* 卡片背景 - 更深蓝紫 */
+  --color-background-800: #0f0f1e; /* 容器背景 - 极深蓝紫 */
+  --color-background-900: #0a0a14; /* 页面主背景 - 近黑蓝紫 */
+
+  /* RGB 值 */
+  --color-background-900-rgb: 10, 10, 20;
+  --color-background-800-rgb: 15, 15, 30;
+  --color-background-700-rgb: 22, 22, 42;
+
+  /* ================================
+   * 📝 3. Content 文本域（语义型）
+   * 用途：正文/标题/注释/禁用等文本
+   * 使用：text-content、text-content-heading、text-content-muted、text-content-disabled
+   * 注意：不要用 text-brand-* 代替正文色
+   * ================================ */
+
+  /* 文本色 - 冷色调亮色系 */
+  --color-content-default: #e2e8f0; /* 默认正文 - 冷白色 */
+  --color-content-heading: #f1f5f9; /* 标题 - 亮冷白 */
+  --color-content-muted: rgba(226, 232, 240, 0.7); /* 次要文本 */
+  --color-content-disabled: rgba(226, 232, 240, 0.4); /* 禁用文本 */
+
+  /* RGB 值 */
+  --color-content-rgb: 226, 232, 240;
+
+  /* On-Variant 文本（有色底上的文字）*/
+  --color-text-on-brand: #ffffff; /* 品牌色背景上的文字 */
+  --color-text-on-success: #000000; /* 成功色背景上的文字 */
+  --color-text-on-warning: #000000; /* 警告色背景上的文字 */
+  --color-text-on-error: #ffffff; /* 错误色背景上的文字 */
+
+  /* ================================
+   * 🎯 4. State 状态域（色板型）
+   * 用途：成功/警告/错误/信息的文本、图标、边框、背景
+   * 使用：success-{50-900}、warning-{50-900}、error-{50-900}、info-{50-900}
+   * ================================ */
+
+  /* 成功色 - 霓虹绿 */
+  --color-success-50: #f0fff4;
+  --color-success-100: #dcfce7;
+  --color-success-200: #bbf7d0;
+  --color-success-300: #86efac;
+  --color-success-400: #4ade80;
+  --color-success-500: #00ff88; /* 霓虹绿 */
+  --color-success-600: #09e085;
+  --color-success-700: #08c271;
+  --color-success-800: #06a45d;
+  --color-success-900: #058649;
+  --color-success-rgb: 0, 255, 136;
+
+  /* 警告色 - 霓虹黄 */
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-200: #fde68a;
+  --color-warning-300: #fcd34d;
+  --color-warning-400: #fbbf24;
+  --color-warning-500: #ffff00; /* 霓虹黄 */
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+  --color-warning-800: #92400e;
+  --color-warning-900: #78350f;
+  --color-warning-rgb: 255, 255, 0;
+
+  /* 错误色 - 霓虹紫红（Neon Magenta）*/
+  --color-error-50: #fdf4ff;
+  --color-error-100: #fae8ff;
+  --color-error-200: #f5d0fe;
+  --color-error-300: #f0abfc;
+  --color-error-400: #e879f9;
+  --color-error-500: #d946ef; /* 霓虹紫红 */
+  --color-error-600: #c026d3;
+  --color-error-700: #a21caf;
+  --color-error-800: #86198f;
+  --color-error-900: #701a75;
+  --color-error-rgb: 217, 70, 239;
+
+  /* 信息色 - 霓虹青 */
+  --color-info-50: #ecfeff;
+  --color-info-100: #cffafe;
+  --color-info-200: #a5f3fc;
+  --color-info-300: #67e8f9;
+  --color-info-400: #22d3ee;
+  --color-info-500: #00ffff; /* 霓虹青 */
+  --color-info-600: #0891b2;
+  --color-info-700: #0e7490;
+  --color-info-800: #155e75;
+  --color-info-900: #164e63;
+  --color-info-rgb: 0, 255, 255;
+
+  /* ================================
+   * 🏠 首页专用颜色（固定不变）
+   * 用途：首页三个按钮的特殊配色
+   * ================================ */
+  --color-home-btn-blue: #00d9ff; /* 探索广场 - 霓虹青 */
+  --color-home-btn-blue-rgb: 0, 217, 255;
+  --color-home-btn-pink: #d946ef; /* 开始上传 - 霓虹紫红 */
+  --color-home-btn-pink-rgb: 217, 70, 239;
+  --color-home-btn-purple: #a855f7; /* 登录注册 - 紫色 */
+  --color-home-btn-purple-rgb: 168, 85, 247;
+
+  /* ================================
+   * 🔲 5. Border/Divider 边框域（语义型）
+   * 用途：边框、分割线
+   * 使用：border-subtle、border-default、border-strong、divider-light、divider-medium、divider-strong
+   * ================================ */
+
+  /* 边框色 - 霓虹青边框 */
+  --color-border-subtle: rgba(0, 217, 255, 0.15); /* 细微边框 */
+  --color-border-default: rgba(0, 217, 255, 0.3); /* 默认边框 */
+  --color-border-strong: rgba(0, 217, 255, 0.6); /* 强边框 */
+
+  /* 分割线 */
+  --color-divider-light: rgba(226, 232, 240, 0.05); /* 轻分割线 */
+  --color-divider-medium: rgba(226, 232, 240, 0.1); /* 中分割线 */
+  --color-divider-strong: rgba(0, 217, 255, 0.2); /* 强分割线（品牌色）*/
+
+  /* ================================
+   * 🎭 6. 交互状态系统
+   * 用途：Hover、Active、Focus、Disabled 状态
+   * ================================ */
+
+  /* Hover 悬浮状态 */
+  --color-hover-bg: rgba(0, 217, 255, 0.15); /* 悬浮背景 */
+  --color-hover-bg-neutral: rgba(255, 255, 255, 0.05); /* 中性悬浮背景 */
+  --color-hover-border: rgba(0, 217, 255, 0.7); /* 悬浮边框 */
+  --color-hover-text: #00d9ff; /* 悬浮文字 - 霓虹青 */
+
+  /* Active 激活状态 */
+  --color-active-bg: rgba(0, 217, 255, 0.25); /* 激活背景 */
+  --color-active-border: rgba(0, 217, 255, 0.9); /* 激活边框 */
+
+  /* Focus 聚焦状态 */
+  --color-focus-ring: rgba(0, 217, 255, 0.4); /* 聚焦环 */
+  --color-focus-border: rgba(0, 217, 255, 0.8); /* 聚焦边框 */
+
+  /* Selected 选中状态 */
+  --color-selected-bg: rgba(0, 217, 255, 0.2); /* 选中背景 */
+  --color-selected-border: rgba(0, 217, 255, 0.8); /* 选中边框 */
+
+  /* Disabled 禁用状态 */
+  --color-disabled-bg: rgba(255, 255, 255, 0.03); /* 禁用背景 */
+  --color-disabled-text: rgba(224, 247, 255, 0.3); /* 禁用文字 */
+  --color-disabled-border: rgba(255, 255, 255, 0.08); /* 禁用边框 */
+
+  /* ================================
+   * 📝 7. 表单专用系统
+   * 用途：Input、Placeholder、Label 等表单元素
+   * ================================ */
+
+  /* Input 输入框 */
+  --color-input-bg: rgba(15, 15, 30, 0.8); /* 输入框背景 */
+  --color-input-bg-focus: rgba(15, 15, 30, 1); /* 输入框聚焦背景 */
+  --color-input-bg-disabled: rgba(15, 15, 30, 0.3); /* 输入框禁用背景 */
+  --color-input-text: #e2e8f0; /* 输入框文字 */
+  --color-input-text-disabled: rgba(226, 232, 240, 0.3); /* 输入框禁用文字 */
+  --color-input-border: rgba(0, 217, 255, 0.3); /* 输入框默认边框 */
+  --color-input-border-hover: rgba(0, 217, 255, 0.5); /* 输入框悬浮边框 */
+  --color-input-border-focus: rgba(0, 217, 255, 1); /* 输入框聚焦边框 */
+  --color-input-border-error: rgba(217, 70, 239, 0.8); /* 输入框错误边框 */
+
+  /* Placeholder 占位符 */
+  --color-placeholder: rgba(226, 232, 240, 0.4); /* 默认占位符 */
+  --color-placeholder-focus: rgba(226, 232, 240, 0.3); /* 聚焦时占位符 */
+
+  /* Label 标签 */
+  --color-label: #e2e8f0; /* 表单标签文字 */
+  --color-label-required: var(--color-error-500); /* 必填标签星号 */
+
+  /* ================================
+   * ✨ 8. 特效系统
+   * 用途：发光、阴影、毛玻璃等赛博朋克特效
+   * ================================ */
+
+  /* 发光阴影 - 霓虹青发光特效 */
+  --shadow-glow-sm: 0 0 20px rgba(0, 217, 255, 0.5); /* 小发光 */
+  --shadow-glow-md: 0 0 30px rgba(0, 217, 255, 0.6); /* 中发光 */
+  --shadow-glow-lg: 0 0 45px rgba(0, 217, 255, 0.7); /* 大发光 */
+  --shadow-glow-xl: 0 0 60px rgba(0, 217, 255, 0.8); /* 超大发光 */
+
+  /* 覆盖通用阴影系统 - 霓虹青主题使用中等阴影 */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.45), 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.45);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+
+  /* 赛博朋克复合阴影（发光 + 深度）- 优化为更精细的阴影 */
+  --shadow-cyber-sm: 0 0 8px rgba(0, 217, 255, 0.15), 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-cyber-md: 0 0 12px rgba(0, 217, 255, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-cyber-lg: 0 0 16px rgba(0, 217, 255, 0.25), 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-cyber-xl: 0 0 20px rgba(0, 217, 255, 0.3), 0 6px 20px rgba(0, 0, 0, 0.35);
+
+  /* 内阴影 */
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+
+  /* 毛玻璃效果 */
+  --backdrop-blur-sm: blur(4px);
+  --backdrop-blur-md: blur(8px);
+  --backdrop-blur-lg: blur(16px);
+  --backdrop-blur-xl: blur(24px);
+
+  /* 遮罩 */
+  --color-overlay-light: rgba(0, 0, 0, 0.5); /* 轻遮罩 */
+  --color-overlay-medium: rgba(0, 0, 0, 0.7); /* 中遮罩 */
+  --color-overlay-heavy: rgba(0, 0, 0, 0.85); /* 重遮罩 */
+
+  /* 骨架屏 */
+  --color-skeleton-base: rgba(255, 255, 255, 0.05); /* 骨架屏基础色 */
+  --color-skeleton-highlight: rgba(255, 255, 255, 0.08); /* 骨架屏高亮色 */
+
+  /* ================================
+   * 📐 9. 尺寸系统
+   * 用途：间距、圆角、过渡时间等
+   * ================================ */
+
+  /* 间距系统 */
+  --space-xs: 0.25rem; /* 4px */
+  --space-sm: 0.5rem; /* 8px */
+  --space-md: 1rem; /* 16px */
+  --space-lg: 1.5rem; /* 24px */
+  --space-xl: 2rem; /* 32px */
+  --space-2xl: 2.5rem; /* 40px */
+  --space-3xl: 3rem; /* 48px */
+
+  /* 圆角系统 */
+  --radius-sm: 0.25rem; /* 4px */
+  --radius-md: 0.5rem; /* 8px */
+  --radius-lg: 0.75rem; /* 12px */
+  --radius-xl: 1rem; /* 16px */
+  --radius-2xl: 1.5rem; /* 24px */
+  --radius-full: 9999px; /* 完全圆角 */
+
+  /* 过渡时间 */
+  --transition-fast: 150ms;
+  --transition-normal: 200ms;
+  --transition-slow: 300ms;
+
+  /* 缓动函数 */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  /* ================================
+   * 🎨 10. 徽章/标签系统
+   * 用途：Badge、Tag 等小组件
+   * ================================ */
+
+  /* 品牌徽章 */
+  --color-badge-primary-bg: rgba(0, 217, 255, 0.15);
+  --color-badge-primary-text: #00d9ff;
+  --color-badge-primary-border: rgba(0, 217, 255, 0.4);
+
+  /* 错误/强调徽章 */
+  --color-badge-accent-bg: rgba(217, 70, 239, 0.15);
+  --color-badge-accent-text: #d946ef;
+  --color-badge-accent-border: rgba(217, 70, 239, 0.4);
+
+  /* 成功徽章 */
+  --color-badge-success-bg: rgba(0, 255, 136, 0.15);
+  --color-badge-success-text: #4ade80;
+  --color-badge-success-border: rgba(0, 255, 136, 0.4);
+
+  /* 警告徽章 */
+  --color-badge-warning-bg: rgba(255, 255, 0, 0.15);
+  --color-badge-warning-text: #fbbf24;
+  --color-badge-warning-border: rgba(255, 255, 0, 0.4);
+
+  /* 错误徽章 */
+  --color-badge-error-bg: rgba(217, 70, 239, 0.15);
+  --color-badge-error-text: #d946ef;
+  --color-badge-error-border: rgba(217, 70, 239, 0.4);
+
+  /* 中性徽章 */
+  --color-badge-neutral-bg: rgba(255, 255, 255, 0.08);
+  --color-badge-neutral-text: rgba(226, 232, 240, 0.8);
+  --color-badge-neutral-border: rgba(255, 255, 255, 0.15);
+
+  /* ================================
+   * 📱 12. 组件尺寸系统
+   * 用途：按钮、输入框、头像等组件的标准尺寸
+   * ================================ */
+
+  /* 按钮尺寸 */
+  --size-button-sm: 32px;
+  --size-button-md: 40px;
+  --size-button-lg: 48px;
+
+  /* 输入框尺寸 */
+  --size-input-sm: 32px;
+  --size-input-md: 40px;
+  --size-input-lg: 48px;
+
+  /* 头像尺寸 */
+  --size-avatar-sm: 32px;
+  --size-avatar-md: 40px;
+  --size-avatar-lg: 48px;
+  --size-avatar-xl: 64px;
+
+  /* 图标尺寸 */
+  --size-icon-sm: 16px;
+  --size-icon-md: 20px;
+  --size-icon-lg: 24px;
+
+  /* ================================
+   * 🎯 13. 透明度系统
+   * 用途：标准透明度值
+   * ================================ */
+
+  --opacity-disabled: 0.5;
+  --opacity-loading: 0.7;
+  --opacity-hover: 0.8;
+  --opacity-active: 0.9;
+}

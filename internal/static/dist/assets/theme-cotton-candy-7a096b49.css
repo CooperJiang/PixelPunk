@@ -1,0 +1,174 @@
+/**
+ * PixelPunk 主题 - 棉花糖 (Cotton Candy)
+ * 梦幻渐变的粉蓝亮色主题
+ * 主色：粉蓝渐变 + 浅彩虹背景
+ */
+
+:root[data-theme='cotton-candy'] {
+  /* Brand 品牌域 - 深紫蓝色系（参考 light 主题深蓝色）*/
+  --color-brand-300: #8b9aff;
+  --color-brand-300-rgb: 139, 154, 255;
+  --color-brand-400: #6d7fff;
+  --color-brand-500: #5366e0; /* 主品牌色 - 深紫蓝（类似 GitHub 蓝的深度）*/
+  --color-brand-500-rgb: 83, 102, 224;
+  --color-brand-600: #3f4fcc;
+  --color-brand-700: #2f3eb8;
+  --color-brand-400-rgb: 109, 127, 255;
+  --color-brand-600-rgb: 63, 79, 204;
+
+  /* Background 背景域 - 清晰的层次结构（参考 light 主题）*/
+  --color-background-50: #ffffff;
+  --color-background-100: #fafbff;
+  --color-background-200: #f5f7ff;
+  --color-background-300: #e8ebff;
+  --color-background-400: #dce0ff;
+  --color-background-500: #c9ceff;
+  --color-background-600: #ffffff; /* 面板背景 - 纯白 */
+  --color-background-700: #ffffff; /* 卡片背景 - 纯白 */
+  --color-background-800: #fafbff; /* 容器背景 - 极浅蓝白（类似 light 的 #f6f8fa）*/
+  --color-background-900: #ffffff; /* 页面主背景 - 纯白（与 light 一致）*/
+  --color-background-900-rgb: 255, 255, 255;
+  --color-background-800-rgb: 250, 251, 255;
+  --color-background-700-rgb: 255, 255, 255;
+
+  /* Content 文本域 */
+  --color-content-default: #1f232d;
+  --color-content-heading: #15181f;
+  --color-content-muted: #58606b;
+  --color-content-disabled: #8a919d;
+  --color-content-rgb: 31, 35, 45;
+  --color-text-on-brand: #000847;
+  --color-text-on-success: #0a3820;
+  --color-text-on-warning: #5a3800;
+  --color-text-on-error: #ffffff;
+
+  /* 通用颜色覆盖 - 亮色主题必须覆盖这些变量 */
+  --color-white: #1f232d; /* 深色文字，用于亮色背景 */
+  --color-white-rgb: 31, 35, 45;
+  --color-black: #ffffff; /* 白色背景，用于深色文字 */
+  --color-black-rgb: 255, 255, 255;
+
+  /* State 状态域 - 补充完整的色阶 */
+  --color-success-400: #81c784; /* 浅成功色 */
+  --color-success-500: #66bb6a; /* 中等成功色 */
+  --color-success-600: #4caf50; /* 深成功色 */
+  --color-success-rgb: 102, 187, 106;
+  --color-success-400-rgb: 129, 199, 132;
+  --color-success-600-rgb: 76, 175, 80;
+
+  --color-warning-400: #ffb74d; /* 浅警告色 */
+  --color-warning-500: #ffa726; /* 中等警告色 */
+  --color-warning-600: #ff9800; /* 深警告色 */
+  --color-warning-rgb: 255, 167, 38;
+  --color-warning-400-rgb: 255, 183, 77;
+  --color-warning-600-rgb: 255, 152, 0;
+
+  --color-error-400: #e57373; /* 浅错误色 */
+  --color-error-500: #ef5350; /* 中等错误色 */
+  --color-error-600: #f44336; /* 深错误色 */
+  --color-error-rgb: 239, 83, 80;
+  --color-error-400-rgb: 229, 115, 115;
+  --color-error-600-rgb: 244, 67, 54;
+
+  --color-info-500: #42a5f5;
+  --color-info-rgb: 66, 165, 245;
+
+  /* ⭐️ 功能色系统（极简风格 - 统一使用品牌色）*/
+  --color-func-primary: var(--color-brand-500);
+  --color-func-primary-rgb: var(--color-brand-500-rgb);
+  --color-func-secondary: var(--color-brand-500);
+  --color-func-secondary-rgb: var(--color-brand-500-rgb);
+  --color-func-accent: var(--color-brand-500);
+  --color-func-info: var(--color-brand-500);
+  --color-func-info-rgb: var(--color-brand-500-rgb);
+
+  /* 首页专用颜色 - 三色分明（固定不变）*/
+  --color-home-btn-blue: #6366f1; /* 靛蓝 - 探索 */
+  --color-home-btn-blue-rgb: 99, 102, 241;
+  --color-home-btn-pink: #8b5cf6; /* 紫色 - 上传 */
+  --color-home-btn-pink-rgb: 139, 92, 246;
+  --color-home-btn-purple: #7c3aed; /* 深紫 - 用户中心 */
+  --color-home-btn-purple-rgb: 124, 58, 237;
+
+  /* Border/Divider 边框域 - 实色蓝灰色边框（参考 light 主题）*/
+  --color-border-subtle: #e1e5f5;
+  --color-border-default: #c9ceff;
+  --color-border-strong: #8a919d;
+  --color-divider-light: #f0f2fc;
+  --color-divider-medium: #e1e5f5;
+  --color-divider-strong: #c9ceff;
+
+  /* 交互状态系统 - 使用品牌色但更清晰（参考 light 主题）*/
+  --color-hover-bg: #fafbff;
+  --color-hover-bg-neutral: #fafbff;
+  --color-hover-border: #5366e0;
+  --color-hover-text: #5366e0;
+  --color-active-bg: #e8ebff;
+  --color-active-border: #5366e0;
+  --color-focus-ring: rgba(83, 102, 224, 0.3);
+  --color-focus-border: #5366e0;
+  --color-selected-bg: #e8ebff;
+  --color-selected-border: #5366e0;
+  --color-disabled-bg: #fafbff;
+  --color-disabled-text: #8a919d;
+  --color-disabled-border: #e1e5f5;
+
+  /* 表单专用系统 - 实色边框（参考 light 主题）*/
+  --color-input-bg: #ffffff;
+  --color-input-bg-focus: #ffffff;
+  --color-input-bg-disabled: #fafbff;
+  --color-input-text: #1f232d;
+  --color-input-text-disabled: #8a919d;
+  --color-input-border: #c9ceff;
+  --color-input-border-hover: #8a919d;
+  --color-input-border-focus: #5366e0;
+  --color-input-border-error: #d1242f;
+  --color-placeholder: #8a919d;
+  --color-placeholder-focus: #58606b;
+  --color-label: #1f232d;
+  --color-label-required: var(--color-error-500);
+
+  /* 特效系统 - 品牌色光晕效果保留（用于特殊强调）*/
+  --shadow-glow-sm: 0 0 10px rgba(83, 102, 224, 0.15);
+  --shadow-glow-md: 0 0 20px rgba(83, 102, 224, 0.2);
+  --shadow-glow-lg: 0 0 30px rgba(83, 102, 224, 0.25);
+  --shadow-glow-xl: 0 0 40px rgba(83, 102, 224, 0.3);
+  --shadow-cyber-sm: 0 1px 2px rgba(31, 35, 45, 0.03);
+  --shadow-cyber-md: 0 2px 4px rgba(138, 145, 157, 0.08);
+  --shadow-cyber-lg: 0 3px 8px rgba(138, 145, 157, 0.12);
+  --shadow-cyber-xl: 0 4px 12px rgba(138, 145, 157, 0.15);
+
+  /* 覆盖通用阴影系统 - 灰色阴影（参考 light 主题）*/
+  --shadow-xs: 0 1px 2px rgba(31, 35, 45, 0.08);
+  --shadow-sm: 0 1px 3px rgba(138, 145, 157, 0.12), 0 1px 2px rgba(138, 145, 157, 0.08);
+  --shadow-md: 0 4px 6px rgba(138, 145, 157, 0.15), 0 2px 4px rgba(138, 145, 157, 0.12);
+  --shadow-lg: 0 10px 15px rgba(138, 145, 157, 0.18), 0 4px 6px rgba(138, 145, 157, 0.15);
+  --shadow-xl: 0 20px 25px rgba(138, 145, 157, 0.2), 0 10px 10px rgba(138, 145, 157, 0.18);
+  --shadow-inner: inset 0 2px 4px rgba(31, 35, 45, 0.06);
+
+  /* 徽章/标签系统 - 清晰的实色背景（参考 light 主题）*/
+  --color-badge-primary-bg: #e8ebff;
+  --color-badge-primary-text: #5366e0;
+  --color-badge-primary-border: #8b9aff;
+  --color-badge-accent-bg: #f0f2ff;
+  --color-badge-accent-text: #3f4fcc;
+  --color-badge-accent-text-rgb: 63, 79, 204;
+  --color-badge-accent-border: #c9ceff;
+  --color-badge-success-bg: #dafbe1;
+  --color-badge-success-text: #1a7f37;
+  --color-badge-success-border: #4ac26b;
+  --color-badge-warning-bg: #fff8c5;
+  --color-badge-warning-text: #9a6700;
+  --color-badge-warning-border: #d4a72c;
+  --color-badge-error-bg: #ffebe9;
+  --color-badge-error-text: #d1242f;
+  --color-badge-error-border: #ff8182;
+  --color-badge-neutral-bg: #fafbff;
+  --color-badge-neutral-text: #58606b;
+  --color-badge-neutral-border: #c9ceff;
+
+  /* 遮罩 - 使用白色遮罩（参考 light 主题）*/
+  --color-overlay-light: rgba(255, 255, 255, 0.3);
+  --color-overlay-medium: rgba(255, 255, 255, 0.5);
+  --color-overlay-heavy: rgba(255, 255, 255, 0.7);
+}

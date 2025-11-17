@@ -1,0 +1,159 @@
+/**
+ * PixelPunk 主题 - 极光之夜 (Aurora Night)
+ * 梦幻绚丽的北极光配色，如极地夜空般的视觉盛宴
+ * 主色：极光青紫 + 深夜蓝黑
+ */
+
+:root[data-theme='aurora-night'] {
+  /* Brand 品牌域 */
+  --color-brand-300: #99f6e4;
+  --color-brand-300-rgb: 153, 246, 228;
+  --color-brand-400: #5eead4;
+  --color-brand-400-rgb: 94, 234, 212;
+  --color-brand-500: #2dd4bf; /* 主品牌色 - 极光青 */
+  --color-brand-500-rgb: 45, 212, 191;
+  --color-brand-600: #14b8a6;
+  --color-brand-600-rgb: 20, 184, 166;
+  --color-brand-700: #0d9488;
+
+  /* Background 背景域 - 深蓝紫黑色调 */
+  --color-background-50: #2d3d54;
+  --color-background-100: #253347;
+  --color-background-200: #1e293a;
+  --color-background-300: #182030;
+  --color-background-400: #131925;
+  --color-background-500: #0f141d;
+  --color-background-600: #141b28; /* 面板背景 */
+  --color-background-700: #0f1621; /* 卡片背景 */
+  --color-background-800: #0b101a; /* 容器背景 */
+  --color-background-900: #070b13; /* 页面主背景 */
+  --color-background-900-rgb: 7, 11, 19;
+  --color-background-800-rgb: 11, 16, 26;
+  --color-background-700-rgb: 15, 22, 33;
+
+  /* Content 文本域 */
+  --color-content-default: #ccfbf1;
+  --color-content-heading: #f0fdfa;
+  --color-content-muted: #5eead4;
+  --color-content-disabled: #2dd4bf;
+  --color-content-rgb: 204, 251, 241;
+  --color-text-on-brand: #042f2e;
+  --color-text-on-success: #022c22;
+  --color-text-on-warning: #1c1917;
+  --color-text-on-error: #ffffff;
+
+  /* State 状态域 - 补充完整的色阶 */
+  --color-success-400: #5eead4;
+  --color-success-500: #2dd4bf;
+  --color-success-600: #14b8a6;
+  --color-success-rgb: 45, 212, 191;
+  --color-success-400-rgb: 94, 234, 212;
+  --color-success-600-rgb: 20, 184, 166;
+
+  --color-warning-400: #fcd34d;
+  --color-warning-500: #fbbf24;
+  --color-warning-600: #f59e0b;
+  --color-warning-rgb: 251, 191, 36;
+  --color-warning-400-rgb: 252, 211, 77;
+  --color-warning-600-rgb: 245, 158, 11;
+
+  --color-error-400: #f0abfc;
+  --color-error-500: #e879f9;
+  --color-error-600: #d946ef;
+  --color-error-rgb: 232, 121, 249;
+  --color-error-400-rgb: 240, 171, 252;
+  --color-error-600-rgb: 217, 70, 239;
+
+  --color-info-500: #2dd4bf;
+  --color-info-rgb: 45, 212, 191;
+
+  /* 功能色系统 - 极光多彩 */
+  --color-func-primary: #2dd4bf; /* 极光青 */
+  --color-func-primary-rgb: 45, 212, 191;
+  --color-func-secondary: #a78bfa; /* 极光紫 */
+  --color-func-secondary-rgb: 167, 139, 250;
+  --color-func-accent: #e879f9; /* 极光品红 */
+  --color-func-info: #6ee7b7; /* 极光绿 */
+  --color-func-info-rgb: 110, 231, 183;
+
+  /* 首页专用颜色 */
+  --color-home-btn-blue: #2dd4bf;
+  --color-home-btn-blue-rgb: 45, 212, 191;
+  --color-home-btn-pink: #5eead4;
+  --color-home-btn-pink-rgb: 94, 234, 212;
+  --color-home-btn-purple: #a78bfa;
+  --color-home-btn-purple-rgb: 167, 139, 250;
+
+  /* Border/Divider 边框域 */
+  --color-border-subtle: #0f2429;
+  --color-border-default: #1a3f4a;
+  --color-border-strong: #26595f;
+  --color-divider-light: #0a151a;
+  --color-divider-medium: #0f1e24;
+  --color-divider-strong: #1a3f4a;
+
+  /* 交互状态系统 */
+  --color-hover-bg: rgba(45, 212, 191, 0.12);
+  --color-hover-bg-neutral: rgba(204, 251, 241, 0.05);
+  --color-hover-border: #0d9488;
+  --color-hover-text: #5eead4;
+  --color-active-bg: rgba(45, 212, 191, 0.2);
+  --color-active-border: #2dd4bf;
+  --color-focus-ring: rgba(45, 212, 191, 0.3);
+  --color-focus-border: #14b8a6;
+  --color-selected-bg: rgba(45, 212, 191, 0.15);
+  --color-selected-border: #14b8a6;
+  --color-disabled-bg: rgba(204, 251, 241, 0.03);
+  --color-disabled-text: #2dd4bf;
+  --color-disabled-border: #0f2429;
+
+  /* 表单专用系统 */
+  --color-input-bg: rgba(15, 22, 33, 0.7);
+  --color-input-bg-focus: rgba(15, 22, 33, 0.95);
+  --color-input-bg-disabled: rgba(15, 22, 33, 0.4);
+  --color-input-text: #ccfbf1;
+  --color-input-text-disabled: #2dd4bf;
+  --color-input-border: #1a3f4a;
+  --color-input-border-hover: #26595f;
+  --color-input-border-focus: #14b8a6;
+  --color-input-border-error: #b83ab8;
+  --color-placeholder: rgba(204, 251, 241, 0.35);
+  --color-placeholder-focus: rgba(204, 251, 241, 0.25);
+  --color-label: #ccfbf1;
+  --color-label-required: var(--color-error-500);
+
+  /* 特效系统 - 极光光晕 */
+  --shadow-glow-sm: 0 0 15px rgba(45, 212, 191, 0.4), 0 0 8px rgba(167, 139, 250, 0.2);
+  --shadow-glow-md: 0 0 25px rgba(45, 212, 191, 0.45), 0 0 12px rgba(167, 139, 250, 0.25);
+  --shadow-glow-lg: 0 0 35px rgba(45, 212, 191, 0.5), 0 0 18px rgba(167, 139, 250, 0.3);
+  --shadow-glow-xl: 0 0 45px rgba(45, 212, 191, 0.55), 0 0 22px rgba(167, 139, 250, 0.35);
+  --shadow-cyber-sm: 0 0 10px rgba(45, 212, 191, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-cyber-md: 0 0 15px rgba(45, 212, 191, 0.25), 0 4px 8px rgba(0, 0, 0, 0.35);
+  --shadow-cyber-lg: 0 0 20px rgba(45, 212, 191, 0.3), 0 6px 12px rgba(0, 0, 0, 0.4);
+  --shadow-cyber-xl: 0 0 25px rgba(45, 212, 191, 0.35), 0 8px 16px rgba(0, 0, 0, 0.45);
+
+  /* 徽章/标签系统 */
+  --color-badge-primary-bg: #0f2429;
+  --color-badge-primary-text: #5eead4;
+  --color-badge-primary-border: #26595f;
+  --color-badge-accent-bg: #1a3f4a;
+  --color-badge-accent-text: #99f6e4;
+  --color-badge-accent-border: #34706f;
+  --color-badge-success-bg: #0f2429;
+  --color-badge-success-text: #5eead4;
+  --color-badge-success-border: #26595f;
+  --color-badge-warning-bg: #2e2410;
+  --color-badge-warning-text: #fcd34d;
+  --color-badge-warning-border: #5c4820;
+  --color-badge-error-bg: #2e142e;
+  --color-badge-error-text: #f0abfc;
+  --color-badge-error-border: #5c285c;
+  --color-badge-neutral-bg: #0f1e24;
+  --color-badge-neutral-text: #5eead4;
+  --color-badge-neutral-border: #1a3f4a;
+
+  /* 遮罩 */
+  --color-overlay-light: rgba(7, 11, 19, 0.5);
+  --color-overlay-medium: rgba(7, 11, 19, 0.7);
+  --color-overlay-heavy: rgba(7, 11, 19, 0.85);
+}

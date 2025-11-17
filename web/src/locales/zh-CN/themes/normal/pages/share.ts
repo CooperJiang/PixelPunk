@@ -1,0 +1,116 @@
+/**
+ * 分享页面文案
+ */
+export const share = {
+  social: {
+    linkCopied: '链接已复制到剪贴板',
+    copyFailed: '复制失败，请手动复制',
+    defaultTitle: '分享',
+    defaultText: '查看这个分享的内容',
+    shareSuccess: '分享成功',
+    shareFailed: '分享失败，请手动复制链接',
+    wechatQRCode: '请使用微信扫描二维码分享',
+  },
+  emptyState: {
+    title: '当前目录为空',
+    description: '此目录中没有任何内容',
+  },
+  error: {
+    notFound: '分享不存在',
+    notFoundDesc: '该分享可能已被删除或链接已失效',
+    expired: '分享已过期',
+    expiredDesc: '该分享已超过有效期',
+    disabled: '分享已被禁用',
+    disabledDesc: '该分享已被管理员禁用',
+    backHome: '返回首页',
+    defaultTitle: '错误',
+    defaultMessage: '发生了一个错误，请稍后重试。',
+  },
+  visitor: {
+    dialogTitle: '欢迎您访问',
+    welcomeTitle: '留下您的足迹',
+    message: '分享者想更好地了解您的反馈和建议，这将帮助提供更优质的内容。您的信息仅供交流使用，不会被公开。',
+    name: {
+      label: '您的称呼',
+      placeholder: '请输入您的称呼',
+    },
+    email: {
+      label: '联系方式（可选）',
+      placeholder: '邮箱地址，方便后续交流',
+    },
+    submit: '提交信息',
+    dismiss: '稍后再说',
+  },
+  header: {
+    title: '分享',
+    views: '浏览',
+    downloads: '下载',
+    avatar: '头像',
+    userAvatar: '用户头像',
+    permanent: '永久有效',
+    passwordProtected: '密码保护',
+    viewCount: '访问次数',
+    maxViews: '最大访问',
+    validUntil: '有效期至',
+    description: '分享描述',
+  },
+  autoLoader: {
+    loading: '加载中...',
+    loaded: '已加载 {current}/{total}',
+    allLoaded: '已加载全部内容',
+  },
+  file: {
+    title: '当前目录文件',
+    download: '下载',
+    rootFiles: '根目录文件',
+  },
+  folder: {
+    title: '文件夹',
+  },
+  mobile: {
+    backToRoot: '返回根目录',
+    viewCount: '{count} 次访问',
+  },
+  gridSize: {
+    title: '调整网格大小',
+  },
+  layout: {
+    title: '选择布局方式',
+  },
+  passwordDialog: {
+    title: '访问密码',
+    message: '此分享需要密码才能访问',
+    placeholder: '请输入访问密码',
+    verify: '验证',
+  },
+  sort: {
+    date: '日期',
+    name: '名称',
+    size: '大小',
+    newest: '最新上传',
+    oldest: '最早上传',
+    largest: '文件最大',
+    smallest: '文件最小',
+    nameAsc: '名称升序',
+    nameDesc: '名称降序',
+    adjustGridSize: '调整网格大小',
+    fullscreen: '全屏浏览',
+    exitFullscreen: '退出全屏',
+    selectLayout: '选择布局方式',
+    multiSelect: '多选',
+    exitSelect: '退出选择',
+  },
+  footer: {
+    poweredBy: '由 {siteName} 提供技术支持',
+  },
+  selection: {
+    noFilesSelected: '请先选择要下载的文件',
+    createZipFailed: '创建ZIP文件夹失败',
+    packFailedRetry: '打包下载失败，请稍后重试',
+    downloadSuccess: '文件下载成功',
+    downloadFailed: '下载文件失败，请稍后重试',
+    preparing: '正在准备下载 {count} 个资源...',
+    progress: '已处理 {completed}/{total} 个资源...',
+    successSummary: '已成功打包下载 {count} 个资源',
+  },
+}

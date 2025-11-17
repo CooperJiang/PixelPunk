@@ -1,0 +1,26 @@
+# Build outputs
+/dist
+/build
+/node_modules
+/coverage
+
+# Package manager
+pnpm-lock.yaml
+
+# Generated files
+auto-imports.d.ts
+components.d.ts
+.eslintrc-auto-import.json
+
+# IDE/editor
+.vscode
+.idea
+
+# OS
+.DS_Store
+
+# Minified bundles
+*.min.*
+
+# 临时跳过有语法问题的文件
+src/pages/docs/composables/useCodeExamples.ts

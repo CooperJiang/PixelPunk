@@ -1,0 +1,274 @@
+# ============================================
+# Go 语言相关
+# ============================================
+
+# 二进制文件
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.o
+*.a
+app
+main
+
+# 依赖管理
+vendor/
+go.work
+
+# 测试覆盖率
+*.cover
+coverage.txt
+profile.out
+
+# 其他
+__debug_bin
+
+# GitHub Actions 示例文件
+.github/workflows/*.example
+.github/workflows/*.yml.example
+
+# ============================================
+# 前端相关
+# ============================================
+
+# 依赖目录
+node_modules/
+web/node_modules/
+web/pnpm-lock.yaml
+
+# 构建产物
+# 注意：/internal/static/dist/ 需要提交（Go embed 依赖）
+/dist/
+web/dist/
+/internal/static/assets/
+
+# 前端缓存
+.vite/
+web/.vite/
+web/node_modules/.cache/
+.vite-ssg-temp/
+web/.vite-ssg-temp/
+
+# ============================================
+# 数据库相关
+# ============================================
+
+# SQLite 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+app.db
+
+# ============================================
+# 配置文件
+# ============================================
+
+# 环境配置（只保留示例配置）
+configs/*.yaml
+!configs/config.example.yaml
+
+# 环境变量文件（后端仅保留示例）
+.env
+.env.*
+!.env.example
+
+# 部署配置（敏感信息）
+deploy.conf
+deploy/deploy.*.conf
+!deploy/deploy.dev.conf
+!deploy/deploy.prod.conf
+*.pem
+*.key
+
+# 部署脚本（个人开发用）
+deploy/*.sh
+deploy/service.sh
+
+# ============================================
+# 日志文件
+# ============================================
+
+logs/
+*.log
+
+# ============================================
+# 临时文件和缓存
+# ============================================
+
+# 临时目录
+tmp/
+temp/
+.tmp/
+.temp/
+/tmp-air-*/
+
+# 缓存目录
+.cache/
+.build-cache/
+.docker-cache/
+.gocache/
+# 注意：不要忽略 pkg/cache（这是代码模块）
+/cache/
+/web/cache/
+
+# Air 热重载缓存
+.air.toml.tmp
+
+# ============================================
+# 构建产物
+# ============================================
+
+# 构建目录
+build/
+/build/
+bin/
+/bin/
+Release/
+release/
+
+# 打包文件
+*.tar.gz
+*.zip
+
+# ============================================
+# IDE 和编辑器
+# ============================================
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs (IntelliJ, GoLand, WebStorm 等)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Eclipse
+.project
+.settings/
+.classpath
+
+# ============================================
+# 操作系统相关
+# ============================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ============================================
+# AI 助手相关
+# ============================================
+
+# Claude AI
+.claude/
+.claude_history
+**/.claude/
+**/.claude/**
+**/settings.local.json
+
+# Cursor AI
+.cursor/
+.cursorignore
+
+# AI 开发文档（仅本地使用）
+docs/CLAUDE.md
+
+# 其他 AI 工具
+.copilot/
+.github-copilot/
+
+# ============================================
+# 项目特定文件
+# ============================================
+
+# 上传文件目录
+uploads/
+uploads/*
+!uploads/.gitkeep
+
+# 数据目录
+data/
+qdrant/data/
+qdrant/bin/
+qdrant/.qdrant-initialized
+
+# 部署缓存（Qdrant 预下载文件等）
+deploy/cache/
+qdrant-binaries/
+
+# 个人笔记
+TODO.md
+NOTES.md
+.notes/
+
+# ============================================
+# Docker 相关
+# ============================================
+
+# Docker 构建缓存
+.docker-cache/
+.buildx-cache/
+.dockerignore.local
+
+# Docker Compose 覆盖文件
+docker-compose.override.yml
+docker-compose.local.yml
+
+# 动态生成的 Dockerfile
+Dockerfile.webp_support.dynamic
+
+# ============================================
+# 其他
+# ============================================
+
+# 临时文件
+*.tmp
+*.bak
+*.backup
+*.old
+
+# 压缩文件
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Qdrant 缓存
+.cache/
+
+pixelpunk.playwright-mcp/

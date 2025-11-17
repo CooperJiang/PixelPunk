@@ -1,0 +1,61 @@
+/**
+ * File detail drawer component
+ */
+export const fileDetailDrawer = {
+  sections: {
+    basicInfo: '基本情報',
+    aiAnalysis: 'AI分析',
+    links: 'リンク',
+    shootingInfo: '撮影情報',
+    time: '時間',
+  },
+  labels: {
+    fileName: 'ファイル名',
+    fileSize: 'ファイルサイズ',
+    resolution: '解像度',
+    format: '形式',
+    accessLevel: 'アクセスレベル',
+    storageDuration: 'ストレージ期間',
+    expiresAt: '有効期限',
+    description: '説明',
+    tags: 'タグ',
+    dominantColor: '主色',
+    colorCode: 'カラーコード',
+    resolutionLevel: '解像度レベル',
+    contentSafety: 'コンテンツ安全性',
+    notEvaluated: '未評価',
+    nsfwScore: 'NSFWスコア',
+    fullUrl: '完全URL',
+    shortUrl: 'ショートURL',
+    thumbUrl: 'サムネイルURL',
+    camera: 'カメラ',
+    lens: 'レンズ',
+    focalLength: '焦点距離',
+    equivalent: '換算',
+    aperture: '絞り',
+    shutterSpeed: 'シャッター速度',
+    iso: 'ISO',
+    shootingTime: '撮影時間',
+    gpsCoords: 'GPS座標',
+    altitude: '高度',
+    editingSoftware: '編集ソフトウェア',
+    copyright: '著作権',
+    createdAt: '作成日',
+    updatedAt: '更新日',
+  },
+  accessLevel: {
+    public: '公開',
+    private: 'プライベート',
+    password: 'パスワード保護',
+  },
+  storageDuration: {
+    permanent: '永続',
+    temporary: '一時',
+  },
+  messages: {
+    copySuccess: '{label}コピー済み',
+    copyFailed: 'コピー失敗',
+  },
+  empty: 'ファイル情報が利用できません',
+}
+

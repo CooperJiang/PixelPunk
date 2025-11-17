@@ -1,0 +1,40 @@
+# WebP运行时基础镜像 - 包含所有运行时依赖
+FROM --platform=linux/amd64 ubuntu:22.04
+
+LABEL maintainer="PixelPunk Team"
+LABEL description="Pre-built runtime base image for WebP support"
+LABEL version="1.0.0"
+
+# 设置时区（避免交互）
+ENV TZ=Asia/Shanghai
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 安装运行时依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    # WebP运行时库
+    libwebp7 \
+    # SSL证书
+    ca-certificates \
+    # 时区数据
+    tzdata \
+    # 清理
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get autoremove -y \
+    && apt-get autoclean
+
+# 配置时区
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# 创建应用目录和用户
+RUN groupadd -r pixelpunk && useradd -r -g pixelpunk pixelpunk
+RUN mkdir -p /app/uploads /app/data /app/logs && \
+    chown -R pixelpunk:pixelpunk /app
+
+WORKDIR /app
+
+# 切换到非特权用户
+USER pixelpunk
+
+EXPOSE 9520 9521
+
+CMD ["bash"]

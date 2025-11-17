@@ -1,0 +1,100 @@
+.author-empty-state {
+  padding: var(--space-3xl) var(--space-xl);
+  text-align: center;
+  background: rgba(var(--color-background-800-rgb), 0.4);
+  border: 1.5px dashed rgba(var(--color-brand-500-rgb), 0.2);
+  border-radius: var(--radius-sm);
+  backdrop-filter: var(--backdrop-blur-sm);
+}
+
+.empty-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(var(--color-brand-500-rgb), 0.12), rgba(var(--color-brand-500-rgb), 0.06));
+  border: 2px solid rgba(var(--color-brand-500-rgb), 0.2);
+  border-radius: var(--radius-2xl);
+
+  i {
+    font-size: var(--text-4xl);
+    color: var(--color-brand-400);
+    opacity: 0.6;
+  }
+}
+
+.empty-title {
+  margin: 0 0 var(--space-sm);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-content-heading);
+}
+
+.empty-description {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--text-sm);
+  color: var(--color-content-default);
+  opacity: 0.7;
+}
+
+.empty-suggestion {
+  margin: 0 0 var(--space-lg);
+  font-size: var(--text-xs);
+  color: var(--color-content-muted);
+  opacity: 0.6;
+}
+
+.retry-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  background: rgba(var(--color-brand-500-rgb), 0.1);
+  border: 1.5px solid rgba(var(--color-brand-500-rgb), 0.3);
+  border-radius: var(--radius-sm);
+  color: var(--color-brand-500);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-normal) var(--ease-in-out);
+
+  i {
+    font-size: var(--text-sm);
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    background: rgba(var(--color-brand-500-rgb), 0.15);
+    border-color: rgba(var(--color-brand-500-rgb), 0.4);
+    box-shadow: 0 4px 12px rgba(var(--color-brand-500-rgb), 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .author-empty-state {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .empty-icon-wrapper {
+    width: 64px;
+    height: 64px;
+
+    i {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  .empty-title {
+    font-size: var(--text-lg);
+  }
+
+  .empty-description {
+    font-size: var(--text-xs);
+  }
+}

@@ -1,0 +1,175 @@
+/* 布局适配CSS变量系统 */
+:root {
+  /* =================
+     基础布局变量
+     ================= */
+
+  /* 容器宽度 */
+  --layout-container-width: 100%;
+  --layout-content-max-width: 1536px;
+  --layout-content-padding: 0.75rem;
+
+  /* 间距系统 */
+  --layout-section-gap: 2rem;
+  --layout-card-gap: 1.5rem;
+  --layout-element-gap: 1rem;
+
+  /* 网格系统 */
+  --layout-grid-cols: 1;
+  --layout-grid-gap: 1.5rem;
+
+  /* 导航高度 */
+  --layout-nav-height: 4rem;
+  --layout-topbar-height: 4rem;
+  --layout-sidebar-width: 210px;
+}
+
+/* =================
+   顶部布局模式变量
+   ================= */
+.layout-top {
+  /* 容器设置 */
+  --layout-container-width: 100%;
+  --layout-content-max-width: 1536px;
+  --layout-content-padding: 0.75rem;
+
+  /* 间距优化 - 适合展示型页面 */
+  --layout-section-gap: 3rem;
+  --layout-card-gap: 2rem;
+  --layout-element-gap: 1.5rem;
+
+  /* 网格布局 - 更适合视觉展示 */
+  --layout-grid-cols: repeat(auto-fill, minmax(300px, 1fr));
+  --layout-grid-gap: 2rem;
+
+  /* 字体大小 - 更大更醒目 */
+  --layout-title-size: 2.5rem;
+  --layout-subtitle-size: 1.25rem;
+  --layout-text-size: 1rem;
+
+  /* 卡片样式 */
+  --layout-card-padding: 2rem;
+  --layout-card-radius: 1rem;
+
+  /* 动画时间 */
+  --layout-animation-duration: 0.4s;
+  --layout-hover-scale: 1.02;
+}
+
+/* =================
+   左侧布局模式变量  
+   ================= */
+.layout-left {
+  /* 容器设置 - 充分利用空间 */
+  --layout-container-width: 100%;
+  --layout-content-max-width: none;
+  --layout-content-padding: 1.5rem;
+
+  /* 间距优化 - 适合管理型页面 */
+  --layout-section-gap: 1.5rem;
+  --layout-card-gap: 1rem;
+  --layout-element-gap: 0.75rem;
+
+  /* 网格布局 - 更紧凑实用 */
+  --layout-grid-cols: repeat(auto-fill, minmax(250px, 1fr));
+  --layout-grid-gap: 1rem;
+
+  /* 字体大小 - 更紧凑实用 */
+  --layout-title-size: 1.875rem;
+  --layout-subtitle-size: 1.125rem;
+  --layout-text-size: 0.875rem;
+
+  /* 卡片样式 */
+  --layout-card-padding: 1.5rem;
+  --layout-card-radius: 0.75rem;
+
+  /* 动画时间 */
+  --layout-animation-duration: 0.2s;
+  --layout-hover-scale: 1.01;
+
+  /* 表格和表单优化 */
+  --layout-table-row-height: 3rem;
+  --layout-form-field-height: 2.5rem;
+  --layout-input-padding: 0.75rem;
+}
+
+/* =================
+   响应式断点调整
+   ================= */
+
+/* 平板端调整 */
+@media (min-width: 768px) {
+  .layout-top {
+    --layout-content-padding: 1.5rem;
+    --layout-section-gap: 4rem;
+    --layout-card-gap: 2.5rem;
+  }
+
+  .layout-left {
+    --layout-content-padding: 2rem;
+    --layout-grid-cols: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+/* 桌面端调整 */
+@media (min-width: 1024px) {
+  .layout-top {
+    --layout-grid-cols: repeat(auto-fill, minmax(350px, 1fr));
+    --layout-section-gap: 5rem;
+  }
+
+  .layout-left {
+    --layout-grid-cols: repeat(auto-fill, minmax(320px, 1fr));
+    --layout-card-gap: 1.25rem;
+  }
+}
+
+/* 大屏端调整 */
+@media (min-width: 1280px) {
+  .layout-top {
+    --layout-grid-cols: repeat(auto-fill, minmax(400px, 1fr));
+  }
+
+  .layout-left {
+    --layout-grid-cols: repeat(auto-fill, minmax(350px, 1fr));
+    --layout-content-padding: 2.5rem;
+  }
+}
+
+/* =================
+   特殊页面类型变量
+   ================= */
+
+/* 首页全屏模式 */
+.layout-top.page-home {
+  --layout-section-gap: 5rem;
+  --layout-title-size: 3.5rem;
+}
+
+/* 管理页面模式 */
+.layout-left.page-admin {
+  --layout-card-gap: 0.75rem;
+  --layout-element-gap: 0.5rem;
+  --layout-text-size: 0.8125rem;
+}
+
+/* 文档页面模式 */
+.page-docs {
+  --layout-content-max-width: none;
+  --layout-content-padding: 0;
+}
+
+/* 图库页面模式 */
+.page-gallery {
+  --layout-grid-gap: 0.5rem;
+}
+
+.layout-top.page-gallery {
+  --layout-grid-gap: 1rem;
+  --layout-grid-cols: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.layout-left.page-gallery {
+  --layout-grid-gap: 0.75rem;
+  --layout-grid-cols: repeat(auto-fill, minmax(200px, 1fr));
+}

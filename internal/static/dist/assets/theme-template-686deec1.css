@@ -1,0 +1,188 @@
+/**
+ * PixelPunk 主题模板
+ *
+ * 使用说明：
+ * 1. 复制此文件并重命名为 theme-你的主题名.css
+ * 2. 将 'your-theme-name' 替换为你的主题名称（使用 kebab-case）
+ * 3. 修改所有颜色值为你想要的颜色
+ * 4. 在 main.css 中导入你的主题文件
+ * 5. 在 visualTheme.ts 中注册你的主题
+ *
+ * 提示：
+ * - RGB 值用于透明度计算，格式为 "r, g, b"（不带括号）
+ * - 建议使用在线工具将 HEX 颜色转换为 RGB
+ * - 保持颜色层级关系：900 最深 → 50 最浅
+ */
+
+:root[data-theme='your-theme-name'] {
+  /* ==================== Brand 品牌域 ==================== */
+  /* 主品牌色 - 用于按钮、链接、强调元素 */
+  --color-brand-300: #bfdbfe; /* 更浅品牌色 */
+  --color-brand-300-rgb: 191, 219, 254;
+  --color-brand-400: #93c5fd; /* 浅品牌色 */
+  --color-brand-400-rgb: 147, 197, 253;
+  --color-brand-500: #60a5fa; /* 主品牌色 ⭐️ 最重要 */
+  --color-brand-500-rgb: 96, 165, 250; /* RGB 格式（用于透明度）⭐️ */
+  --color-brand-600: #3b82f6; /* 深品牌色 */
+  --color-brand-600-rgb: 59, 130, 246;
+  --color-brand-700: #2563eb; /* 更深品牌色 */
+
+  /* ==================== Background 背景域 ==================== */
+  /* 背景色层级：900(最深) → 800 → 700 → 600 → ... → 50(最浅) */
+  --color-background-50: #6b7280;
+  --color-background-100: #4b5563;
+  --color-background-200: #374151;
+  --color-background-300: #2d3748;
+  --color-background-400: #252d3a;
+  --color-background-500: #1e2530;
+  --color-background-600: #1f2937; /* 面板背景 */
+  --color-background-700: #1a202c; /* 卡片背景 ⭐️ 常用 */
+  --color-background-800: #151b26; /* 容器背景 ⭐️ 常用 */
+  --color-background-900: #0f1419; /* 页面主背景 ⭐️ 最重要 */
+  --color-background-900-rgb: 15, 20, 25; /* RGB 格式 ⭐️ */
+  --color-background-800-rgb: 21, 27, 38;
+  --color-background-700-rgb: 26, 32, 44;
+
+  /* ==================== Content 文本域 ==================== */
+  /* 文本颜色 - 确保与背景有足够对比度 */
+  --color-content-default: #e5e7eb; /* 默认文本 ⭐️ 最重要 */
+  --color-content-heading: #f9fafb; /* 标题文本 */
+  --color-content-muted: #9ca3af; /* 次要文本 */
+  --color-content-disabled: #6b7280; /* 禁用文本 */
+  --color-content-rgb: 229, 231, 235; /* RGB 格式 */
+  --color-text-on-brand: #0f1419; /* 品牌色上的文本 */
+  --color-text-on-success: #0f1419;
+  --color-text-on-warning: #0f1419;
+  --color-text-on-error: #ffffff;
+
+  /* ==================== 通用颜色覆盖 ==================== */
+  /* 亮色主题需要覆盖这些变量（暗色主题可选） */
+  --color-white: #f9fafb; /* 白色/浅色（暗色主题使用浅色，亮色主题使用深色） */
+  --color-white-rgb: 249, 250, 251;
+  --color-black: #0f1419; /* 黑色/深色 */
+  --color-black-rgb: 15, 20, 25;
+
+  /* ==================== State 状态域 ==================== */
+  /* 状态颜色 - 成功、警告、错误、信息（完整色阶）*/
+  --color-success-400: #6ee7b7; /* 浅成功色 */
+  --color-success-500: #34d399; /* 成功色（绿色）⭐️ */
+  --color-success-600: #10b981; /* 深成功色 */
+  --color-success-rgb: 52, 211, 153;
+  --color-success-400-rgb: 110, 231, 183;
+  --color-success-600-rgb: 16, 185, 129;
+
+  --color-warning-400: #fcd34d; /* 浅警告色 */
+  --color-warning-500: #fbbf24; /* 警告色（橙色）⭐️ */
+  --color-warning-600: #f59e0b; /* 深警告色 */
+  --color-warning-rgb: 251, 191, 36;
+  --color-warning-400-rgb: 252, 211, 77;
+  --color-warning-600-rgb: 245, 158, 11;
+
+  --color-error-400: #fca5a5; /* 浅错误色 */
+  --color-error-500: #f87171; /* 错误色（红色）⭐️ */
+  --color-error-600: #ef4444; /* 深错误色 */
+  --color-error-rgb: 248, 113, 113;
+  --color-error-400-rgb: 252, 165, 165;
+  --color-error-600-rgb: 239, 68, 68;
+
+  --color-info-500: #60a5fa; /* 信息色（蓝色） */
+  --color-info-rgb: 96, 165, 250;
+
+  /* ==================== 功能色系统 ==================== */
+  /* 多彩功能色 - 用于不同功能区分 */
+  --color-func-primary: #60a5fa; /* 主要功能色（蓝色）*/
+  --color-func-primary-rgb: 96, 165, 250;
+  --color-func-secondary: #34d399; /* 次要功能色（绿色）*/
+  --color-func-secondary-rgb: 52, 211, 153;
+  --color-func-accent: #a78bfa; /* 强调功能色（紫色）*/
+  --color-func-info: #f59e0b; /* 信息功能色（橙色）*/
+  --color-func-info-rgb: 245, 158, 11;
+
+  /* ==================== 首页专用颜色 ==================== */
+  /* 首页按钮的特殊颜色 */
+  --color-home-btn-blue: #60a5fa; /* 探索广场 */
+  --color-home-btn-blue-rgb: 96, 165, 250;
+  --color-home-btn-pink: #f472b6; /* 开始上传 */
+  --color-home-btn-pink-rgb: 244, 114, 182;
+  --color-home-btn-purple: #a78bfa; /* 登录注册 */
+  --color-home-btn-purple-rgb: 167, 139, 250;
+
+  /* ==================== Border/Divider 边框域 ==================== */
+  /* 边框和分割线 - 使用半透明白色 */
+  --color-border-subtle: rgba(255, 255, 255, 0.06); /* 细边框 */
+  --color-border-default: rgba(255, 255, 255, 0.12); /* 默认边框 ⭐️ 常用 */
+  --color-border-strong: rgba(255, 255, 255, 0.24); /* 强边框 */
+  --color-divider-light: rgba(255, 255, 255, 0.04); /* 浅分割线 */
+  --color-divider-medium: rgba(255, 255, 255, 0.08);
+  --color-divider-strong: rgba(255, 255, 255, 0.16);
+
+  /* ==================== Interactive 交互状态系统 ==================== */
+  /* Hover、Active、Focus 等交互状态 */
+  --color-hover-bg: rgba(96, 165, 250, 0.12); /* 悬停背景 */
+  --color-hover-bg-neutral: rgba(255, 255, 255, 0.06); /* 中性悬停背景 */
+  --color-hover-border: rgba(96, 165, 250, 0.4); /* 悬停边框 */
+  --color-hover-text: #93c5fd; /* 悬停文本 */
+  --color-active-bg: rgba(96, 165, 250, 0.18); /* 激活背景 */
+  --color-active-border: rgba(96, 165, 250, 0.6); /* 激活边框 */
+  --color-focus-ring: rgba(96, 165, 250, 0.3); /* 焦点环 */
+  --color-focus-border: rgba(96, 165, 250, 0.8); /* 焦点边框 */
+  --color-selected-bg: rgba(96, 165, 250, 0.15); /* 选中背景 */
+  --color-selected-border: rgba(96, 165, 250, 0.5); /* 选中边框 */
+  --color-disabled-bg: rgba(255, 255, 255, 0.04); /* 禁用背景 */
+  --color-disabled-text: #6b7280; /* 禁用文本 */
+  --color-disabled-border: rgba(255, 255, 255, 0.12); /* 禁用边框 */
+
+  /* ==================== Form 表单专用系统 ==================== */
+  /* 输入框、选择器等表单元素 */
+  --color-input-bg: rgba(26, 32, 44, 0.6); /* 输入框背景 */
+  --color-input-bg-focus: rgba(26, 32, 44, 0.8); /* 聚焦背景 */
+  --color-input-bg-disabled: rgba(26, 32, 44, 0.3); /* 禁用背景 */
+  --color-input-text: #e5e7eb; /* 输入文本 */
+  --color-input-text-disabled: #6b7280; /* 禁用文本 */
+  --color-input-border: rgba(255, 255, 255, 0.12); /* 输入框边框 */
+  --color-input-border-hover: rgba(255, 255, 255, 0.24); /* 悬停边框 */
+  --color-input-border-focus: rgba(96, 165, 250, 0.6); /* 聚焦边框 */
+  --color-input-border-error: rgba(248, 113, 113, 0.6); /* 错误边框 */
+  --color-placeholder: #9ca3af; /* 占位符 */
+  --color-placeholder-focus: #6b7280; /* 聚焦占位符 */
+  --color-label: #e5e7eb; /* 标签文本 */
+  --color-label-required: var(--color-error-500); /* 必填标记 */
+
+  /* ==================== Shadow 阴影特效系统 ==================== */
+  /* 发光和阴影效果 */
+  --shadow-glow-sm: 0 0 15px rgba(96, 165, 250, 0.3); /* 小发光 */
+  --shadow-glow-md: 0 0 25px rgba(96, 165, 250, 0.35); /* 中发光 */
+  --shadow-glow-lg: 0 0 35px rgba(96, 165, 250, 0.4); /* 大发光 */
+  --shadow-glow-xl: 0 0 45px rgba(96, 165, 250, 0.45); /* 超大发光 */
+  --shadow-cyber-sm: 0 1px 3px rgba(0, 0, 0, 0.15); /* 小阴影 */
+  --shadow-cyber-md: 0 2px 6px rgba(0, 0, 0, 0.2); /* 中阴影 */
+  --shadow-cyber-lg: 0 4px 12px rgba(0, 0, 0, 0.25); /* 大阴影 */
+  --shadow-cyber-xl: 0 6px 20px rgba(0, 0, 0, 0.3); /* 超大阴影 */
+
+  /* ==================== Badge 徽章/标签系统 ==================== */
+  /* 徽章颜色 - 用于状态标签 */
+  --color-badge-primary-bg: rgba(96, 165, 250, 0.15);
+  --color-badge-primary-text: #93c5fd;
+  --color-badge-primary-border: rgba(96, 165, 250, 0.4);
+  --color-badge-accent-bg: rgba(167, 139, 250, 0.15);
+  --color-badge-accent-text: #c4b5fd;
+  --color-badge-accent-border: rgba(167, 139, 250, 0.4);
+  --color-badge-success-bg: rgba(52, 211, 153, 0.15);
+  --color-badge-success-text: #6ee7b7;
+  --color-badge-success-border: rgba(52, 211, 153, 0.4);
+  --color-badge-warning-bg: rgba(251, 191, 36, 0.15);
+  --color-badge-warning-text: #fcd34d;
+  --color-badge-warning-border: rgba(251, 191, 36, 0.4);
+  --color-badge-error-bg: rgba(248, 113, 113, 0.15);
+  --color-badge-error-text: #fca5a5;
+  --color-badge-error-border: rgba(248, 113, 113, 0.4);
+  --color-badge-neutral-bg: rgba(255, 255, 255, 0.08);
+  --color-badge-neutral-text: #9ca3af;
+  --color-badge-neutral-border: rgba(255, 255, 255, 0.16);
+
+  /* ==================== Overlay 遮罩系统 ==================== */
+  /* 模态框、弹窗等遮罩层 */
+  --color-overlay-light: rgba(0, 0, 0, 0.5); /* 轻遮罩 */
+  --color-overlay-medium: rgba(0, 0, 0, 0.7); /* 中遮罩 */
+  --color-overlay-heavy: rgba(0, 0, 0, 0.85); /* 重遮罩 */
+}

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelPunk 系统架构图</title>
+    <script src="https://cdn.tailwindcss.com?v=20250117d"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+        .arrow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+        }
+        .arrow {
+            font-size: 36px;
+            color: #64748b;
+            font-weight: bold;
+        }
+        .layer-card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border: 2px solid #e2e8f0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        .layer-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        .layer-header {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            color: #1e293b;
+        }
+        .layer-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* 不同层的配色 */
+        .layer-user { border-color: #3b82f6; }
+        .layer-user .layer-header { color: #3b82f6; background: linear-gradient(to right, #3b82f6, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .layer-frontend { border-color: #10b981; }
+        .layer-frontend .layer-header { color: #10b981; background: linear-gradient(to right, #10b981, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .layer-core { border-color: #f59e0b; }
+        .layer-core .layer-header { color: #f59e0b; background: linear-gradient(to right, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .layer-ai { border-color: #8b5cf6; }
+        .layer-ai .layer-header { color: #8b5cf6; background: linear-gradient(to right, #8b5cf6, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .layer-data { border-color: #06b6d4; }
+        .layer-data .layer-header { color: #06b6d4; background: linear-gradient(to right, #06b6d4, #0891b2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .layer-service { border-color: #ec4899; }
+        .layer-service .layer-header { color: #ec4899; background: linear-gradient(to right, #ec4899, #db2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .item-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 10px 12px;
+            transition: all 0.2s;
+        }
+        .item-box:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .item-title {
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 1.4;
+            color: #334155;
+        }
+        .item-desc {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.3;
+            margin-top: 3px;
+        }
+        .grid-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: #334155;
+        }
+        .grid-item:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+    <div class="w-full max-w-[1600px] bg-white rounded-xl shadow-xl p-8">
+        <!-- 标题 -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">
+                PixelPunk 系统架构
+            </h1>
+            <p class="text-gray-600 text-base">全栈式智能图床与资源管理平台</p>
+        </div>
+
+        <!-- 主架构层 -->
+        <div class="flex items-stretch gap-3 mb-6" style="max-height: 460px;">
+            <!-- 第1列：用户层 -->
+            <div class="flex-1">
+                <div class="layer-card layer-user">
+                    <div class="layer-header">🌐 用户层</div>
+                    <div class="layer-content">
+                        <div class="item-box">
+                            <div class="item-title">💻 Web浏览器</div>
+                            <div class="item-desc">Chrome / Firefox / Safari</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🔌 API客户端</div>
+                            <div class="item-desc">PicGo / uPic / CLI</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🤖 自动化工具</div>
+                            <div class="item-desc">CI/CD / Webhook</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🔗 嵌入集成</div>
+                            <div class="item-desc">Markdown / CMS</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">📤 分享访问</div>
+                            <div class="item-desc">公开 / 密码保护</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 箭头 -->
+            <div class="arrow-container">
+                <div class="arrow">→</div>
+            </div>
+
+            <!-- 第2列：前端层 -->
+            <div class="flex-1">
+                <div class="layer-card layer-frontend">
+                    <div class="layer-header">⚡ 前端层</div>
+                    <div class="layer-content">
+                        <div class="item-box">
+                            <div class="item-title">🎨 核心框架</div>
+                            <div class="item-desc">Vue 3 + TypeScript<br>Pinia + Vue Router</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🎭 UI组件</div>
+                            <div class="item-desc">TailwindCSS / 自定义组件</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🌈 主题系统</div>
+                            <div class="item-desc">12+ 主题 / 亮暗模式<br>赛博朋克 / 清新 / 可爱</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🌍 国际化</div>
+                            <div class="item-desc">中文 / English / 日本語</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">📦 状态管理</div>
+                            <div class="item-desc">全局状态 / 响应式更新</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 箭头 -->
+            <div class="arrow-container">
+                <div class="arrow">→</div>
+            </div>
+
+            <!-- 第3列：应用核心层 -->
+            <div class="flex-1">
+                <div class="layer-card layer-core">
+                    <div class="layer-header">🚀 应用核心层</div>
+                    <div class="layer-content">
+                        <!-- 业务模块网格 -->
+                        <div class="grid grid-cols-2 gap-2" style="margin-bottom: 10px;">
+                            <div class="grid-item">👥 用户</div>
+                            <div class="grid-item">📁 文件</div>
+                            <div class="grid-item">🏷️ 标签</div>
+                            <div class="grid-item">🔗 分享</div>
+                            <div class="grid-item">🔐 权限</div>
+                            <div class="grid-item">🔧 API</div>
+                        </div>
+
+                        <!-- 中间件层 -->
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div class="item-box">
+                                <div class="item-title">🔒 安全中间件</div>
+                                <div class="item-desc">JWT / CORS / 防盗链</div>
+                            </div>
+                            <div class="item-box">
+                                <div class="item-title">⚙️ Go + Gin</div>
+                                <div class="item-desc">GORM + Viper + Zap</div>
+                            </div>
+                            <div class="item-box">
+                                <div class="item-title">📸 图片处理</div>
+                                <div class="item-desc">压缩 / 水印 / 格式转换</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 箭头 -->
+            <div class="arrow-container">
+                <div class="arrow">→</div>
+            </div>
+
+            <!-- 第4列：AI处理层 -->
+            <div class="flex-1">
+                <div class="layer-card layer-ai">
+                    <div class="layer-header">🤖 AI处理层</div>
+                    <div class="layer-content">
+                        <div class="item-box">
+                            <div class="item-title">🎯 自动分类</div>
+                            <div class="item-desc">识别图片类别（风景/人物/动物/建筑）</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🏷️ 智能打标</div>
+                            <div class="item-desc">自动提取标签和关键词</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🔞 NSFW检测</div>
+                            <div class="item-desc">内容安全审核与敏感标记</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🧠 语义解析</div>
+                            <div class="item-desc">AI描述生成与语言理解</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🔮 向量生成</div>
+                            <div class="item-desc">Embedding / 以图搜图 / OpenAI</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 箭头 -->
+            <div class="arrow-container">
+                <div class="arrow">→</div>
+            </div>
+
+            <!-- 第5列：数据存储层 -->
+            <div class="flex-1">
+                <div class="layer-card layer-data">
+                    <div class="layer-header">💾 数据存储层</div>
+                    <div class="layer-content">
+                        <div class="item-box">
+                            <div class="item-title">🗄️ MySQL / SQLite</div>
+                            <div class="item-desc">用户/文件/标签/分享</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">⚡ Redis</div>
+                            <div class="item-desc">会话/Token/热点数据</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">🧠 Qdrant</div>
+                            <div class="item-desc">向量索引/相似搜索</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">📂 本地存储</div>
+                            <div class="item-desc">原图/缩略图/临时文件</div>
+                        </div>
+                        <div class="item-box">
+                            <div class="item-title">☁️ 云存储</div>
+                            <div class="item-desc">又拍云/七牛云/阿里OSS<br>腾讯COS/AWS S3 等10+平台</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 向下箭头 -->
+        <div class="text-center mb-6">
+            <div class="text-4xl text-gray-400 font-bold">↓</div>
+        </div>
+
+        <!-- 外部服务层 -->
+        <div>
+            <div class="layer-card layer-service">
+                <div class="layer-header">🌟 外部服务层</div>
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">🚀</div>
+                        <div class="font-bold text-sm text-gray-700">CDN加速</div>
+                        <div class="text-xs text-gray-500 mt-1">又拍云/七牛</div>
+                    </div>
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">📧</div>
+                        <div class="font-bold text-sm text-gray-700">邮件服务</div>
+                        <div class="text-xs text-gray-500 mt-1">SMTP</div>
+                    </div>
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">☁️</div>
+                        <div class="font-bold text-sm text-gray-700">对象存储</div>
+                        <div class="text-xs text-gray-500 mt-1">OSS/COS</div>
+                    </div>
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">📊</div>
+                        <div class="font-bold text-sm text-gray-700">监控日志</div>
+                        <div class="text-xs text-gray-500 mt-1">Logging</div>
+                    </div>
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">🔔</div>
+                        <div class="font-bold text-sm text-gray-700">消息推送</div>
+                        <div class="text-xs text-gray-500 mt-1">Webhook</div>
+                    </div>
+                    <div class="item-box text-center" style="padding: 12px 8px;">
+                        <div class="text-2xl mb-2">🔐</div>
+                        <div class="font-bold text-sm text-gray-700">SSL证书</div>
+                        <div class="text-xs text-gray-500 mt-1">HTTPS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

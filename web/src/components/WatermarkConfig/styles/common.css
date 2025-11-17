@@ -1,0 +1,102 @@
+/* 水印配置组件通用样式 */
+
+.section-group {
+  @apply rounded-lg border;
+  border-color: var(--color-border-default);
+  background: var(--color-background-700);
+  backdrop-filter: blur(4px);
+}
+
+.section-header {
+  @apply border-b px-3 py-2;
+  border-color: var(--color-border-subtle);
+  background: var(--color-background-800);
+}
+
+.section-title {
+  @apply flex items-center text-sm font-semibold;
+  color: var(--color-content-heading);
+}
+
+.section-content {
+  @apply space-y-3 p-3;
+}
+
+.config-item {
+  @apply space-y-1.5;
+}
+
+.config-label {
+  @apply block text-sm font-medium;
+  color: var(--color-content-default);
+}
+
+/* 滑块控制 */
+.slider-control {
+  @apply flex items-center gap-3;
+}
+
+.slider-value {
+  @apply text-sm font-medium tabular-nums;
+  color: var(--color-brand-500);
+  min-width: 3.5rem;
+  text-align: right;
+}
+
+/* 颜色选择器 */
+.color-control {
+  @apply flex items-center gap-3;
+}
+
+/* 颜色输入框 - 原生 input[type="color"] */
+.color-input {
+  @apply h-10 w-10 flex-shrink-0 cursor-pointer rounded-lg border-2 transition-all;
+  border-color: var(--color-border-default);
+  background: transparent;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* WebKit 浏览器（Chrome, Safari, Edge）颜色选择器样式 */
+.color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: var(--radius-sm);
+}
+
+.color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: var(--radius-sm);
+}
+
+/* Firefox 颜色选择器样式 */
+.color-input::-moz-color-swatch {
+  border: none;
+  border-radius: var(--radius-sm);
+}
+
+/* 颜色选择器交互状态 */
+.color-input:hover {
+  border-color: var(--color-brand-500);
+  transform: scale(1.05);
+}
+
+.color-input:focus {
+  outline: none;
+  border-color: var(--color-brand-500);
+  box-shadow: 0 0 0 3px rgba(var(--color-brand-500-rgb), 0.1);
+}
+
+/* 颜色文本输入框 */
+.color-text-input {
+  @apply flex-1;
+}
+
+/* 提示文本 */
+.hint-text {
+  @apply mt-1.5 flex items-center text-xs;
+  color: var(--color-content-subtle);
+}
+
+.hint-text i {
+  @apply flex-shrink-0;
+}

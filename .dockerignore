@@ -1,0 +1,91 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# GitHub
+.github
+
+# 构建产物
+build/
+dist/
+tmp/
+*.tar.gz
+*.zip
+
+# 前端
+web/dist/
+web/node_modules/
+web/.vite/
+web/.turbo/
+
+# Go
+vendor/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.DS_Store
+
+# 日志和数据
+logs/
+data/
+uploads/
+*.log
+
+# 配置文件（敏感信息）
+configs/config.yaml
+configs/config.*.yaml
+!configs/config.example.yaml
+!configs/config.docker.yaml
+
+# 文档
+docs/
+README.md
+README_EN.md
+LICENSE
+CHANGELOG.md
+
+# CI/CD
+.gitlab-ci.yml
+.travis.yml
+azure-pipelines.yml
+
+# 测试
+coverage.txt
+*.test
+
+# 临时文件
+*.tmp
+*.bak
+*.cache
+
+# Docker
+docker-compose.yml
+docker-compose.*.yml
+Dockerfile.dev
+
+# 脚本（不需要在镜像中）
+scripts/
+Makefile
+
+# Qdrant 缓存
+.cache/
+qdrant/
+
+# 部署相关
+deploy/
+
+# 其他
+.env
+.env.*

@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# 禁止爬取私有内容
+Disallow: /admin/
+Disallow: /settings/
+Disallow: /my-images/
+Disallow: /folders/
+
+# 网站地图
+Sitemap: https://pixelpunk.cc/sitemap.xml 

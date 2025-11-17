@@ -1,0 +1,228 @@
+/**
+ * PixelPunk 赛博朋克主题 - 霓虹都市（Neon City）
+ * 主色：霓虹黄 + 紫蓝背景
+ * 风格：《赛博朋克 2077》多彩霓虹风格
+ */
+
+:root[data-theme='cyberpunk-neon'] {
+  /* ================================
+   * 🎨 1. Brand 品牌域
+   * ================================ */
+  --color-brand-50: #fffef0;
+  --color-brand-100: #fffcd1;
+  --color-brand-200: #fffaa3;
+  --color-brand-300: #fff875;
+  --color-brand-400: #fffd47;
+  --color-brand-500: #fffc00; /* 霓虹黄 */
+  --color-brand-600: #e6e300;
+  --color-brand-700: #ccca00;
+  --color-brand-800: #b3b100;
+  --color-brand-900: #999800;
+  --color-brand-400-rgb: 255, 253, 71;
+  --color-brand-500-rgb: 255, 252, 0;
+  --color-brand-600-rgb: 230, 227, 0;
+
+  /* ================================
+   * 🖼️ 2. Background 背景域
+   * ================================ */
+  --color-background-50: #8a8a7a;
+  --color-background-100: #6a6a5a;
+  --color-background-200: #5a5a4a;
+  --color-background-300: #4a4a3a;
+  --color-background-400: #3a3a2a;
+  --color-background-500: #32322a;
+  --color-background-600: #3a3228; /* 面板背景 - 浅暖灰 */
+  --color-background-700: #2f2820; /* 卡片背景 - 中暖灰 */
+  --color-background-800: #251e18; /* 容器背景 - 暖灰 */
+  --color-background-900: #1a1410; /* 页面主背景 - 深暖灰黑 */
+  --color-background-900-rgb: 26, 20, 16;
+  --color-background-800-rgb: 37, 30, 24;
+  --color-background-700-rgb: 47, 40, 32;
+
+  /* ================================
+   * 📝 3. Content 文本域
+   * ================================ */
+  --color-content-default: #fff5e1;
+  --color-content-heading: #ffffff;
+  --color-content-muted: #b8b8d1;
+  --color-content-disabled: #6b6b88;
+  --color-content-rgb: 255, 245, 225;
+  --color-text-on-brand: #0a0a18;
+  --color-text-on-success: #0a0a18;
+  --color-text-on-warning: #0a0a18;
+  --color-text-on-error: #ffffff;
+
+  /* ================================
+   * 🎯 4. State 状态域
+   * ================================ */
+  --color-success-50: #e6fff2;
+  --color-success-100: #b3ffd9;
+  --color-success-200: #80ffc0;
+  --color-success-300: #4dffa7;
+  --color-success-400: #1aff8e;
+  --color-success-500: #00ff88;
+  --color-success-600: #00cc6d;
+  --color-success-700: #009952;
+  --color-success-800: #006637;
+  --color-success-900: #00331c;
+  --color-success-rgb: 0, 255, 136;
+
+  --color-warning-50: #fff4e6;
+  --color-warning-100: #ffe0b3;
+  --color-warning-200: #ffcc80;
+  --color-warning-300: #ffb84d;
+  --color-warning-400: #ffa41a;
+  --color-warning-500: #ff9000;
+  --color-warning-600: #e67300;
+  --color-warning-700: #cc5600;
+  --color-warning-800: #b33900;
+  --color-warning-900: #991c00;
+  --color-warning-rgb: 255, 144, 0;
+
+  --color-error-50: #fdf4ff;
+  --color-error-100: #fae8ff;
+  --color-error-200: #f5d0fe;
+  --color-error-300: #f0abfc;
+  --color-error-400: #e879f9;
+  --color-error-500: #d946ef;
+  --color-error-600: #c026d3;
+  --color-error-700: #a21caf;
+  --color-error-800: #86198f;
+  --color-error-900: #701a75;
+  --color-error-rgb: 217, 70, 239;
+
+  --color-info-50: #ffe6f2;
+  --color-info-100: #ffb3d9;
+  --color-info-200: #ff80c0;
+  --color-info-300: #ff4da7;
+  --color-info-400: #ff1a8e;
+  --color-info-500: #ff2a6d;
+  --color-info-600: #e60057;
+  --color-info-700: #cc0041;
+  --color-info-800: #b3002b;
+  --color-info-900: #990015;
+  --color-info-rgb: 255, 42, 109;
+
+  /* ⭐️ 功能色系统（多彩风格 - 赛博朋克霓虹配色）*/
+  --color-func-primary: #fffc00; /* 霓虹黄 */
+  --color-func-primary-rgb: 255, 252, 0;
+  --color-func-secondary: #00ff88; /* 霓虹绿 */
+  --color-func-secondary-rgb: 0, 255, 136;
+  --color-func-accent: #d946ef; /* 霓虹紫 */
+  --color-func-info: #ff2a6d; /* 霓虹粉 */
+  --color-func-info-rgb: 255, 42, 109;
+
+  /* ================================
+   * 🏠 首页专用颜色
+   * ================================ */
+  --color-home-btn-blue: #fffc00;
+  --color-home-btn-blue-rgb: 255, 252, 0;
+  --color-home-btn-pink: #ff2a6d;
+  --color-home-btn-pink-rgb: 255, 42, 109;
+  --color-home-btn-purple: #d946ef;
+  --color-home-btn-purple-rgb: 217, 70, 239;
+
+  /* ================================
+   * 🔲 5. Border/Divider 边框域
+   * ================================ */
+  --color-border-subtle: rgba(255, 252, 0, 0.15);
+  --color-border-default: rgba(255, 252, 0, 0.3);
+  --color-border-strong: rgba(255, 252, 0, 0.6);
+  --color-divider-light: rgba(255, 245, 225, 0.06);
+  --color-divider-medium: rgba(255, 245, 225, 0.12);
+  --color-divider-strong: rgba(255, 252, 0, 0.2);
+
+  /* ================================
+   * 🎭 6. 交互状态系统
+   * ================================ */
+  --color-hover-bg: rgba(255, 252, 0, 0.1);
+  --color-hover-bg-neutral: rgba(255, 255, 255, 0.05);
+  --color-hover-border: rgba(255, 252, 0, 0.6);
+  --color-hover-text: #fffc00;
+  --color-active-bg: rgba(255, 252, 0, 0.2);
+  --color-active-border: rgba(255, 252, 0, 0.8);
+  --color-focus-ring: rgba(255, 252, 0, 0.4);
+  --color-focus-border: rgba(255, 252, 0, 0.8);
+  --color-selected-bg: rgba(255, 252, 0, 0.15);
+  --color-selected-border: rgba(255, 252, 0, 0.7);
+  --color-disabled-bg: rgba(37, 37, 80, 0.5);
+  --color-disabled-text: #6b6b88;
+  --color-disabled-border: rgba(37, 37, 80, 0.8);
+
+  /* ================================
+   * 📝 7. 表单专用系统
+   * ================================ */
+  --color-input-bg: rgba(26, 26, 62, 0.8);
+  --color-input-bg-focus: rgba(26, 26, 62, 1);
+  --color-input-bg-disabled: rgba(26, 26, 62, 0.3);
+  --color-input-text: #fff5e1;
+  --color-input-text-disabled: #6b6b88;
+  --color-input-border: rgba(255, 252, 0, 0.3);
+  --color-input-border-hover: rgba(255, 252, 0, 0.5);
+  --color-input-border-focus: rgba(255, 252, 0, 0.8);
+  --color-input-border-error: rgba(217, 70, 239, 0.8);
+  --color-placeholder: #b8b8d1;
+  --color-placeholder-focus: #9898b8;
+  --color-label: #fff5e1;
+  --color-label-required: var(--color-error-500);
+
+  /* ================================
+   * ✨ 8. 特效系统
+   * ================================ */
+  --shadow-glow-sm: 0 0 20px rgba(255, 252, 0, 0.5);
+  --shadow-glow-md: 0 0 30px rgba(255, 252, 0, 0.6);
+  --shadow-glow-lg: 0 0 45px rgba(255, 252, 0, 0.7);
+  --shadow-glow-xl: 0 0 60px rgba(255, 252, 0, 0.8);
+  --shadow-cyber-sm: 0 0 8px rgba(255, 252, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-cyber-md: 0 0 12px rgba(255, 252, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-cyber-lg: 0 0 16px rgba(255, 252, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-cyber-xl: 0 0 20px rgba(255, 252, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.35);
+
+  /* ================================
+   * 🎨 11. 徽章/标签系统
+   * ================================ */
+  --color-badge-primary-bg: rgba(255, 252, 0, 0.15);
+  --color-badge-primary-text: #fffc00;
+  --color-badge-primary-border: rgba(255, 252, 0, 0.4);
+  --color-badge-accent-bg: rgba(217, 70, 239, 0.15);
+  --color-badge-accent-text: #d946ef;
+  --color-badge-accent-border: rgba(217, 70, 239, 0.4);
+  --color-badge-success-bg: rgba(0, 255, 136, 0.15);
+  --color-badge-success-text: #00ff88;
+  --color-badge-success-border: rgba(0, 255, 136, 0.4);
+  --color-badge-warning-bg: rgba(255, 144, 0, 0.15);
+  --color-badge-warning-text: #ff9000;
+  --color-badge-warning-border: rgba(255, 144, 0, 0.4);
+  --color-badge-error-bg: rgba(217, 70, 239, 0.15);
+  --color-badge-error-text: #d946ef;
+  --color-badge-error-border: rgba(217, 70, 239, 0.4);
+  --color-badge-neutral-bg: rgba(184, 184, 209, 0.15);
+  --color-badge-neutral-text: #b8b8d1;
+  --color-badge-neutral-border: rgba(184, 184, 209, 0.4);
+
+  /* ================================
+   * 🎭 9. 遮罩层
+   * ================================ */
+  --color-overlay-light: rgba(26, 20, 16, 0.5); /* 轻遮罩 */
+  --color-overlay-medium: rgba(26, 20, 16, 0.7); /* 中遮罩 */
+  --color-overlay-heavy: rgba(26, 20, 16, 0.85); /* 重遮罩 */
+
+  /* ================================
+   * ✨ 10. 特效系统
+   * 用途：发光、阴影、毛玻璃等赛博朋克特效
+   * ================================ */
+
+  /* 发光阴影 - 霓虹紫发光特效 */
+  --shadow-glow-sm: 0 0 20px rgba(161, 97, 255, 0.4);
+  --shadow-glow-md: 0 0 30px rgba(161, 97, 255, 0.5);
+  --shadow-glow-lg: 0 0 45px rgba(161, 97, 255, 0.6);
+  --shadow-glow-xl: 0 0 60px rgba(161, 97, 255, 0.7);
+
+  /* 覆盖通用阴影系统 - 霓虹都市主题使用中等阴影 */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.45), 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.45);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+}

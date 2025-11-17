@@ -1,0 +1,536 @@
+/* ========== PixelPunk Admin 通用工具类 ========== */
+/*
+ * 用途: 统一管理端页面的布局、颜色、间距
+ * 原则: 使用设计系统颜色变量,确保主题切换时自动适配
+ * 参考: web/docs/ADMIN-UI-SPECIFICATION.md
+ */
+
+/* ========== 内容包装器 ========== */
+.admin-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: var(--color-background-900);
+  padding: 0;
+  min-height: calc(100vh - 200px);
+}
+
+/* 紧凑模式 */
+.admin-content-wrapper.compact {
+  gap: 1rem;
+  min-height: calc(100vh - 180px);
+}
+
+/* ========== 卡片组件 ========== */
+.admin-card {
+  border-radius: var(--radius-sm);
+  background: var(--color-background-800);
+  border: 1px solid var(--color-border-subtle);
+  padding: 1.5rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-card:hover {
+  border-color: var(--color-border-default);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 卡片头部 */
+.admin-card-header {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+/* 卡片标题 */
+.admin-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-content-heading);
+  letter-spacing: 0.025em;
+}
+
+/* 卡片副标题 */
+.admin-card-subtitle {
+  font-size: 0.875rem;
+  color: var(--color-content-muted);
+  margin-top: 0.25rem;
+}
+
+/* 卡片内容 */
+.admin-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 卡片底部 */
+.admin-card-footer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ========== 区块容器 ========== */
+.admin-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-section-lg {
+  gap: 1.5rem;
+}
+
+.admin-section-sm {
+  gap: 0.75rem;
+}
+
+/* ========== 列表项 ========== */
+.admin-list-item {
+  border-radius: var(--radius-sm);
+  background: var(--color-background-800);
+  border: 1px solid var(--color-border-subtle);
+  padding: 1rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.admin-list-item:hover {
+  background: var(--color-background-700);
+  border-color: var(--color-brand-400);
+  box-shadow: 0 2px 8px rgba(var(--color-brand-500-rgb), 0.1);
+}
+
+.admin-list-item.active {
+  border-color: var(--color-brand-500);
+  background: linear-gradient(135deg, rgba(var(--color-brand-500-rgb), 0.1) 0%, rgba(var(--color-brand-500-rgb), 0.05) 100%);
+}
+
+/* ========== 空状态 ========== */
+.admin-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  min-height: 100%;
+  height: 100%;
+  flex: 1;
+  text-align: center;
+}
+
+.admin-empty-icon {
+  font-size: 3rem;
+  color: var(--color-brand-500);
+  filter: drop-shadow(0 0 20px rgba(var(--color-brand-500-rgb), 0.4));
+  margin-bottom: 1rem;
+  animation: floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.admin-empty-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-content-default);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.025em;
+}
+
+.admin-empty-desc {
+  font-size: 0.875rem;
+  color: var(--color-content-muted);
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+/* ========== 加载状态 ========== */
+.admin-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  min-height: 100%;
+  height: 100%;
+  flex: 1;
+}
+
+/* ========== 表格容器 ========== */
+.admin-table-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
+  overflow: hidden;
+}
+
+.admin-table-wrapper {
+  flex: 1;
+  background: var(--color-background-800);
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.admin-table-pagination {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background: var(--color-background-800);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* ========== 搜索/筛选区域 ========== */
+.admin-search-section {
+  border-radius: var(--radius-sm);
+  background: var(--color-background-800);
+  border: 1px solid var(--color-border-subtle);
+  padding: 1.5rem;
+}
+
+.admin-filter-section {
+  border-radius: var(--radius-sm);
+  background: var(--color-background-800);
+  border: 1px solid var(--color-border-subtle);
+  padding: 1.5rem;
+}
+
+/* ========== 通知/提示条 ========== */
+.admin-notice {
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  border: 1px solid;
+  backdrop-filter: blur(8px);
+}
+
+.admin-notice.info {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-brand-500-rgb), 0.12) 0%,
+    rgba(var(--color-brand-500-rgb), 0.08) 50%,
+    rgba(var(--color-brand-500-rgb), 0.05) 100%
+  );
+  border-color: rgba(var(--color-brand-500-rgb), 0.2);
+  color: var(--color-content-muted);
+}
+
+.admin-notice.success {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-success-rgb), 0.12) 0%,
+    rgba(var(--color-success-rgb), 0.08) 50%,
+    rgba(var(--color-success-rgb), 0.05) 100%
+  );
+  border-color: rgba(var(--color-success-rgb), 0.2);
+  color: var(--color-success-400);
+}
+
+.admin-notice.warning {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-warning-rgb), 0.12) 0%,
+    rgba(var(--color-warning-rgb), 0.08) 50%,
+    rgba(var(--color-warning-rgb), 0.05) 100%
+  );
+  border-color: rgba(var(--color-warning-rgb), 0.2);
+  color: var(--color-warning-400);
+}
+
+.admin-notice.error {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-error-rgb), 0.12) 0%,
+    rgba(var(--color-error-rgb), 0.08) 50%,
+    rgba(var(--color-error-rgb), 0.05) 100%
+  );
+  border-color: rgba(var(--color-error-rgb), 0.2);
+  color: var(--color-error-400);
+}
+
+/* ========== 统计卡片 ========== */
+.admin-stat-card {
+  border-radius: var(--radius-sm);
+  background: var(--color-background-800);
+  border: 1px solid var(--color-border-subtle);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-stat-card:hover {
+  border-color: var(--color-brand-400);
+  box-shadow: 0 4px 12px rgba(var(--color-brand-500-rgb), 0.15);
+}
+
+.admin-stat-label {
+  font-size: 0.875rem;
+  color: var(--color-content-muted);
+}
+
+.admin-stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-content-heading);
+  line-height: 1;
+}
+
+.admin-stat-trend {
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.admin-stat-trend.up {
+  color: var(--color-success-400);
+}
+
+.admin-stat-trend.down {
+  color: var(--color-error-400);
+}
+
+/* ========== 分隔线 ========== */
+.admin-divider {
+  height: 1px;
+  background: var(--color-border-subtle);
+  margin: 1.5rem 0;
+}
+
+.admin-divider-strong {
+  height: 1px;
+  background: var(--color-border-default);
+  margin: 1.5rem 0;
+}
+
+/* ========== 表单组件 ========== */
+/* 表单组 */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 表单标签 */
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-content-default);
+  display: block;
+  letter-spacing: 0.025em;
+}
+
+/* 表单输入框 */
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-content-default);
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--color-input-placeholder);
+}
+
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+  border-color: var(--color-hover-border);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-brand-500);
+  box-shadow:
+    0 0 0 3px var(--color-focus-ring),
+    0 0 20px rgba(var(--color-brand-500-rgb), 0.15);
+  background: rgba(var(--color-background-800-rgb), 0.9);
+}
+
+.form-input:disabled,
+.form-select:disabled,
+.form-textarea:disabled {
+  background: var(--color-disabled-bg);
+  border-color: var(--color-disabled-border);
+  color: var(--color-content-disabled);
+  cursor: not-allowed;
+}
+
+/* 文本域 */
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+/* 表单帮助文本 */
+.form-help {
+  font-size: 0.75rem;
+  color: var(--color-content-muted);
+  line-height: 1.5;
+}
+
+/* 表单错误提示 */
+.form-error {
+  font-size: 0.75rem;
+  color: var(--color-error-500);
+  line-height: 1.5;
+}
+
+/* 表单成功提示 */
+.form-success {
+  font-size: 0.75rem;
+  color: var(--color-success-500);
+  line-height: 1.5;
+}
+
+/* ========== 标签/徽章 ========== */
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid;
+}
+
+.admin-badge.primary {
+  background: linear-gradient(135deg, rgba(var(--color-brand-500-rgb), 0.15) 0%, rgba(var(--color-brand-500-rgb), 0.08) 100%);
+  border-color: rgba(var(--color-brand-500-rgb), 0.25);
+  color: var(--color-brand-500);
+}
+
+.admin-badge.success {
+  background: linear-gradient(135deg, rgba(var(--color-success-rgb), 0.15) 0%, rgba(var(--color-success-rgb), 0.08) 100%);
+  border-color: rgba(var(--color-success-rgb), 0.25);
+  color: var(--color-success-400);
+}
+
+.admin-badge.warning {
+  background: linear-gradient(135deg, rgba(var(--color-warning-rgb), 0.15) 0%, rgba(var(--color-warning-rgb), 0.08) 100%);
+  border-color: rgba(var(--color-warning-rgb), 0.25);
+  color: var(--color-warning-400);
+}
+
+.admin-badge.error {
+  background: linear-gradient(135deg, rgba(var(--color-error-rgb), 0.15) 0%, rgba(var(--color-error-rgb), 0.08) 100%);
+  border-color: rgba(var(--color-error-rgb), 0.25);
+  color: var(--color-error-400);
+}
+
+/* ========== 响应式适配 ========== */
+@media (max-width: 768px) {
+  .admin-content-wrapper {
+    gap: 1rem;
+    min-height: calc(100vh - 160px);
+  }
+
+  .admin-card {
+    padding: 1rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .admin-card-header {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .admin-card-body {
+    gap: 0.75rem;
+  }
+
+  .admin-section {
+    gap: 0.75rem;
+  }
+
+  .admin-section-lg {
+    gap: 1rem;
+  }
+
+  .admin-empty {
+    padding: 2rem 1rem;
+    min-height: 250px;
+  }
+
+  .admin-empty-icon {
+    font-size: 2.5rem;
+  }
+
+  .admin-loading {
+    padding: 2rem 1rem;
+    min-height: 250px;
+  }
+
+  .admin-search-section,
+  .admin-filter-section {
+    padding: 1rem;
+  }
+
+  .admin-stat-value {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-content-wrapper {
+    gap: 0.75rem;
+    min-height: calc(100vh - 140px);
+  }
+
+  .admin-card {
+    padding: 0.75rem;
+  }
+
+  .admin-section {
+    gap: 0.5rem;
+  }
+
+  .admin-empty {
+    padding: 1.5rem 0.75rem;
+    min-height: 200px;
+  }
+
+  .admin-stat-value {
+    font-size: 1.25rem;
+  }
+}
+
+/* ========== 打印样式 ========== */
+@media print {
+  .admin-content-wrapper {
+    min-height: auto;
+    background: white;
+  }
+
+  .admin-card,
+  .admin-list-item {
+    border-color: var(--color-border-default);
+    box-shadow: none;
+  }
+}

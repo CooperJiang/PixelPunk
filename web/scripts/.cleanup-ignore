@@ -1,0 +1,9 @@
+# 清理脚本忽略列表
+# 这些文件不应该被自动清理脚本处理
+
+# 超大文件（包含大量示例代码）
+src/pages/docs/components/CodeExample/index.vue
+
+# 其他需要排除的文件可以添加在这里
+# 格式: 相对于 src 目录的路径
+

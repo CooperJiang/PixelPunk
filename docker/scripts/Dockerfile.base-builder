@@ -1,0 +1,51 @@
+# WebP构建基础镜像 - 包含所有构建依赖
+# 用于预构建，避免每次重复安装依赖
+# 统一使用 Go 1.23，便于在本地和 CI 中复用同一版本
+FROM --platform=linux/amd64 golang:1.23
+
+LABEL maintainer="PixelPunk Team"
+LABEL description="Pre-built base image for WebP-enabled builds"
+LABEL version="1.0.0"
+
+# 设置构建环境变量
+ENV CGO_ENABLED=1 \
+    GOOS=linux \
+    GOARCH=amd64 \
+    GOPROXY=https://goproxy.cn,direct \
+    GO111MODULE=on
+
+# 安装所有构建依赖（一次性安装，后续复用）
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    # C/C++编译器
+    gcc g++ \
+    # WebP开发库
+    libwebp-dev \
+    # 包配置工具
+    pkg-config \
+    # 构建工具
+    make \
+    git \
+    # 清理缓存
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get autoremove -y \
+    && apt-get autoclean
+
+# 设置工作目录
+WORKDIR /build
+
+# 预热Go模块缓存（下载常用依赖）
+RUN go mod init temp && \
+    go get github.com/gin-gonic/gin@latest && \
+    go get gorm.io/gorm@latest && \
+    go get github.com/go-redis/redis/v8@latest && \
+    go get github.com/golang-jwt/jwt/v4@latest && \
+    rm -f go.mod go.sum
+
+# 添加构建优化
+ENV GOCACHE=/root/.cache/go-build
+ENV GOMODCACHE=/go/pkg/mod
+
+# 创建缓存目录
+RUN mkdir -p /root/.cache/go-build
+
+CMD ["bash"]

@@ -1,0 +1,159 @@
+/**
+ * PixelPunk 主题 - 森林夜色 (Forest Night)
+ * 深绿主题，自然沉稳，适合专注工作
+ * 主色：深森林绿 + 金色强调
+ */
+
+:root[data-theme='forest-night'] {
+  /* Brand 品牌域 */
+  --color-brand-300: #c9f7e1;
+  --color-brand-300-rgb: 201, 247, 225;
+  --color-brand-400: #a7f3d0;
+  --color-brand-500: #6ee7b7; /* 主品牌色 - 翠绿 */
+  --color-brand-500-rgb: 110, 231, 183;
+  --color-brand-600: #34d399;
+  --color-brand-700: #10b981;
+  --color-brand-400-rgb: 167, 243, 208;
+  --color-brand-600-rgb: 52, 211, 153;
+
+  /* Background 背景域 - 深绿黑色调 */
+  --color-background-50: #2d3d30;
+  --color-background-100: #273429;
+  --color-background-200: #212b22;
+  --color-background-300: #1b221b;
+  --color-background-400: #151914;
+  --color-background-500: #0f100d;
+  --color-background-600: #1e2820; /* 面板背景 */
+  --color-background-700: #151d17; /* 卡片背景 */
+  --color-background-800: #0f1210; /* 容器背景 */
+  --color-background-900: #090b09; /* 页面主背景 */
+  --color-background-900-rgb: 9, 11, 9;
+  --color-background-800-rgb: 15, 18, 16;
+  --color-background-700-rgb: 21, 29, 23;
+
+  /* Content 文本域 */
+  --color-content-default: #d1fae5;
+  --color-content-heading: #ecfdf5;
+  --color-content-muted: #a7f3d0;
+  --color-content-disabled: #6b8a7a;
+  --color-content-rgb: 209, 250, 229;
+  --color-text-on-brand: #022c22;
+  --color-text-on-success: #022c22;
+  --color-text-on-warning: #1c1917;
+  --color-text-on-error: #ffffff;
+
+  /* State 状态域 - 补充完整的色阶 */
+  --color-success-400: #34d399; /* 浅成功色 */
+  --color-success-500: #10b981; /* 中等成功色 */
+  --color-success-600: #059669; /* 深成功色 */
+  --color-success-rgb: 16, 185, 129;
+  --color-success-400-rgb: 52, 211, 153;
+  --color-success-600-rgb: 5, 150, 105;
+
+  --color-warning-400: #fbbf24; /* 浅警告色 */
+  --color-warning-500: #f59e0b; /* 金色 */
+  --color-warning-600: #d97706; /* 深警告色 */
+  --color-warning-rgb: 245, 158, 11;
+  --color-warning-400-rgb: 251, 191, 36;
+  --color-warning-600-rgb: 217, 119, 6;
+
+  --color-error-400: #f87171; /* 浅错误色 */
+  --color-error-500: #ef4444; /* 中等错误色 */
+  --color-error-600: #dc2626; /* 深错误色 */
+  --color-error-rgb: 239, 68, 68;
+  --color-error-400-rgb: 248, 113, 113;
+  --color-error-600-rgb: 220, 38, 38;
+
+  --color-info-500: #3b82f6;
+  --color-info-rgb: 59, 130, 246;
+
+  /* ⭐️ 功能色系统（多彩风格 - 森林夜色配色）*/
+  --color-func-primary: #22c55e; /* 森林绿 */
+  --color-func-primary-rgb: 34, 197, 94;
+  --color-func-secondary: #84cc16; /* 青草绿 */
+  --color-func-secondary-rgb: 132, 204, 22;
+  --color-func-accent: #eab308; /* 金色 */
+  --color-func-info: #14b8a6; /* 青色 */
+  --color-func-info-rgb: 20, 184, 166;
+
+  /* 首页专用颜色 */
+  --color-home-btn-blue: #6ee7b7;
+  --color-home-btn-blue-rgb: 110, 231, 183;
+  --color-home-btn-pink: #34d399;
+  --color-home-btn-pink-rgb: 52, 211, 153;
+  --color-home-btn-purple: #f59e0b;
+  --color-home-btn-purple-rgb: 245, 158, 11;
+
+  /* Border/Divider 边框域 */
+  --color-border-subtle: rgba(110, 231, 183, 0.12);
+  --color-border-default: rgba(110, 231, 183, 0.25);
+  --color-border-strong: rgba(110, 231, 183, 0.5);
+  --color-divider-light: rgba(209, 250, 229, 0.04);
+  --color-divider-medium: rgba(209, 250, 229, 0.08);
+  --color-divider-strong: rgba(110, 231, 183, 0.2);
+
+  /* 交互状态系统 */
+  --color-hover-bg: rgba(110, 231, 183, 0.12);
+  --color-hover-bg-neutral: rgba(209, 250, 229, 0.05);
+  --color-hover-border: rgba(110, 231, 183, 0.6);
+  --color-hover-text: #a7f3d0;
+  --color-active-bg: rgba(110, 231, 183, 0.2);
+  --color-active-border: rgba(110, 231, 183, 0.8);
+  --color-focus-ring: rgba(110, 231, 183, 0.3);
+  --color-focus-border: rgba(110, 231, 183, 0.7);
+  --color-selected-bg: rgba(110, 231, 183, 0.15);
+  --color-selected-border: rgba(110, 231, 183, 0.7);
+  --color-disabled-bg: rgba(209, 250, 229, 0.03);
+  --color-disabled-text: #6b8a7a;
+  --color-disabled-border: rgba(209, 250, 229, 0.08);
+
+  /* 表单专用系统 */
+  --color-input-bg: rgba(21, 29, 23, 0.7);
+  --color-input-bg-focus: rgba(21, 29, 23, 0.95);
+  --color-input-bg-disabled: rgba(21, 29, 23, 0.4);
+  --color-input-text: #d1fae5;
+  --color-input-text-disabled: #6b8a7a;
+  --color-input-border: rgba(110, 231, 183, 0.25);
+  --color-input-border-hover: rgba(110, 231, 183, 0.4);
+  --color-input-border-focus: rgba(110, 231, 183, 0.8);
+  --color-input-border-error: rgba(239, 68, 68, 0.6);
+  --color-placeholder: rgba(209, 250, 229, 0.35);
+  --color-placeholder-focus: rgba(209, 250, 229, 0.25);
+  --color-label: #d1fae5;
+  --color-label-required: var(--color-error-500);
+
+  /* 特效系统 - 柔和绿光 */
+  --shadow-glow-sm: 0 0 15px rgba(110, 231, 183, 0.3);
+  --shadow-glow-md: 0 0 25px rgba(110, 231, 183, 0.35);
+  --shadow-glow-lg: 0 0 35px rgba(110, 231, 183, 0.4);
+  --shadow-glow-xl: 0 0 45px rgba(110, 231, 183, 0.45);
+  --shadow-cyber-sm: 0 0 10px rgba(110, 231, 183, 0.15), 0 2px 4px rgba(0, 0, 0, 0.35);
+  --shadow-cyber-md: 0 0 15px rgba(110, 231, 183, 0.2), 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-cyber-lg: 0 0 20px rgba(110, 231, 183, 0.25), 0 6px 12px rgba(0, 0, 0, 0.45);
+  --shadow-cyber-xl: 0 0 25px rgba(110, 231, 183, 0.3), 0 8px 16px rgba(0, 0, 0, 0.5);
+
+  /* 徽章/标签系统 */
+  --color-badge-primary-bg: rgba(110, 231, 183, 0.15);
+  --color-badge-primary-text: #a7f3d0;
+  --color-badge-primary-border: rgba(110, 231, 183, 0.4);
+  --color-badge-accent-bg: rgba(245, 158, 11, 0.15);
+  --color-badge-accent-text: #fbbf24;
+  --color-badge-accent-border: rgba(245, 158, 11, 0.4);
+  --color-badge-success-bg: rgba(16, 185, 129, 0.15);
+  --color-badge-success-text: #34d399;
+  --color-badge-success-border: rgba(16, 185, 129, 0.4);
+  --color-badge-warning-bg: rgba(245, 158, 11, 0.15);
+  --color-badge-warning-text: #fbbf24;
+  --color-badge-warning-border: rgba(245, 158, 11, 0.4);
+  --color-badge-error-bg: rgba(239, 68, 68, 0.15);
+  --color-badge-error-text: #fca5a5;
+  --color-badge-error-border: rgba(239, 68, 68, 0.4);
+  --color-badge-neutral-bg: rgba(209, 250, 229, 0.08);
+  --color-badge-neutral-text: #a7f3d0;
+  --color-badge-neutral-border: rgba(209, 250, 229, 0.16);
+
+  /* 遮罩 */
+  --color-overlay-light: rgba(9, 11, 9, 0.5);
+  --color-overlay-medium: rgba(9, 11, 9, 0.7);
+  --color-overlay-heavy: rgba(9, 11, 9, 0.85);
+}

@@ -836,6 +836,8 @@ export const settings = {
           'When enabled, GitHub OAuth requests will use the shared proxy configuration (set under Proxy Settings).',
         googleDescription:
           'When enabled, Google OAuth requests will use the shared proxy configuration (set under Proxy Settings).',
+        linuxdoDescription:
+          'When enabled, Linux DO OAuth requests will use the shared proxy configuration (set under Proxy Settings).',
       },
       setup: {
         title: 'Setup Steps',
@@ -962,6 +964,7 @@ export const settings = {
         clientSecret: 'Linux DO OAuth Client Secret',
         redirectUri: 'Linux DO OAuth redirect URL',
         scope: 'Linux DO OAuth scopes',
+        proxyEnabled: 'Use proxy for Linux DO OAuth',
       },
       title: 'Linux DO Login',
       enabled: {

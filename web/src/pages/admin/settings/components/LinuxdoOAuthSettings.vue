@@ -22,6 +22,7 @@
     linuxdo_oauth_client_secret: '',
     linuxdo_oauth_redirect_uri: '',
     linuxdo_oauth_scope: 'user',
+    linuxdo_oauth_proxy_enabled: false,
   })
 
   const getSettingsArray = (): Setting[] => {
@@ -60,6 +61,13 @@
         type: 'string',
         group: 'oauth',
         description: $t('admin.settings.oauth.linuxdo.desc.scope'),
+      },
+      {
+        key: 'linuxdo_oauth_proxy_enabled',
+        value: localSettings.linuxdo_oauth_proxy_enabled,
+        type: 'boolean',
+        group: 'oauth',
+        description: $t('admin.settings.oauth.linuxdo.desc.proxyEnabled'),
       },
     ]
   }
@@ -194,6 +202,20 @@
           </code>
         </div>
         <div class="text-content-subtle mt-1 text-xs">{{ $t('admin.settings.oauth.linuxdo.scopes.fixed') }}</div>
+      </div>
+    </div>
+
+    <div class="border-brand-500/20 my-4 border-t"></div>
+
+    <div class="flex flex-col md:flex-row md:items-center">
+      <label class="flex w-full items-center text-sm text-content md:w-48 md:py-2">
+        <i class="fas fa-network-wired mr-2 text-brand-500" />{{ $t('admin.settings.oauth.common.proxy.label') }}
+      </label>
+      <div class="flex-1">
+        <CyberSwitch v-model="localSettings.linuxdo_oauth_proxy_enabled" />
+        <div class="text-content-subtle mt-1 text-xs">
+          {{ $t('admin.settings.oauth.common.proxy.linuxdoDescription') }}
+        </div>
       </div>
     </div>
 

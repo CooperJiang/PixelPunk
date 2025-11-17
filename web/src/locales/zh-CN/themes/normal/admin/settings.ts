@@ -831,6 +831,7 @@ export const settings = {
         label: '使用代理',
         githubDescription: '启用后，GitHub OAuth 将使用统一的代理配置。代理详细设置请前往"代理配置"标签页。',
         googleDescription: '启用后，Google OAuth 将使用统一的代理配置。代理详细设置请前往"代理配置"标签页。',
+        linuxdoDescription: '启用后，Linux DO OAuth 将使用统一的代理配置。代理详细设置请前往"代理配置"标签页。',
       },
       setup: {
         title: '配置步骤',
@@ -957,6 +958,7 @@ export const settings = {
         clientSecret: 'Linux DO OAuth Client Secret',
         redirectUri: 'Linux DO OAuth 回调地址',
         scope: 'Linux DO OAuth 授权范围',
+        proxyEnabled: 'Linux DO OAuth 是否使用代理',
       },
       title: 'Linuxdo登录',
       enabled: {

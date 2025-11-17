@@ -46,7 +46,6 @@ func UpdateUserAccessControl(config *models.UserAccessControl) error {
 	}
 
 	config.ID = existingConfig.ID
-	config.CreatedAt = existingConfig.CreatedAt
 	if err := database.DB.Save(config).Error; err != nil {
 		logger.Error("更新用户访问控制配置失败: %v", err)
 		return errors.Wrap(err, errors.CodeDBUpdateFailed, "更新用户访问控制配置失败")

@@ -831,6 +831,7 @@ export const settings = {
         label: 'Use proxy',
         githubDescription: 'When enabled, GitHub OAuth will use unified proxy config. Detailed proxy settings in "Proxy Config" tab.',
         googleDescription: 'When enabled, Google OAuth will use unified proxy config. Detailed proxy settings in "Proxy Config" tab.',
+        linuxdoDescription: 'When enabled, Linux DO OAuth will use unified proxy config. Detailed proxy settings in "Proxy Config" tab.',
       },
       setup: {
         title: 'Setup steps',
@@ -957,6 +958,7 @@ export const settings = {
         clientSecret: 'Linux DO OAuth Client Secret',
         redirectUri: 'Linux DO OAuth callback URL',
         scope: 'Linux DO OAuth authorization scope',
+        proxyEnabled: 'Linux DO OAuth use proxy',
       },
       title: 'Linux DO login',
       enabled: {

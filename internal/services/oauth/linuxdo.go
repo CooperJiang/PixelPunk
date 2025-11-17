@@ -64,7 +64,7 @@ func (s *LinuxdoOAuthService) ExchangeCode(code string) (*LinuxdoTokenResponse, 
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Accept", "application/json")
 
-	client := &http.Client{}
+	client := getHTTPClient(s.ProxyConfig)
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("请求失败: %w", err)
@@ -103,7 +103,7 @@ func (s *LinuxdoOAuthService) GetUserInfo(accessToken string) (*LinuxdoUserInfo,
 	req.Header.Set("Authorization", "Bearer "+accessToken)
 	req.Header.Set("Accept", "application/json")
 
-	client := &http.Client{}
+	client := getHTTPClient(s.ProxyConfig)
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("请求失败: %w", err)

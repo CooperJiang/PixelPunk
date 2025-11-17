@@ -43,7 +43,7 @@ func getGormConfig() *gorm.Config {
 func getDialector(dbType, host, username, password, name, path string, port int) (gorm.Dialector, error) {
 	switch dbType {
 	case "mysql":
-		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Asia%%2FShanghai",
+		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Asia%%2FShanghai&sql_mode=%%27STRICT_TRANS_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION%%27",
 			username, password, host, port, name)
 		return mysql.Open(dsn), nil
 	case "sqlite":

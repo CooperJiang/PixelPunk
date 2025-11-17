@@ -830,6 +830,7 @@ export const settings = {
         label: 'プロキシを使用',
         githubDescription: '有効化すると、GitHub OAuthリクエストは共有プロキシ設定（プロキシ設定で設定）を使用します。',
         googleDescription: '有効化すると、Google OAuthリクエストは共有プロキシ設定（プロキシ設定で設定）を使用します。',
+        linuxdoDescription: '有効化すると、Linux DO OAuthリクエストは共有プロキシ設定（プロキシ設定で設定）を使用します。',
       },
       setup: {
         title: 'セットアップ手順',
@@ -956,6 +957,7 @@ export const settings = {
         clientSecret: 'Linux DO OAuth Client Secret',
         redirectUri: 'Linux DO OAuthリダイレクトURL',
         scope: 'Linux DO OAuthスコープ',
+        proxyEnabled: 'Linux DO OAuthにプロキシを使用',
       },
       title: 'Linux DOログイン',
       enabled: {

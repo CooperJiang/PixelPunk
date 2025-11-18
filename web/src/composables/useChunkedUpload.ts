@@ -5,6 +5,7 @@ import { type UploadSessionData, UploadStorageManager } from '@/utils/storage/up
 import { InstantUploadUtil } from '@/utils/business/instantUpload'
 import { getFileDimensions } from '@/utils/file/watermarkUtils'
 import { useTexts } from '@/composables/useTexts'
+import { useSettingsStore } from '@/store/settings'
 import { UploadStatus, type UploadItem, type ChunkedUploadOptions } from './upload/types'
 
 export function useChunkedUpload(options: ChunkedUploadOptions = {}) {
@@ -99,38 +100,43 @@ export function useChunkedUpload(options: ChunkedUploadOptions = {}) {
           }
         }
 
-        try {
-          uploadItem.statusMessage = $t('upload.smartUpload.status.checkingInstant')
-          triggerRef(uploadQueue)
+        const settingsStore = useSettingsStore()
+        const instantUploadEnabled = settingsStore.rawSettings?.upload?.instant_upload_enabled ?? false
 
-          const instantResult = await InstantUploadUtil.attemptInstantUpload(
-            uploadItem.file,
-            {
-              folder_id: uploadItem.folderId,
-              access_level: uploadItem.accessLevel,
-              optimize: uploadItem.optimize,
-            },
-            (progress) => {
-              uploadItem.progress = Math.floor(progress)
-              uploadItem.statusMessage = $t('upload.smartUpload.status.checkingInstantProgress', {
-                progress: uploadItem.progress,
-              })
-              triggerRef(uploadQueue)
-            }
-          )
-
-          if (instantResult) {
-            uploadItem.status = UploadStatus.COMPLETED
-            uploadItem.progress = 100
-            uploadItem.statusMessage = $t('upload.smartUpload.status.instantCompleted')
-            uploadItem.result = instantResult.file_info || instantResult
-            uploadItem.endTime = Date.now()
-
+        if (instantUploadEnabled) {
+          try {
+            uploadItem.statusMessage = $t('upload.smartUpload.status.checkingInstant')
             triggerRef(uploadQueue)
-            return
+
+            const instantResult = await InstantUploadUtil.attemptInstantUpload(
+              uploadItem.file,
+              {
+                folder_id: uploadItem.folderId,
+                access_level: uploadItem.accessLevel,
+                optimize: uploadItem.optimize,
+              },
+              (progress) => {
+                uploadItem.progress = Math.floor(progress)
+                uploadItem.statusMessage = $t('upload.smartUpload.status.checkingInstantProgress', {
+                  progress: uploadItem.progress,
+                })
+                triggerRef(uploadQueue)
+              }
+            )
+
+            if (instantResult) {
+              uploadItem.status = UploadStatus.COMPLETED
+              uploadItem.progress = 100
+              uploadItem.statusMessage = $t('upload.smartUpload.status.instantCompleted')
+              uploadItem.result = instantResult.file_info || instantResult
+              uploadItem.endTime = Date.now()
+
+              triggerRef(uploadQueue)
+              return
+            }
+          } catch (error) {
+            // Continue with chunked upload
           }
-        } catch (error) {
-          console.warn('[ChunkedUpload] 秒传检查失败，继续分片上传:', error)
         }
 
         const existingSession = UploadStorageManager.findExistingSession(fileMD5, uploadItem.file.size)

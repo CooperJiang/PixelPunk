@@ -550,6 +550,12 @@ export const settings = {
     cleanupInterval: {
       placeholder: 'クリーンアップ間隔',
     },
+    instantUpload: {
+      label: '重複画像検出',
+      description: '重複画像を検出して瞬時アップロードを実現',
+      enabled: '瞬時アップロード有効',
+      disabled: '瞬時アップロード無効',
+    },
   },
 
   security: {

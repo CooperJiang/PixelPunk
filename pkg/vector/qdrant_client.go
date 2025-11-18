@@ -80,6 +80,15 @@ func (q *QdrantClient) generateQdrantID(fileID string) string {
 	return uuidStr
 }
 
+func (q *QdrantClient) collectionExists() bool {
+	resp, err := q.httpClient.Get(fmt.Sprintf("%s/collections/%s", q.baseURL, q.collection))
+	if err != nil {
+		return false
+	}
+	defer resp.Body.Close()
+	return resp.StatusCode == 200
+}
+
 // InitCollection 初始化向量集合
 func (q *QdrantClient) InitCollection() error {
 	resp, err := q.httpClient.Get(fmt.Sprintf("%s/collections/%s", q.baseURL, q.collection))
@@ -133,10 +142,11 @@ func (q *QdrantClient) ProcessFile(fileID, description string, userID uint) erro
 
 // StoreVector 存储向量
 func (q *QdrantClient) StoreVector(fileID string, vector []float32, description string, model string) error {
-	// 生成基于 fileID 的确定性 UUID
-	qdrantID := q.generateQdrantID(fileID)
+	if !q.collectionExists() {
+		return fmt.Errorf("collection '%s' doesn't exist", q.collection)
+	}
 
-	// 可选：查询用户ID以写入payload，便于按用户过滤
+	qdrantID := q.generateQdrantID(fileID)
 	var userID uint
 	if db := database.GetDB(); db != nil {
 		var file models.File

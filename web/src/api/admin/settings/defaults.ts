@@ -312,6 +312,14 @@ export const uploadDefaults: Setting[] = [
     description: '已登录用户默认存储时长',
     is_system: true,
   },
+  {
+    key: 'instant_upload_enabled',
+    value: false,
+    type: 'boolean',
+    group: 'upload',
+    description: '检测上传图片是否重复实现秒传',
+    is_system: true,
+  },
 ]
 
 /* 网站建设设置 */

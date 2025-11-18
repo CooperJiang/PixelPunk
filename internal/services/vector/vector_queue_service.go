@@ -244,6 +244,20 @@ func (s *VectorQueueService) processVectorTask(task *qqueue.TaggingTask, ack qqu
 
 		go propagateVectorToDuplicates(ai.FileID)
 	} else {
+		errorMsg := errProc.Error()
+		isFatalError := containsAny(errorMsg, []string{"doesn't exist", "not found", "collection"})
+
+		if isFatalError {
+			_ = db.Model(&models.FileVector{}).Where("file_id = ?", ai.FileID).Updates(map[string]interface{}{
+				"status":        common.VectorStatusFailed,
+				"error_message": errorMsg,
+				"retry_count":   0,
+			}).Error
+			logger.Error("向量生成遇到致命错误（不可重试）: file_id=%s, err=%v", ai.FileID, errProc)
+			_ = ack()
+			return
+		}
+
 		var currentRetries int
 		_ = db.Model(&models.FileVector{}).Where("file_id = ?", ai.FileID).Select("retry_count").Scan(&currentRetries).Error
 		currentRetries++
@@ -258,7 +272,7 @@ func (s *VectorQueueService) processVectorTask(task *qqueue.TaggingTask, ack qqu
 		if currentRetries >= maxRetries {
 			_ = db.Model(&models.FileVector{}).Where("file_id = ?", ai.FileID).Updates(map[string]interface{}{
 				"status":        common.VectorStatusFailed,
-				"error_message": errProc.Error(),
+				"error_message": errorMsg,
 				"retry_count":   maxRetries,
 			}).Error
 			logger.Error("向量生成失败（重试次数已达上限%d次）: file_id=%s, err=%v", maxRetries, ai.FileID, errProc)
@@ -275,14 +289,25 @@ func (s *VectorQueueService) processVectorTask(task *qqueue.TaggingTask, ack qqu
 
 		logger.Warn("向量生成重试: file_id=%s, 重试次数=%d/%d, 延迟=%v, err=%v",
 			ai.FileID, currentRetries, maxRetries, delay, errProc)
-		_ = nack(delay, false, errProc.Error())
+		_ = nack(delay, false, errorMsg)
 		metrics.IncVectorNack()
 
 		_ = db.Model(&models.FileVector{}).Where("file_id = ?", ai.FileID).Updates(map[string]interface{}{
 			"status":        common.VectorStatusPending,
-			"error_message": errProc.Error(),
+			"error_message": errorMsg,
 		}).Error
 	}
+}
+
+func containsAny(s string, substrs []string) bool {
+	for _, substr := range substrs {
+		for i := 0; i <= len(s)-len(substr); i++ {
+			if s[i:i+len(substr)] == substr {
+				return true
+			}
+		}
+	}
+	return false
 }
 
 func propagateVectorToDuplicates(originalID string) {

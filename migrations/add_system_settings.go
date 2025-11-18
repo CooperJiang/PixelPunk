@@ -564,6 +564,15 @@ func AddSystemSettings(db *gorm.DB) error {
 			Description: "已登录用户默认存储时长",
 			IsSystem:    true,
 		},
+		// 秒传检测设置
+		{
+			Key:         "instant_upload_enabled",
+			Value:       false,
+			Type:        "boolean",
+			Group:       "upload",
+			Description: "检测上传图片是否重复实现秒传",
+			IsSystem:    true,
+		},
 	}
 	allSettings = append(allSettings, uploadSettings...)
 

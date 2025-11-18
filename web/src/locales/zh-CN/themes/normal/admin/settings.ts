@@ -547,6 +547,12 @@ export const settings = {
     cleanupInterval: {
       placeholder: '清理间隔',
     },
+    instantUpload: {
+      label: '重复图检测',
+      description: '检测上传图片是否重复实现秒传',
+      enabled: '已启用秒传检测',
+      disabled: '已禁用秒传检测',
+    },
   },
 
   security: {

@@ -12,12 +12,14 @@
   import OAuthSettings from './components/OAuthSettings.vue'
   import AnalyticsSettings from './components/AnalyticsSettings.vue'
   import { batchUpsertSettings, defaultSettings, getSettings, type Setting } from '@/api/admin/settings'
+  import { useSettingsStore } from '@/store/settings'
 
   /* 工具 */
   const toast = useToast()
   const route = useRoute()
   const router = useRouter()
   const { $t } = useTexts()
+  const settingsStore = useSettingsStore()
 
   const isLoading = ref(false)
   const isSaving = ref(false)
@@ -167,6 +169,7 @@
           modifiedSecuritySettings.value = []
         } else if (activeTab.value === 'upload') {
           modifiedUploadSettings.value = []
+          await settingsStore.loadGlobalSettings()
         } else if (activeTab.value === 'guest') {
           modifiedGuestSettings.value = []
         } else if (activeTab.value === 'oauth') {

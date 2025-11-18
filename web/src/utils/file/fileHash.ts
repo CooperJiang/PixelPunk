@@ -2,8 +2,8 @@ import SparkMD5 from 'spark-md5'
 import { uploadWorkerManager } from '@/workers/uploadWorkerManager'
 import { useTextThemeStore } from '@/store/textTheme'
 
-/* 判断是否应该使用Worker（大于10MB的文件使用Worker） */
-const shouldUseWorker = (fileSize: number): boolean => fileSize > 10 * 1024 * 1024 // 10MB
+/* 判断是否应该使用Worker（大于2MB的文件使用Worker，避免主线程阻塞） */
+const shouldUseWorker = (fileSize: number): boolean => fileSize > 2 * 1024 * 1024 // 2MB
 
 /**
  * 格式化翻译文本，替换参数

@@ -550,6 +550,12 @@ export const settings = {
     cleanupInterval: {
       placeholder: 'Cleanup interval',
     },
+    instantUpload: {
+      label: 'Duplicate Detection',
+      description: 'Detect duplicate images to enable instant upload',
+      enabled: 'Instant upload enabled',
+      disabled: 'Instant upload disabled',
+    },
   },
 
   security: {

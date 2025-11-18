@@ -75,6 +75,7 @@ configs/*.yaml
 .env
 .env.*
 !.env.example
+!web/.env
 
 # 部署配置（敏感信息）
 deploy.conf

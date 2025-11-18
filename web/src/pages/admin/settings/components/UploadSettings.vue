@@ -47,6 +47,7 @@
     ai_analysis_enabled: uploadDefaults.ai_analysis_enabled ?? false,
     user_allowed_storage_durations: uploadDefaults.user_allowed_storage_durations || ['1h', '3d', '7d', '30d', 'permanent'],
     user_default_storage_duration: uploadDefaults.user_default_storage_duration || 'permanent',
+    instant_upload_enabled: uploadDefaults.instant_upload_enabled ?? false,
   })
 
   /* 文件格式选项（动态） */
@@ -325,6 +326,21 @@
             min="1"
             max="10"
           />
+        </SettingItem>
+
+        <SettingItem
+          :label="$t('admin.settings.upload.instantUpload.label')"
+          icon="bolt"
+          :description="$t('admin.settings.upload.instantUpload.description')"
+        >
+          <div class="flex items-center">
+            <CyberSwitch v-model="localSettings.instant_upload_enabled" />
+            <span class="text-content-content-muted ml-3 text-sm">{{
+              localSettings.instant_upload_enabled
+                ? $t('admin.settings.upload.instantUpload.enabled')
+                : $t('admin.settings.upload.instantUpload.disabled')
+            }}</span>
+          </div>
         </SettingItem>
       </div>
     </div>

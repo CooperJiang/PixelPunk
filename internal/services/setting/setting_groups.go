@@ -74,7 +74,7 @@ func GetGlobalSettingsGroups() (*dto.GlobalSettingsResponseDTO, error) {
 			result.WebsiteInfo = groupSettings.Settings
 		case "upload":
 			uploadConfig := make(map[string]interface{})
-			allowedKeys := []string{"allowed_file_formats", "max_file_size", "max_batch_size", "content_detection_enabled", "sensitive_content_handling", "user_allowed_storage_durations", "user_default_storage_duration"}
+			allowedKeys := []string{"allowed_file_formats", "max_file_size", "max_batch_size", "content_detection_enabled", "sensitive_content_handling", "user_allowed_storage_durations", "user_default_storage_duration", "instant_upload_enabled"}
 			for _, key := range allowedKeys {
 				if value, exists := groupSettings.Settings[key]; exists {
 					uploadConfig[key] = value

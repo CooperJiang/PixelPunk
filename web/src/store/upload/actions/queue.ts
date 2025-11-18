@@ -48,99 +48,53 @@ export async function addFiles(files: FileList | File[]) {
     regularQueue.value.push({
       id,
       file,
-      status: 'analyzing',
+      status: 'pending',
       progress: 0,
       speed: 0,
       remainingTime: 0,
-      statusMessage: translations.value?.queue.preparingAnalysis || 'Preparing analysis...',
+      statusMessage: translations.value?.queue.waitingUpload || 'Ready to upload',
       type: 'regular',
     })
 
     validFiles.push({ file, id })
   }
 
-  for (const { file, id } of validFiles) {
-    processFileAsync(file, id, uploadConfig, toast).catch(() => {})
+  // 异步创建预览图和读取图片尺寸（并发控制5个）
+  const MAX_CONCURRENT_PREVIEW = 5
+  const previewQueue = [...validFiles]
+  const processingPreviews: Promise<void>[] = []
+
+  while (previewQueue.length > 0 || processingPreviews.length > 0) {
+    while (processingPreviews.length < MAX_CONCURRENT_PREVIEW && previewQueue.length > 0) {
+      const { file, id } = previewQueue.shift()!
+
+      const promise = createPreviewForFile(file, id).finally(() => {
+        const index = processingPreviews.indexOf(promise)
+        if (index > -1) processingPreviews.splice(index, 1)
+      })
+
+      processingPreviews.push(promise)
+    }
+
+    if (processingPreviews.length > 0) {
+      await Promise.race(processingPreviews)
+    }
   }
 }
 
-async function processFileAsync(file: File, itemId: string, uploadConfig: any, toast: any) {
+async function createPreviewForFile(file: File, itemId: string) {
   const item = regularQueue.value.find((i) => i.id === itemId)
-  if (!item) {
-    return
-  }
+  if (!item) return
 
   try {
-    item.statusMessage = translations.value?.queue.analyzing || 'Analyzing file...'
     const uploadItem = await createUploadItemWithDimensions(file, itemId, 'regular')
-
     Object.assign(item, uploadItem)
-    item.status = 'analyzing'
-    item.statusMessage = translations.value?.queue.checkingInstant || 'Checking instant upload...'
-
-    const instantResult = await InstantUploadUtil.attemptInstantUpload(
-      file,
-      {
-        folder_id: globalOptions.value.folderId || undefined,
-        access_level: globalOptions.value.accessLevel,
-        optimize: globalOptions.value.optimize,
-      },
-      (progress) => {
-        item.progress = progress
-        if (progress < 50) {
-          item.statusMessage = translations.value?.queue.calculatingMD5?.replace('{progress}', String(progress)) || `Calculating MD5... ${progress}%`
-        } else if (progress < 75) {
-          item.statusMessage = translations.value?.queue.checkingServerDuplicate || 'Checking duplicates...'
-        } else {
-          item.statusMessage = translations.value?.queue.preparingUpload || 'Instant uploading...'
-        }
-      }
-    )
-
-    if (instantResult) {
-      const resultData = instantResult.file_info || instantResult.data || instantResult
-      item.status = 'completed'
-      item.progress = 100
-      item.statusMessage = translations.value?.queue.instantComplete || 'Instant upload completed'
-      item.result = resultData
-      toast.success($t('upload.uploadProgress.toast.instantUploadSuccess', { name: file.name }))
-
-      if (globalOptions.value.autoRemove) {
-        setTimeout(() => {
-          removeUploadItem(itemId)
-        }, 500)
-      }
-    } else {
-      item.status = 'pending'
-      item.progress = 0
-      item.statusMessage = translations.value?.queue.waitingUpload || 'Waiting for upload'
-
-      if (classifyFile(file)) {
-        const index = regularQueue.value.findIndex((i) => i.id === itemId)
-        if (index !== -1) {
-          regularQueue.value.splice(index, 1)
-        }
-        if (chunkedUploadInstance.value) {
-          await chunkedUploadInstance.value.addFiles([file])
-        }
-      }
-    }
   } catch (error) {
-    item.status = 'pending'
-    item.progress = 0
-    item.statusMessage = translations.value?.queue.waitingUpload || 'Waiting for upload'
-
-    if (classifyFile(file)) {
-      const index = regularQueue.value.findIndex((i) => i.id === itemId)
-      if (index !== -1) {
-        regularQueue.value.splice(index, 1)
-      }
-      if (chunkedUploadInstance.value) {
-        await chunkedUploadInstance.value.addFiles([file])
-      }
-    }
+    // 预览创建失败不影响上传
   }
 }
+
+// processFileAsync 函数已移除，秒传检测移至 startUpload 阶段
 
 export function removeUploadItem(itemId: string) {
   if (chunkedUploadInstance.value) {

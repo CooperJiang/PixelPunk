@@ -7,7 +7,6 @@ import { useToast } from '@/components/Toast/useToast'
 import { guestUpload, uploadFile } from '@/api/file'
 import { useAuthStore } from '@/store/auth'
 import generateFingerprint from '@/utils/system/fingerprint'
-import { InstantUploadUtil } from '@/utils/business/instantUpload'
 import { useTexts } from '@/composables/useTexts'
 import { globalOptions, translations } from '../state'
 import { prepareWatermarkConfig } from '../utils/watermark'
@@ -20,46 +19,6 @@ export async function uploadRegularFile(item: UploadItem) {
   const { $t } = useTexts()
   const authStore = useAuthStore()
   try {
-    item.status = 'analyzing'
-    item.progress = 0
-    item.statusMessage = translations.value?.upload.analyzingFile || 'Analyzing file...'
-
-    try {
-      const instantResult = await InstantUploadUtil.attemptInstantUpload(
-        item.file,
-        {
-          folder_id: globalOptions.value.folderId || undefined,
-          access_level: globalOptions.value.accessLevel,
-          optimize: globalOptions.value.optimize,
-        },
-        (progress) => {
-          item.progress = Math.round(progress)
-          if (progress < 50) {
-            item.statusMessage = translations.value?.upload.analyzingProgress?.replace('{progress}', String(item.progress)) || `Analyzing ${item.progress}%`
-          } else if (progress < 100) {
-            item.statusMessage = translations.value?.upload.instantProgress?.replace('{progress}', String(item.progress)) || `Instant uploading ${item.progress}%`
-          }
-        }
-      )
-
-      if (instantResult) {
-        const resultData = instantResult.file_info || instantResult.data || instantResult
-        item.status = 'completed'
-        item.progress = 100
-        item.statusMessage = translations.value?.upload.instantComplete || 'Instant upload completed'
-        item.result = resultData
-
-        if (globalOptions.value.autoRemove) {
-          setTimeout(() => {
-            removeUploadItem(item.id)
-          }, 500)
-        }
-        return
-      }
-    } catch (error) {
-      // 秒传失败，静默转为普通上传
-    }
-
     item.status = 'uploading'
     item.progress = 0
     item.statusMessage = translations.value?.upload.uploading || 'Uploading...'

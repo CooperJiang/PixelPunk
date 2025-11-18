@@ -13,8 +13,6 @@ export type UploadStatus =
   | 'retrying'
   | 'instant'
 
-/**
- */
 export interface UploadItem {
   id: string
   file: File
@@ -33,6 +31,7 @@ export interface UploadItem {
     width: number
     height: number
   }
+  uploadSessionId?: string
 }
 
 /**

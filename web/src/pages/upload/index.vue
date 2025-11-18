@@ -447,7 +447,7 @@
     await startUpload()
   }
 
-  const cancelUploadWrapper = () => {
+  const handleCancelUpload = () => {
     cancelUpload()
     toast.info($t('upload.toast.uploadCancelled'))
   }
@@ -814,14 +814,6 @@
 
             <div class="flex items-center gap-2">
               <button
-                v-if="hasSuccessFiles"
-                class="cyber-button cyber-button-blue flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all hover:scale-105"
-                @click="copyAllUrls"
-              >
-                <i class="fas fa-copy" />
-                <span>{{ $t('upload.actions.copyLinks') }}</span>
-              </button>
-              <button
                 class="cyber-button cyber-button-outline flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all hover:scale-105"
                 @click="clearQueue"
               >
@@ -866,9 +858,26 @@
               </div>
 
               <div class="flex items-center gap-2">
-                <button v-if="hasUploadingFiles" class="queue-control" @click="cancelUpload">
-                  <i class="fas fa-ban mr-1" /> {{ $t('upload.actions.cancelUpload') }}
-                </button>
+                <CyberIconButton
+                  v-if="hasSuccessFiles"
+                  type="cyber"
+                  size="small"
+                  :tooltip="$t('upload.actions.copyLinks')"
+                  tooltip-placement="top"
+                  @click="copyAllUrls"
+                >
+                  <i class="fas fa-copy" />
+                </CyberIconButton>
+                <CyberIconButton
+                  v-if="hasUploadingFiles"
+                  type="danger"
+                  size="small"
+                  :tooltip="$t('upload.actions.cancelUpload')"
+                  tooltip-placement="top"
+                  @click="handleCancelUpload"
+                >
+                  <i class="fas fa-ban" />
+                </CyberIconButton>
               </div>
             </div>
 
@@ -925,7 +934,7 @@
                 :files="uploadQueue"
                 @remove="removeFileWrapper"
                 @upload="startUploadWrapper"
-                @cancel="cancelUploadWrapper"
+                @cancel="handleCancelUpload"
                 @retry="retryUploadWrapper"
                 @resume="resumeUploadWrapper"
               />
@@ -1295,27 +1304,6 @@
 
   .queue-pill {
     @apply inline-flex items-center rounded-full border border-default px-2.5 py-1 font-medium shadow-sm;
-  }
-
-  .queue-control {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: var(--radius-sm);
-    padding: 0.5rem 1rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    background-color: rgba(var(--color-error-rgb), 0.12);
-    border: 1px solid rgba(var(--color-error-rgb), 0.32);
-    color: var(--color-error-400);
-    transition: all 0.2s ease;
-  }
-
-  .queue-control:hover {
-    background-color: rgba(var(--color-error-rgb), 0.18);
-    border-color: rgba(var(--color-error-rgb), 0.4);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(var(--color-error-rgb), 0.2);
   }
 
   .queue-stat {

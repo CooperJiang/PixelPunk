@@ -13,11 +13,17 @@ import { prepareWatermarkConfig } from '../utils/watermark'
 import { removeUploadItem } from './queue'
 import type { UploadItem } from '../types'
 
-/* 普通文件上传 */
 export async function uploadRegularFile(item: UploadItem) {
   const toast = useToast()
   const { $t } = useTexts()
   const authStore = useAuthStore()
+
+  if (item.status === 'failed') {
+    return
+  }
+
+  const currentSessionId = item.uploadSessionId
+
   try {
     item.status = 'uploading'
     item.progress = 0
@@ -39,6 +45,9 @@ export async function uploadRegularFile(item: UploadItem) {
           ...watermarkConfig,
         },
         (progressEvent) => {
+          if (item.uploadSessionId !== currentSessionId || item.status === 'failed') {
+            return
+          }
           if (progressEvent.lengthComputable) {
             item.progress = Math.round((progressEvent.loaded / progressEvent.total) * 100)
 
@@ -92,6 +101,9 @@ export async function uploadRegularFile(item: UploadItem) {
           ...watermarkConfig,
         },
         (progressEvent) => {
+          if (item.uploadSessionId !== currentSessionId || item.status === 'failed') {
+            return
+          }
           if (progressEvent.lengthComputable) {
             item.progress = Math.round((progressEvent.loaded / progressEvent.total) * 100)
 
@@ -117,6 +129,10 @@ export async function uploadRegularFile(item: UploadItem) {
       )
 
       item.result = result.data || result
+    }
+
+    if (item.status === 'failed') {
+      return
     }
 
     const fileData = item.result

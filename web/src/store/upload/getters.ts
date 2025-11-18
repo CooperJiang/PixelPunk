@@ -98,7 +98,13 @@ export const isUploading = computed(
 
 export const statistics = computed(() => ({
   pending: allUploads.value.filter((f) => f.status === 'pending' || f.status === 'paused').length,
-  uploading: allUploads.value.filter((f) => f.status === 'uploading').length,
+  uploading: allUploads.value.filter(
+    (f) =>
+      f.status === 'uploading' ||
+      f.status === 'analyzing' ||
+      f.status === 'preparing' ||
+      f.status === 'retrying'
+  ).length,
   completed: allUploads.value.filter((f) => f.status === 'completed').length,
   failed: allUploads.value.filter((f) => f.status === 'failed').length,
   total: allUploads.value.length,

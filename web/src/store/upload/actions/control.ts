@@ -8,7 +8,6 @@ import { allUploads } from '../getters'
 import { scheduleNextUploads } from '../utils/scheduler'
 import { uploadRegularFile } from './upload'
 
-/* 开始上传 */
 export function startUpload() {
   scheduleNextUploads(uploadRegularFile)
 }
@@ -62,10 +61,17 @@ export function cancelUpload(itemId?: string) {
       runningUploads.value.delete(itemId)
     }
   } else {
-    allUploads.value.forEach((item) => {
-      if (item.status === 'uploading' || item.status === 'pending') {
-        cancelUpload(item.id)
-      }
+    const itemsToCancel = allUploads.value.filter(
+      (item) =>
+        item.status === 'uploading' ||
+        item.status === 'pending' ||
+        item.status === 'analyzing' ||
+        item.status === 'preparing' ||
+        item.status === 'retrying'
+    )
+
+    itemsToCancel.forEach((item) => {
+      cancelUpload(item.id)
     })
   }
 }
@@ -79,6 +85,7 @@ export async function retryUpload(itemId: string) {
   if (item.type === 'chunked') {
     await chunkedUploadInstance.value?.retryUpload(itemId)
   } else {
+    item.uploadSessionId = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
     item.status = 'pending'
     item.progress = 0
     item.error = undefined

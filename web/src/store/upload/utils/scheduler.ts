@@ -9,10 +9,8 @@ import { removeUploadItem } from '../actions/queue'
 import { useSettingsStore } from '@/store/settings'
 import type { UploadItem } from '../types'
 
-// 秒传检测并发控制
 const MAX_CONCURRENT_INSTANT_CHECK = 5
 
-/* 调度下一个上传任务 */
 export function scheduleNextUploads(uploadRegularFile: (item: UploadItem) => Promise<void>) {
   const currentRunning = runningUploads.value.size
   const maxConcurrent = Math.max(maxConcurrentUploads.value, MAX_CONCURRENT_INSTANT_CHECK)
@@ -37,14 +35,24 @@ export function scheduleNextUploads(uploadRegularFile: (item: UploadItem) => Pro
 export async function startSingleFileUpload(file: UploadItem, uploadRegularFile: (item: UploadItem) => Promise<void>) {
   runningUploads.value.add(file.id)
 
+  if (!file.uploadSessionId) {
+    file.uploadSessionId = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+  }
+
   try {
+    if (file.status === 'failed') {
+      return
+    }
+
     if (file.type === 'chunked') {
       await chunkedUploadInstance.value.startUpload(file.id)
     } else {
-      // 先尝试秒传检测
       const instantSuccess = await attemptInstantUploadForItem(file)
 
-      // 如果秒传失败，进行正常上传
+      if (file.status === 'failed') {
+        return
+      }
+
       if (!instantSuccess) {
         await uploadRegularFile(file)
       }
@@ -55,10 +63,6 @@ export async function startSingleFileUpload(file: UploadItem, uploadRegularFile:
   }
 }
 
-/**
- * 尝试对单个文件进行秒传
- * @returns true: 秒传成功, false: 秒传失败需要正常上传
- */
 async function attemptInstantUploadForItem(item: UploadItem): Promise<boolean> {
   const settingsStore = useSettingsStore()
   const instantUploadEnabled = settingsStore.rawSettings?.upload?.instant_upload_enabled ?? false
@@ -66,6 +70,12 @@ async function attemptInstantUploadForItem(item: UploadItem): Promise<boolean> {
   if (!instantUploadEnabled) {
     return false
   }
+
+  if (item.status === 'failed') {
+    return false
+  }
+
+  const currentSessionId = item.uploadSessionId
 
   try {
     item.status = 'analyzing'
@@ -80,6 +90,9 @@ async function attemptInstantUploadForItem(item: UploadItem): Promise<boolean> {
         optimize: globalOptions.value.optimize,
       },
       (progress) => {
+        if (item.uploadSessionId !== currentSessionId || item.status === 'failed') {
+          return
+        }
         item.progress = progress
         if (progress < 50) {
           item.statusMessage = translations.value?.queue.calculatingMD5?.replace('{progress}', String(progress)) || `Calculating MD5... ${progress}%`
@@ -91,8 +104,11 @@ async function attemptInstantUploadForItem(item: UploadItem): Promise<boolean> {
       }
     )
 
+    if (item.status === 'failed') {
+      return false
+    }
+
     if (instantResult) {
-      // 秒传成功
       const resultData = instantResult.file_info || instantResult.data || instantResult
       item.status = 'completed'
       item.progress = 100
@@ -110,6 +126,9 @@ async function attemptInstantUploadForItem(item: UploadItem): Promise<boolean> {
 
     return false
   } catch (error) {
+    if (item.status === 'failed') {
+      return false
+    }
     return false
   }
 }

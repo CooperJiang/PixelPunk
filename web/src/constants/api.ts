@@ -62,7 +62,7 @@ export const getErrorCodeMessages = ($t: Composer['$t']) => ({
 /* ===== 请求超时配置 ===== */
 export const REQUEST_TIMEOUT = {
   DEFAULT: 5000, // 5秒 - 默认超时时间
-  UPLOAD: 60000, // 60秒 - 文件上传超时
+  UPLOAD: 300000, // 5分钟 - 文件上传超时
   DOWNLOAD: 30000, // 30秒 - 文件下载超时
   AUTH: 8000, // 8秒 - 认证请求超时
   SEARCH: 10000, // 10秒 - 搜索请求超时

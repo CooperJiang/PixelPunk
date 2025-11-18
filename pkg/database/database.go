@@ -238,7 +238,7 @@ func InitDB() {
 		}
 	}
 
-	if err := createRootUserIfNotExists(); err != nil {
+	if err := checkAdminUserExists(); err != nil {
 		if configExists {
 			log.Warn("系统初始化检查: %v", err)
 			log.Warn("请访问Web界面完成初始化，如需重新配置，请删除 configs/config.yaml 后重启应用")
@@ -327,7 +327,7 @@ func ReconnectDatabase() error {
 	// 在安装过程中不检查 root 用户，因为会在安装控制器中单独创建
 	if !installManager.IsInstalling() {
 		// 只有在非安装过程中才检查并创建 root 用户
-		if err := createRootUserIfNotExists(); err != nil {
+		if err := checkAdminUserExists(); err != nil {
 			return fmt.Errorf("系统初始化检查失败: %v", err)
 		}
 
@@ -421,19 +421,19 @@ func isIndexError(err error) bool {
 
 // DatabaseStatus 数据库状态
 type DatabaseStatus struct {
-	Exists      bool // 数据库文件/连接是否存在
-	HasTables   bool // 是否有表结构
-	HasUsers    bool // 是否有用户数据
-	HasRootUser bool // 是否有root用户
+	Exists       bool // 数据库文件/连接是否存在
+	HasTables    bool // 是否有表结构
+	HasUsers     bool // 是否有用户数据
+	HasAdminUser bool // 是否有管理员用户
 }
 
 // checkDatabaseStatus 检查数据库状态
 func checkDatabaseStatus() (*DatabaseStatus, error) {
 	status := &DatabaseStatus{
-		Exists:      false,
-		HasTables:   false,
-		HasUsers:    false,
-		HasRootUser: false,
+		Exists:       false,
+		HasTables:    false,
+		HasUsers:     false,
+		HasAdminUser: false,
 	}
 
 	if DB == nil {
@@ -453,20 +453,20 @@ func checkDatabaseStatus() (*DatabaseStatus, error) {
 		if userCount > 0 {
 			status.HasUsers = true
 
-			var rootCount int64
-			if err := DB.Model(&models.User{}).Where("username = ?", "root").Count(&rootCount).Error; err != nil {
+			var adminCount int64
+			if err := DB.Model(&models.User{}).Where("role IN ?", []int{1, 2}).Count(&adminCount).Error; err != nil {
 				return status, err
 			}
 
-			status.HasRootUser = rootCount > 0
+			status.HasAdminUser = adminCount > 0
 		}
 	}
 
 	return status, nil
 }
 
-// 检查并创建 root 用户
-func createRootUserIfNotExists() error {
+// checkAdminUserExists 检查管理员用户是否存在
+func checkAdminUserExists() error {
 	status, err := checkDatabaseStatus()
 	if err != nil {
 		return fmt.Errorf("检查数据库状态失败: %v", err)
@@ -481,9 +481,9 @@ func createRootUserIfNotExists() error {
 		return fmt.Errorf("系统未配置管理员账户，请通过Web界面完成初始化")
 	}
 
-	// 如果有用户但没有root用户，说明数据不完整
-	if !status.HasRootUser {
-		return fmt.Errorf("缺少root管理员用户，请通过安装向导重新配置")
+	// 如果有用户但没有管理员用户，说明数据不完整
+	if !status.HasAdminUser {
+		return fmt.Errorf("缺少管理员用户，请通过安装向导重新配置")
 	}
 
 	return nil

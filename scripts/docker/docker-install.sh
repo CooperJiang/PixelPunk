@@ -150,6 +150,12 @@ download_configs() {
     # 创建 configs 目录
     mkdir -p configs
 
+    # 检查并删除错误的目录（如果存在）
+    if [ -d "configs/config.docker.yaml" ]; then
+        echo -e "${YELLOW}检测到错误的配置目录，正在清理...${NC}"
+        rm -rf "configs/config.docker.yaml"
+    fi
+
     # 创建 config.docker.yaml（如果不存在）
     if [ ! -f "configs/config.docker.yaml" ]; then
         echo -ne "${CYAN}创建 config.docker.yaml${NC}"
@@ -221,6 +227,12 @@ CONFIGEOF
         echo -e " ${GREEN}✓${NC}"
     else
         echo -e "${GREEN}✓ configs/config.docker.yaml 已存在${NC}"
+    fi
+
+    # 验证配置文件是文件而不是目录
+    if [ ! -f "configs/config.docker.yaml" ]; then
+        echo -e "${RED}✗ 配置文件创建失败或不是有效文件${NC}"
+        exit 1
     fi
 
     echo ""
@@ -341,6 +353,20 @@ start_services() {
     echo -e "${BLUE}[6/7] 启动 Docker 服务...${NC}"
     echo ""
 
+    # 启动前再次验证配置文件（防止被误删或变成目录）
+    if [ ! -f "configs/config.docker.yaml" ]; then
+        echo -e "${RED}✗ 配置文件不存在或不是有效文件${NC}"
+        echo -e "${YELLOW}正在重新创建配置文件...${NC}"
+
+        # 如果是目录，先删除
+        if [ -d "configs/config.docker.yaml" ]; then
+            rm -rf "configs/config.docker.yaml"
+        fi
+
+        # 重新生成配置文件
+        download_configs
+    fi
+
     # 停止已有服务
     if docker-compose ps 2>/dev/null | grep -q "Up"; then
         echo -e "${YELLOW}检测到已运行的服务，正在停止...${NC}"
@@ -376,15 +402,31 @@ start_services() {
 
     # 启动服务
     echo -e "${CYAN}正在启动服务...${NC}"
-    PORT=$USER_PORT \
-    DATA_DIR=$USER_DATA_DIR \
-    LOGS_DIR=$USER_LOGS_DIR \
-    UPLOADS_DIR=$USER_UPLOADS_DIR \
-    docker-compose up -d
-
-    echo ""
-    echo -e "${GREEN}✓ 服务启动成功${NC}"
-    echo ""
+    if PORT=$USER_PORT \
+       DATA_DIR=$USER_DATA_DIR \
+       LOGS_DIR=$USER_LOGS_DIR \
+       UPLOADS_DIR=$USER_UPLOADS_DIR \
+       docker-compose up -d; then
+        echo ""
+        echo -e "${GREEN}✓ 服务启动成功${NC}"
+        echo ""
+    else
+        echo ""
+        echo -e "${RED}✗ 服务启动失败${NC}"
+        echo ""
+        echo -e "${YELLOW}诊断信息：${NC}"
+        echo -e "1. 检查配置文件："
+        echo -e "   ls -la configs/config.docker.yaml"
+        ls -la configs/config.docker.yaml 2>&1 | sed 's/^/   /'
+        echo ""
+        echo -e "2. 检查容器状态："
+        docker-compose ps 2>&1 | sed 's/^/   /'
+        echo ""
+        echo -e "3. 查看错误日志："
+        echo -e "   ${CYAN}docker-compose logs pixelpunk${NC}"
+        echo ""
+        exit 1
+    fi
 }
 
 # 等待服务就绪

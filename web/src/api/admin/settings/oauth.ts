@@ -53,15 +53,15 @@ export function getOAuthConfig(): Promise<ApiResult<OAuthConfigResponse>> {
 }
 
 export function githubOAuthLogin(code: string): Promise<ApiResult<OAuthLoginResponse>> {
-  return post<OAuthLoginResponse>('/auth/oauth/github/login', { code })
+  return post<OAuthLoginResponse>('/auth/oauth/github/login', { code }, { silent: true })
 }
 
 export function googleOAuthLogin(code: string): Promise<ApiResult<OAuthLoginResponse>> {
-  return post<OAuthLoginResponse>('/auth/oauth/google/login', { code })
+  return post<OAuthLoginResponse>('/auth/oauth/google/login', { code }, { silent: true })
 }
 
 export function linuxdoOAuthLogin(code: string): Promise<ApiResult<OAuthLoginResponse>> {
-  return post<OAuthLoginResponse>('/auth/oauth/linuxdo/login', { code })
+  return post<OAuthLoginResponse>('/auth/oauth/linuxdo/login', { code }, { silent: true })
 }
 
 export interface TestProxyRequest {

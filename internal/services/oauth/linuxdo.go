@@ -168,8 +168,10 @@ func (s *LinuxdoOAuthService) FindOrCreateUser(linuxdoUser *LinuxdoUserInfo) (*m
 	}
 
 	linuxdoID := linuxdoUser.ID
+	placeholderEmail := fmt.Sprintf("linuxdo_%d@placeholder.local", linuxdoUser.ID)
 	newUser := models.User{
 		Username:  username,
+		Email:     placeholderEmail,
 		Avatar:    avatar,
 		LinuxdoID: &linuxdoID,
 		PathAlias: utils.GenerateRandomString(16),

@@ -223,6 +223,10 @@ qdrant/data/
 qdrant/bin/
 qdrant/.qdrant-initialized
 
+# Qdrant 运行时文件
+qdrant/config/config.yaml
+qdrant/*.pid
+
 # 部署缓存（Qdrant 预下载文件等）
 deploy/cache/
 qdrant-binaries/

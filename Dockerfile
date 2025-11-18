@@ -91,11 +91,13 @@ COPY --from=backend-builder /app/pixelpunk .
 # 创建必要的目录
 RUN mkdir -p configs data logs uploads
 
-# 复制配置文件模板
+# 复制配置文件模板和启动脚本
 COPY configs/config.example.yaml ./configs/config.example.yaml
+COPY configs/config.docker.yaml ./configs/config.docker.yaml
+COPY docker-entrypoint.sh ./
 
 # 设置权限
-RUN chmod +x pixelpunk
+RUN chmod +x pixelpunk docker-entrypoint.sh
 
 # 暴露端口
 EXPOSE 9520
@@ -103,6 +105,9 @@ EXPOSE 9520
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:9520/health || exit 1
+
+# 使用 entrypoint 脚本进行配置文件初始化
+ENTRYPOINT ["./docker-entrypoint.sh"]
 
 # 启动应用
 CMD ["./pixelpunk"]

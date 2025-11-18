@@ -423,6 +423,23 @@ func GetOAuthConfig() (*dto.OAuthConfigResponseDTO, error) {
 		result.Linuxdo.Scope = "user"
 	}
 
+	// LinuxDO 代理配置：只读取是否启用代理的标志
+	if proxyEnabled, exists := oauthSettings.Settings["linuxdo_oauth_proxy_enabled"]; exists {
+		if proxyEnabledBool, ok := proxyEnabled.(bool); ok {
+			result.Linuxdo.ProxyEnabled = proxyEnabledBool
+			// 如果启用代理，使用统一的代理配置
+			if proxyEnabledBool {
+				result.Linuxdo.ProxyType = sharedProxyConfig.ProxyType
+				result.Linuxdo.ProxyHost = sharedProxyConfig.ProxyHost
+				result.Linuxdo.ProxyPort = sharedProxyConfig.ProxyPort
+				result.Linuxdo.ProxyUsername = sharedProxyConfig.ProxyUsername
+				result.Linuxdo.ProxyPassword = sharedProxyConfig.ProxyPassword
+				result.Linuxdo.ProxyDynamic = sharedProxyConfig.ProxyDynamic
+				result.Linuxdo.ProxyAPIURL = sharedProxyConfig.ProxyAPIURL
+			}
+		}
+	}
+
 	return result, nil
 }
 

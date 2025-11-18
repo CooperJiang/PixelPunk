@@ -224,12 +224,26 @@ func LinuxdoLogin(c *gin.Context) {
 		return
 	}
 
+	var proxyConfig *oauthService.ProxyConfig
+	if oauthConfig.Linuxdo.ProxyEnabled {
+		proxyConfig = &oauthService.ProxyConfig{
+			Enabled:  oauthConfig.Linuxdo.ProxyEnabled,
+			Dynamic:  oauthConfig.Linuxdo.ProxyDynamic,
+			APIURL:   oauthConfig.Linuxdo.ProxyAPIURL,
+			Type:     oauthConfig.Linuxdo.ProxyType,
+			Host:     oauthConfig.Linuxdo.ProxyHost,
+			Port:     oauthConfig.Linuxdo.ProxyPort,
+			Username: oauthConfig.Linuxdo.ProxyUsername,
+			Password: oauthConfig.Linuxdo.ProxyPassword,
+		}
+	}
+
 	handler := func(code string, proxyConfig *oauthService.ProxyConfig) (*models.User, error) {
 		linuxdoService := oauthService.NewLinuxdoOAuthService(
 			oauthConfig.Linuxdo.ClientID,
 			oauthConfig.Linuxdo.ClientSecret,
 			oauthConfig.Linuxdo.RedirectURI,
-			nil,
+			proxyConfig,
 		)
 
 		tokenResp, err := linuxdoService.ExchangeCode(code)
@@ -245,5 +259,5 @@ func LinuxdoLogin(c *gin.Context) {
 		return linuxdoService.FindOrCreateUser(linuxdoUser)
 	}
 
-	handleOAuthLogin(c, req.Code, "Linux DO", handler, nil)
+	handleOAuthLogin(c, req.Code, "Linux DO", handler, proxyConfig)
 }

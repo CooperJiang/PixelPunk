@@ -1,6 +1,12 @@
 # PixelPunk Docker Compose 配置
-# 推荐使用一键安装脚本：
+#
+# 🚀 推荐使用一键安装脚本（自动配置所有参数）：
 #   curl -fsSL https://download.pixelpunk.cc/shell/docker-install.sh | bash
+#
+# 💡 也可以直接运行（将使用默认配置）：
+#   docker-compose up -d
+#
+# 注意：直接运行将使用默认数据库密码，生产环境请修改 docker-compose.yml 的环境变量
 
 version: '3.8'
 

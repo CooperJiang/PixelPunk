@@ -123,7 +123,20 @@
             const key = field.key_name
             if (localForm[key] === undefined) {
               if (field.default !== undefined && field.default !== null) {
-                localForm[key] = field.default
+                switch (field.type) {
+                  case 'bool':
+                    localForm[key] = field.default === 'true' || field.default === true
+                    break
+                  case 'int':
+                    localForm[key] = parseInt(String(field.default), 10) || 0
+                    break
+                  case 'string':
+                  case 'password':
+                    localForm[key] = String(field.default)
+                    break
+                  default:
+                    localForm[key] = field.default
+                }
               } else {
                 switch (field.type) {
                   case 'bool':

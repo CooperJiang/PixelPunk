@@ -261,11 +261,19 @@ type GoogleOAuthConfig struct {
 }
 
 type LinuxdoOAuthConfig struct {
-	Enabled      bool   `json:"enabled"`
-	ClientID     string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
-	RedirectURI  string `json:"redirect_uri"`
-	Scope        string `json:"scope"`
+	Enabled       bool   `json:"enabled"`
+	ClientID      string `json:"client_id"`
+	ClientSecret  string `json:"client_secret"`
+	RedirectURI   string `json:"redirect_uri"`
+	Scope         string `json:"scope"`
+	ProxyEnabled  bool   `json:"proxy_enabled"`
+	ProxyDynamic  bool   `json:"proxy_dynamic"`
+	ProxyAPIURL   string `json:"proxy_api_url"`
+	ProxyType     string `json:"proxy_type"`
+	ProxyHost     string `json:"proxy_host"`
+	ProxyPort     string `json:"proxy_port"`
+	ProxyUsername string `json:"proxy_username"`
+	ProxyPassword string `json:"proxy_password"`
 }
 
 type OAuthConfigResponseDTO struct {

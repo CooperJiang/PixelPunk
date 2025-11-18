@@ -1,0 +1,1 @@
+import{ah as post}from"./index-4d0dab4c.js";async function uploadAdminFile(file){const formData=new FormData;return formData.append("file",file),post("/admin/file/upload",formData,{headers:{"Content-Type":"multipart/form-data"}})}export{uploadAdminFile as u};

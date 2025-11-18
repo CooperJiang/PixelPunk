@@ -75,6 +75,7 @@ export const upload = {
     title: 'Drag data units here to inject',
     orText: 'or',
     clickToSelect: 'Click to select data',
+    supportFolder: 'Supports dragging entire data directory',
     features: {
       batch: 'Batch Injection',
       autoOptimize: 'Auto Optimize',
@@ -89,10 +90,11 @@ export const upload = {
   actions: {
     startUpload: 'Start Injection',
     selectFiles: 'Select Data',
+    selectFolder: 'Select Data Directory',
     copyLinks: 'Copy Links',
     clearQueue: 'Clear Queue',
     cancelUpload: 'Cancel Injection',
-    clearCache: 'Clear resumable upload cache, free up local storage space',
+    clearCache: 'Clear Cache',
   },
 
   queue: {
@@ -149,6 +151,23 @@ export const upload = {
       title: 'More Advanced Features',
       desc: 'Access system to use permanent storage, custom watermarks, and other features',
       action: 'Access Now',
+    },
+  },
+
+  folder: {
+    browserNotSupported: 'Your browser does not support data directory injection',
+    noValidFiles: 'No injectable data units found in directory',
+    parsing: 'Parsing data directory...',
+    addSuccess: 'Added {count} data units from directory',
+    dialog: {
+      title: 'Data Directory Injection Confirmation',
+      totalFiles: 'Total Data Units',
+      validFiles: 'Injectable Units',
+      invalidFiles: 'Unsupported Units',
+      confirmMessage: 'Found <strong class="highlight-text">{count}</strong> injectable data units, add to injection queue?',
+      warningMessage: 'Filtered {count} unsupported data units',
+      cancel: 'Cancel',
+      confirm: 'Confirm Injection',
     },
   },
 

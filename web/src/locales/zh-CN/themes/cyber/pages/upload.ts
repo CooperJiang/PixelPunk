@@ -75,6 +75,7 @@ export const upload = {
     title: '拖拽数据单元到此处注入',
     orText: '或者',
     clickToSelect: '点击选择数据',
+    supportFolder: '支持拖拽整个数据目录',
     features: {
       batch: '批量注入',
       autoOptimize: '自动优化',
@@ -89,10 +90,11 @@ export const upload = {
   actions: {
     startUpload: '启动注入',
     selectFiles: '选择数据',
+    selectFolder: '选择数据目录',
     copyLinks: '复制链接',
     clearQueue: '清空队列',
     cancelUpload: '取消注入',
-    clearCache: '清理断点续传缓存，释放本地存储空间',
+    clearCache: '清除缓存',
   },
 
   queue: {
@@ -149,6 +151,23 @@ export const upload = {
       title: '更多高级功能',
       desc: '接入系统后可使用永久存储、自定义水印等功能',
       action: '立即接入',
+    },
+  },
+
+  folder: {
+    browserNotSupported: '您的浏览器不支持数据目录注入功能',
+    noValidFiles: '数据目录中没有可注入的数据单元',
+    parsing: '正在解析数据目录...',
+    addSuccess: '已从数据目录中添加 {count} 个数据单元',
+    dialog: {
+      title: '数据目录注入确认',
+      totalFiles: '数据单元总数',
+      validFiles: '可注入单元',
+      invalidFiles: '不支持单元',
+      confirmMessage: '检测到 <strong class="highlight-text">{count}</strong> 个可注入数据单元，是否加入注入队列？',
+      warningMessage: '已过滤 {count} 个不支持的数据单元',
+      cancel: '取消',
+      confirm: '确认注入',
     },
   },
 

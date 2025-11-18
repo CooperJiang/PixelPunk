@@ -76,6 +76,7 @@ export const upload = {
     title: 'データユニットをここにドラッグして注入',
     orText: 'または',
     clickToSelect: 'クリックしてデータを選択',
+    supportFolder: 'データディレクトリ全体のドラッグをサポート',
     features: {
       batch: '一括注入',
       autoOptimize: '自動最適化',
@@ -90,10 +91,11 @@ export const upload = {
   actions: {
     startUpload: '注入を開始',
     selectFiles: 'データを選択',
+    selectFolder: 'データディレクトリを選択',
     copyLinks: 'リンクをコピー',
     clearQueue: 'キューをクリア',
     cancelUpload: '注入をキャンセル',
-    clearCache: '再開可能なアップロードキャッシュをクリアし、ローカルストレージスペースを解放',
+    clearCache: 'キャッシュをクリア',
   },
 
   queue: {
@@ -150,6 +152,23 @@ export const upload = {
       title: 'より高度な機能',
       desc: 'システムにアクセスして永続ストレージ、カスタムウォーターマーク、その他の機能を使用',
       action: '今すぐアクセス',
+    },
+  },
+
+  folder: {
+    browserNotSupported: 'お使いのブラウザはデータディレクトリ注入をサポートしていません',
+    noValidFiles: 'ディレクトリに注入可能なデータユニットが見つかりません',
+    parsing: 'データディレクトリを解析中...',
+    addSuccess: 'ディレクトリから{count}個のデータユニットを追加しました',
+    dialog: {
+      title: 'データディレクトリ注入確認',
+      totalFiles: 'データユニット総数',
+      validFiles: '注入可能ユニット',
+      invalidFiles: '非サポートユニット',
+      confirmMessage: '<strong class="highlight-text">{count}</strong>個の注入可能なデータユニットが見つかりました。注入キューに追加しますか？',
+      warningMessage: '{count}個の非サポートデータユニットをフィルタしました',
+      cancel: 'キャンセル',
+      confirm: '注入を確認',
     },
   },
 

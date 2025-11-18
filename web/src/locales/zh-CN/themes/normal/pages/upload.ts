@@ -75,6 +75,7 @@ export const upload = {
     title: '拖拽文件到此处上传',
     orText: '或者',
     clickToSelect: '点击选择文件',
+    supportFolder: '支持拖拽整个文件夹',
     features: {
       batch: '批量上传',
       autoOptimize: '自动优化',
@@ -89,10 +90,11 @@ export const upload = {
   actions: {
     startUpload: '开始上传',
     selectFiles: '选择文件',
+    selectFolder: '选择文件夹',
     copyLinks: '复制链接',
     clearQueue: '清空队列',
     cancelUpload: '取消上传',
-    clearCache: '清理断点续传缓存，释放本地存储空间',
+    clearCache: '清除缓存',
   },
 
   queue: {
@@ -149,6 +151,23 @@ export const upload = {
       title: '更多高级功能',
       desc: '登录后可使用永久存储、自定义水印等功能',
       action: '立即登录',
+    },
+  },
+
+  folder: {
+    browserNotSupported: '您的浏览器不支持文件夹上传功能',
+    noValidFiles: '文件夹中没有可上传的文件',
+    parsing: '正在解析文件夹...',
+    addSuccess: '已从文件夹中添加 {count} 个文件',
+    dialog: {
+      title: '文件夹上传确认',
+      totalFiles: '文件总数',
+      validFiles: '可上传文件',
+      invalidFiles: '不支持文件',
+      confirmMessage: '检测到 <strong class="highlight-text">{count}</strong> 个可上传文件，是否加入上传队列？',
+      warningMessage: '已过滤 {count} 个不支持的文件',
+      cancel: '取消',
+      confirm: '确认上传',
     },
   },
 

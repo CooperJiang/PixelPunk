@@ -3,6 +3,7 @@
   import { useRoute } from 'vue-router'
   import UploadProgress from './components/UploadProgress.vue'
   import UploadSettings from './components/UploadSettings.vue'
+  import FolderConfirmDialog from './components/FolderConfirmDialog.vue'
   import { useToast } from '@/components/Toast/useToast'
   import { useSettingsStore } from '@/store/settings'
   import { useAuthStore } from '@/store/auth'
@@ -11,9 +12,19 @@
   import { useFolderPath } from '@/hooks/useFolderPath'
   import { useUploadStore } from '@/store/upload'
   import { useLayoutStore } from '@/store/layout'
+  import { useUploadConfig } from '@/composables/useUploadConfig'
   import { DEFAULT_WATERMARK_CONFIG, type WatermarkConfig as WatermarkConfigType } from '@/components/WatermarkConfig/types'
   import { logger } from '@/utils/system/logger'
   import { useTexts } from '@/composables/useTexts'
+  import {
+    extractFilesFromFileList,
+    extractFilesFromItems,
+    filterValidFiles,
+    getFolderStats,
+    hasFolder,
+    supportsFolderUpload,
+    type FolderStats,
+  } from '@/utils/file/folderReader'
 
   const toast = useToast()
   const settingsStore = useSettingsStore()
@@ -25,10 +36,22 @@
 
   const { getFolderPathString } = useFolderPath()
 
+  const uploadConfig = useUploadConfig()
+
   const isDismissed = ref(false)
 
   const fileInput = ref<HTMLInputElement | null>(null)
+  const folderInput = ref<HTMLInputElement | null>(null)
   const isDragging = ref(false)
+
+  const showFolderDialog = ref(false)
+  const folderStats = ref<FolderStats>({ totalFiles: 0, validFiles: 0, invalidFiles: 0 })
+  const pendingFolderFiles = ref<File[]>([])
+
+  const isFolderUploadSupported = supportsFolderUpload()
+
+  // 防止重复触发
+  let isSelectingFolder = false
 
   const folderId = ref<string | null>(null)
   const presetFolderPath = ref<string>('') // 预设文件夹路径，避免重复查询
@@ -188,7 +211,96 @@
   }
 
   const triggerFileInput = () => {
+    if (isSelectingFolder) {
+      return
+    }
     fileInput.value?.click()
+  }
+
+  const triggerFolderInput = () => {
+    if (isSelectingFolder) {
+      return
+    }
+
+    if (!isFolderUploadSupported) {
+      toast.warning($t('upload.folder.browserNotSupported'))
+      return
+    }
+
+    if (!folderInput.value) {
+      toast.error($t('upload.folder.initFailed'))
+      return
+    }
+
+    isSelectingFolder = true
+
+    const input = folderInput.value
+
+    if (input.hasAttribute('webkitdirectory')) {
+      input.click()
+    } else {
+      input.setAttribute('webkitdirectory', '')
+      input.setAttribute('mozdirectory', '')
+      input.setAttribute('directory', '')
+      input.click()
+    }
+
+    setTimeout(() => {
+      isSelectingFolder = false
+    }, 3000)
+  }
+
+  const handleFolderChange = async (event: Event) => {
+    const target = event.target as HTMLInputElement
+    isSelectingFolder = false
+
+    if (target.files && target.files.length > 0) {
+      await processFolderFiles(target.files)
+      target.value = ''
+    }
+  }
+
+  const processFolderFiles = async (fileList: FileList) => {
+    try {
+      if (!uploadConfig.isConfigLoaded.value) {
+        await uploadConfig.loadConfig()
+      }
+
+      const allFiles = extractFilesFromFileList(fileList)
+
+      if (allFiles.length === 0) {
+        toast.warning($t('upload.folder.noFiles'))
+        return
+      }
+
+      const validFiles = filterValidFiles(allFiles, uploadConfig.isAllowedFileType, uploadConfig.isAllowedFileSize)
+
+      if (validFiles.length === 0) {
+        toast.error($t('upload.folder.noValidFiles'))
+        return
+      }
+
+      const stats = getFolderStats(allFiles, validFiles)
+      folderStats.value = stats
+      pendingFolderFiles.value = validFiles
+
+      showFolderDialog.value = true
+    } catch (error) {
+      logger.error('[Upload] processFolderFiles error:', error)
+      toast.error($t('upload.folder.processingError'))
+    }
+  }
+
+  const handleConfirmFolderUpload = async () => {
+    if (pendingFolderFiles.value.length > 0) {
+      await addFilesWithWatermark(pendingFolderFiles.value as any)
+      toast.success($t('upload.folder.addSuccess', { count: pendingFolderFiles.value.length }))
+      pendingFolderFiles.value = []
+    }
+  }
+
+  const handleCancelFolderUpload = () => {
+    pendingFolderFiles.value = []
   }
 
   const onDragOver = () => {
@@ -201,21 +313,65 @@
 
   const onDrop = async (event: DragEvent) => {
     isDragging.value = false
-    const files = event.dataTransfer?.files
-    logger.debug('[Upload] onDrop 拖拽文件:', { filesCount: files?.length, isLoggedIn: authStore.isLoggedIn })
+    const items = event.dataTransfer?.items
 
-    if (files) {
-      logger.debug('[Upload] 统一使用addFilesWithWatermark添加文件')
-      await addFilesWithWatermark(files)
+    if (!items) {
+      const files = event.dataTransfer?.files
+      if (files) {
+        await addFilesWithWatermark(files)
+      }
+      return
+    }
+
+    const containsFolder = hasFolder(items)
+
+    if (containsFolder) {
+      await handleFolderDrop(items)
+    } else {
+      const files = event.dataTransfer?.files
+      if (files) {
+        await addFilesWithWatermark(files)
+      }
+    }
+  }
+
+  const handleFolderDrop = async (items: DataTransferItemList) => {
+    try {
+      toast.info($t('upload.folder.parsing'))
+
+      if (!uploadConfig.isConfigLoaded.value) {
+        await uploadConfig.loadConfig()
+      }
+
+      const allFiles = await extractFilesFromItems(items)
+
+      if (allFiles.length === 0) {
+        toast.warning($t('upload.folder.noFiles'))
+        return
+      }
+
+      const validFiles = filterValidFiles(allFiles, uploadConfig.isAllowedFileType, uploadConfig.isAllowedFileSize)
+
+      if (validFiles.length === 0) {
+        toast.error($t('upload.folder.noValidFiles'))
+        return
+      }
+
+      const stats = getFolderStats(allFiles, validFiles)
+      folderStats.value = stats
+      pendingFolderFiles.value = validFiles
+
+      showFolderDialog.value = true
+    } catch (error) {
+      logger.error('[Upload] handleFolderDrop error:', error)
+      toast.error($t('upload.folder.processingError'))
     }
   }
 
   const handleFileChange = async (event: Event) => {
     const target = event.target as HTMLInputElement
-    logger.debug('[Upload] handleFileChange 文件选择:', { filesCount: target.files?.length, isLoggedIn: authStore.isLoggedIn })
 
     if (target.files) {
-      logger.debug('[Upload] 统一使用addFilesWithWatermark添加文件')
       await addFilesWithWatermark(target.files)
       target.value = ''
     }
@@ -247,20 +403,10 @@
   }
 
   const addFilesWithWatermark = async (files: FileList) => {
-    logger.debug('[Upload] 开始添加文件，文件数量:', files.length)
-
     const syncedWatermarkConfig = {
       ...watermarkConfig.value,
       enabled: watermarkEnabled.value,
     }
-
-    logger.debug('[Upload] Watermark status sync:', {
-      watermarkEnabled: watermarkEnabled.value,
-      configEnabled: syncedWatermarkConfig.enabled,
-      generateMode: syncedWatermarkConfig.generateMode,
-      type: syncedWatermarkConfig.type,
-      text: syncedWatermarkConfig.text,
-    })
 
     watermarkConfig.value = syncedWatermarkConfig
 
@@ -268,17 +414,10 @@
   }
 
   const startUploadWrapper = async () => {
-    logger.debug('[Upload] Start upload:', { isLoggedIn: authStore.isLoggedIn, storageDuration: storageDuration.value })
-
     const syncedWatermarkConfig = {
       ...watermarkConfig.value,
       enabled: watermarkEnabled.value,
     }
-
-    logger.debug('[Upload] Watermark config on upload:', {
-      watermarkEnabled: watermarkEnabled.value,
-      syncedConfig: syncedWatermarkConfig,
-    })
 
     if (!authStore.isLoggedIn) {
       if (!storageDuration.value || storageDuration.value === 'permanent') {
@@ -303,11 +442,6 @@
     uploadStore.setGlobalOptions({
       watermarkEnabled: watermarkEnabled.value,
       watermarkConfig: uploadWatermarkConfig,
-    })
-
-    logger.debug('[Upload] Updated upload store watermark config:', {
-      watermarkEnabled: watermarkEnabled.value,
-      watermarkConfig: syncedWatermarkConfig,
     })
 
     await startUpload()
@@ -467,30 +601,43 @@
   )
 
   onMounted(async () => {
-    logger.debug('[Upload] Page mounted:', { isLoggedIn: authStore.isLoggedIn, storageDuration: storageDuration.value })
-
     await nextTick()
+
+    if (folderInput.value && isFolderUploadSupported) {
+      const input = folderInput.value as HTMLInputElement
+      // 通过 JavaScript 设置属性，这是最可靠的方式
+      input.setAttribute('webkitdirectory', '')
+      input.setAttribute('mozdirectory', '')
+      input.setAttribute('directory', '')
+
+      // 同时设置 DOM 属性（某些浏览器需要）
+      try {
+        Object.defineProperty(input, 'webkitdirectory', {
+          value: true,
+          writable: true,
+          configurable: true,
+        })
+      } catch (e) {
+        // 忽略错误
+      }
+    }
 
     if (!authStore.isLoggedIn) {
       if (globalSettings.value?.guest?.guest_default_access_level) {
         accessLevel.value = globalSettings.value.guest.guest_default_access_level as 'public' | 'private' | 'protected'
-        logger.debug('[Upload] Guest mode set default access level to:', accessLevel.value)
       }
 
       if (globalSettings.value?.guest?.guest_default_storage_duration) {
         storageDuration.value = globalSettings.value.guest.guest_default_storage_duration as string
-        logger.debug('[Upload] Guest mode set default storage duration to:', storageDuration.value)
       } else {
         const allowedDurations = globalSettings.value?.guest?.guest_allowed_storage_durations
         if (Array.isArray(allowedDurations) && allowedDurations.length > 0) {
           storageDuration.value = allowedDurations[0]
-          logger.debug('[Upload] Guest mode using first available storage duration:', storageDuration.value)
         }
       }
     } else {
       if (globalSettings.value?.upload?.user_default_storage_duration) {
         storageDuration.value = globalSettings.value.upload.user_default_storage_duration as string
-        logger.debug('[Upload] Logged-in user set default storage duration to:', storageDuration.value)
       }
     }
 
@@ -535,6 +682,7 @@
               @drop.prevent="onDrop"
             >
               <input ref="fileInput" type="file" class="hidden" :accept="acceptFormats" multiple @change="handleFileChange" />
+              <input ref="folderInput" type="file" class="hidden" multiple @change="handleFolderChange" />
 
               <div class="absolute inset-0 flex flex-col items-center justify-center p-4">
                 <div class="upload-icon-container relative mb-5">
@@ -552,6 +700,10 @@
                     }}<span class="font-medium text-brand-500 transition-colors hover:text-content-heading">
                       {{ $t('upload.dropZone.clickToSelect') }}</span
                     >
+                  </p>
+                  <p v-if="isFolderUploadSupported" class="text-content-secondary mt-1 text-sm">
+                    <i class="fas fa-folder-open text-brand-500" />
+                    {{ $t('upload.dropZone.supportFolder') }}
                   </p>
                 </div>
 
@@ -635,20 +787,28 @@
           class="quick-actions mt-4 rounded-b-lg border-t border-default bg-gradient-to-r from-background-700 to-background-700 backdrop-blur-sm"
         >
           <div class="flex flex-wrap items-center justify-center gap-3 px-4 py-4">
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
               <button
                 class="cyber-button cyber-button-gradient flex items-center gap-2 rounded-lg px-4 py-2 font-medium transition-all hover:scale-105 hover:shadow-lg hover:shadow-error-200"
-                @click="hasPendingFiles ? startUploadWrapper() : showNoFilesMessage()"
+                @click.stop="hasPendingFiles ? startUploadWrapper() : showNoFilesMessage()"
               >
                 <i class="fas fa-rocket text-sm" />
                 <span>{{ $t('upload.actions.startUpload') }}</span>
               </button>
               <button
                 class="cyber-button cyber-button-outline flex items-center gap-2 rounded-lg px-4 py-2 font-medium transition-all hover:scale-105"
-                @click="triggerFileInput"
+                @click.stop="triggerFileInput"
               >
                 <i class="fas fa-plus text-sm" />
                 <span>{{ $t('upload.actions.selectFiles') }}</span>
+              </button>
+              <button
+                v-if="isFolderUploadSupported"
+                class="cyber-button cyber-button-outline flex items-center gap-2 rounded-lg px-4 py-2 font-medium transition-all hover:scale-105"
+                @click.stop="triggerFolderInput"
+              >
+                <i class="fas fa-folder-open text-sm" />
+                <span>{{ $t('upload.actions.selectFolder') }}</span>
               </button>
             </div>
 
@@ -946,6 +1106,13 @@
       v-model:visible="showWatermarkConfig"
       :config="watermarkConfig"
       @confirm="handleWatermarkConfigConfirm"
+    />
+
+    <FolderConfirmDialog
+      v-model:visible="showFolderDialog"
+      :stats="folderStats"
+      @confirm="handleConfirmFolderUpload"
+      @cancel="handleCancelFolderUpload"
     />
   </div>
 </template>

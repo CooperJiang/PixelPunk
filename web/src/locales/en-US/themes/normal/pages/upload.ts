@@ -76,6 +76,7 @@ export const upload = {
     title: 'Drag files here to upload',
     orText: 'or',
     clickToSelect: 'Click to select files',
+    supportFolder: 'Supports dragging entire folder',
     features: {
       batch: 'Batch Upload',
       autoOptimize: 'Auto Optimize',
@@ -90,10 +91,11 @@ export const upload = {
   actions: {
     startUpload: 'Start Upload',
     selectFiles: 'Select Files',
+    selectFolder: 'Select Folder',
     copyLinks: 'Copy Links',
     clearQueue: 'Clear Queue',
     cancelUpload: 'Cancel Upload',
-    clearCache: 'Clear resumable upload cache, free local storage space',
+    clearCache: 'Clear Cache',
   },
 
   queue: {
@@ -150,6 +152,23 @@ export const upload = {
       title: 'More Advanced Features',
       desc: 'After login, you can use permanent storage, custom watermark and other features',
       action: 'Login Now',
+    },
+  },
+
+  folder: {
+    browserNotSupported: 'Your browser does not support folder upload',
+    noValidFiles: 'No uploadable files found in folder',
+    parsing: 'Parsing folder...',
+    addSuccess: 'Added {count} files from folder',
+    dialog: {
+      title: 'Folder Upload Confirmation',
+      totalFiles: 'Total Files',
+      validFiles: 'Uploadable Files',
+      invalidFiles: 'Unsupported Files',
+      confirmMessage: 'Found <strong class="highlight-text">{count}</strong> uploadable files, add to upload queue?',
+      warningMessage: 'Filtered {count} unsupported files',
+      cancel: 'Cancel',
+      confirm: 'Confirm Upload',
     },
   },
 

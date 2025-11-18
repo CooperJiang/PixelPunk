@@ -76,6 +76,7 @@ export const upload = {
     title: 'ファイルをここにドラッグしてアップロード',
     orText: 'または',
     clickToSelect: 'クリックしてファイルを選択',
+    supportFolder: 'フォルダ全体のドラッグをサポート',
     features: {
       batch: 'バッチアップロード',
       autoOptimize: '自動最適化',
@@ -90,10 +91,11 @@ export const upload = {
   actions: {
     startUpload: 'アップロード開始',
     selectFiles: 'ファイルを選択',
+    selectFolder: 'フォルダを選択',
     copyLinks: 'リンクをコピー',
     clearQueue: 'キューをクリア',
     cancelUpload: 'アップロードをキャンセル',
-    clearCache: '再開可能なアップロードキャッシュをクリアし、ローカルストレージスペースを解放',
+    clearCache: 'キャッシュをクリア',
   },
 
   queue: {
@@ -150,6 +152,23 @@ export const upload = {
       title: 'より高度な機能',
       desc: 'ログイン後、永続ストレージ、カスタム透かしなどの機能を使用できます',
       action: '今すぐログイン',
+    },
+  },
+
+  folder: {
+    browserNotSupported: 'お使いのブラウザはフォルダアップロードをサポートしていません',
+    noValidFiles: 'フォルダにアップロード可能なファイルが見つかりません',
+    parsing: 'フォルダを解析中...',
+    addSuccess: 'フォルダから{count}個のファイルを追加しました',
+    dialog: {
+      title: 'フォルダアップロード確認',
+      totalFiles: 'ファイル総数',
+      validFiles: 'アップロード可能ファイル',
+      invalidFiles: '非サポートファイル',
+      confirmMessage: '<strong class="highlight-text">{count}</strong>個のアップロード可能なファイルが見つかりました。アップロードキューに追加しますか？',
+      warningMessage: '{count}個の非サポートファイルをフィルタしました',
+      cancel: 'キャンセル',
+      confirm: 'アップロードを確認',
     },
   },
 

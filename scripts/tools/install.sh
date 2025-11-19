@@ -70,7 +70,7 @@ detect_os() {
         MINGW*|MSYS*|CYGWIN*)
             log_error "不支持在 Windows 上直接运行此脚本"
             log_info "请下载 Windows 安装包手动安装："
-            log_info "${DOWNLOAD_BASE_URL}/pixelpunk-${DEFAULT_VERSION}-windows-amd64.zip"
+            log_info "${DOWNLOAD_BASE_URL}/pixelpunk-windows-amd64.zip"
             exit 1
             ;;
         *)
@@ -310,13 +310,11 @@ main() {
     log_step "步骤 3/7: 准备安装"
     echo "" >&2
 
-    # 使用默认版本（当前固定为 v1.0.0）
-    # TODO: 未来有多版本时，可添加版本选择功能
-    version="$DEFAULT_VERSION"
-    log_info "安装版本: $version"
+    # 固定使用最新版本
+    log_info "安装版本: $DEFAULT_VERSION"
 
-    # 构建文件名和 URL
-    local archive_name="pixelpunk-${version}-${platform}.tar.gz"
+    # 构建文件名和 URL（不包含版本号）
+    local archive_name="pixelpunk-${platform}.tar.gz"
     local download_url="${DOWNLOAD_BASE_URL}/${archive_name}"
 
     echo "" >&2

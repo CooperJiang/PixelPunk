@@ -98,6 +98,9 @@
     totalFileSize,
     maxConcurrentUploads,
     copyAllUrls: copyAllUrlsFromStore,
+    copyAllMarkdownUrls: copyAllMarkdownUrlsFromStore,
+    copyAllHtmlUrls: copyAllHtmlUrlsFromStore,
+    copyAllThumbnailUrls: copyAllThumbnailUrlsFromStore,
   } = globalUpload
 
   const setupPreselectedFolder = async (folderIdParam: string) => {
@@ -472,6 +475,33 @@
     const success = await copyAllUrlsFromStore()
     if (success) {
       toast.success($t('upload.toast.allLinksCopied'))
+    } else {
+      toast.warning($t('upload.toast.noLinksToCopy'))
+    }
+  }
+
+  const copyAllMarkdownUrls = async () => {
+    const success = await copyAllMarkdownUrlsFromStore()
+    if (success) {
+      toast.success($t('upload.toast.markdownLinksCopied'))
+    } else {
+      toast.warning($t('upload.toast.noLinksToCopy'))
+    }
+  }
+
+  const copyAllHtmlUrls = async () => {
+    const success = await copyAllHtmlUrlsFromStore()
+    if (success) {
+      toast.success($t('upload.toast.htmlLinksCopied'))
+    } else {
+      toast.warning($t('upload.toast.noLinksToCopy'))
+    }
+  }
+
+  const copyAllThumbnailUrls = async () => {
+    const success = await copyAllThumbnailUrlsFromStore()
+    if (success) {
+      toast.success($t('upload.toast.thumbnailLinksCopied'))
     } else {
       toast.warning($t('upload.toast.noLinksToCopy'))
     }
@@ -867,6 +897,36 @@
                   @click="copyAllUrls"
                 >
                   <i class="fas fa-copy" />
+                </CyberIconButton>
+                <CyberIconButton
+                  v-if="hasSuccessFiles"
+                  type="cyber"
+                  size="small"
+                  :tooltip="$t('upload.actions.copyMarkdownLinks')"
+                  tooltip-placement="top"
+                  @click="copyAllMarkdownUrls"
+                >
+                  <i class="fab fa-markdown" />
+                </CyberIconButton>
+                <CyberIconButton
+                  v-if="hasSuccessFiles"
+                  type="cyber"
+                  size="small"
+                  :tooltip="$t('upload.actions.copyHtmlLinks')"
+                  tooltip-placement="top"
+                  @click="copyAllHtmlUrls"
+                >
+                  <i class="fab fa-html5" />
+                </CyberIconButton>
+                <CyberIconButton
+                  v-if="hasSuccessFiles"
+                  type="cyber"
+                  size="small"
+                  :tooltip="$t('upload.actions.copyThumbnailLinks')"
+                  tooltip-placement="top"
+                  @click="copyAllThumbnailUrls"
+                >
+                  <i class="fas fa-image" />
                 </CyberIconButton>
                 <CyberIconButton
                   v-if="hasUploadingFiles"

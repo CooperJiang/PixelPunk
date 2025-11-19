@@ -170,6 +170,58 @@ export function useGlobalUpload(options?: { folderId?: any; accessLevel?: any; o
     return false
   }
 
+  const copyAllMarkdownUrls = async () => {
+    const markdownLinks = allUploads.value
+      .filter((file) => file.status === 'completed' && file.result?.full_url)
+      .map((file) => `![${file.file.name}](${file.result?.full_url})`)
+      .join('\n')
+
+    if (markdownLinks) {
+      try {
+        await navigator.clipboard.writeText(markdownLinks)
+        return true
+      } catch (_err) {
+        return false
+      }
+    }
+    return false
+  }
+
+  const copyAllHtmlUrls = async () => {
+    const htmlTags = allUploads.value
+      .filter((file) => file.status === 'completed' && file.result?.full_url)
+      .map((file) => `<img src="${file.result?.full_url}" alt="${file.file.name}" />`)
+      .join('\n')
+
+    if (htmlTags) {
+      try {
+        await navigator.clipboard.writeText(htmlTags)
+        return true
+      } catch (_err) {
+        return false
+      }
+    }
+    return false
+  }
+
+  const copyAllThumbnailUrls = async () => {
+    const thumbnailUrls = allUploads.value
+      .filter((file) => file.status === 'completed' && file.result?.full_thumb_url)
+      .map((file) => file.result?.full_thumb_url)
+      .filter((url): url is string => !!url)
+      .join('\n')
+
+    if (thumbnailUrls) {
+      try {
+        await navigator.clipboard.writeText(thumbnailUrls)
+        return true
+      } catch (_err) {
+        return false
+      }
+    }
+    return false
+  }
+
   return {
     allUploads,
     uploadQueue, // 兼容原格式
@@ -199,6 +251,9 @@ export function useGlobalUpload(options?: { folderId?: any; accessLevel?: any; o
     clearQueue,
     clearAllSessions,
     copyAllUrls,
+    copyAllMarkdownUrls,
+    copyAllHtmlUrls,
+    copyAllThumbnailUrls,
 
     formatFileSize: uploadStore.formatFileSize,
     isValidImageFile: uploadStore.isValidImageFile,

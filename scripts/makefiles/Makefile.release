@@ -18,23 +18,8 @@ release:
 	@echo "$(GREEN)  PixelPunk 发布构建$(NC)"
 	@echo "$(GREEN)═══════════════════════════════════════$(NC)"
 	@echo ""
-	@echo "$(YELLOW)请输入版本号（默认: $(DEFAULT_VERSION)）:$(NC)"
-	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
-	if [ -z "$$VERSION_INPUT" ]; then \
-		VERSION_INPUT="$(DEFAULT_VERSION)"; \
-	fi; \
-	if ! echo "$$VERSION_INPUT" | grep -qE '^v?[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+)?$$'; then \
-		echo "$(RED)✗ 版本号格式错误！请使用格式：v1.0.0 或 1.0.0$(NC)"; \
-		exit 1; \
-	fi; \
-	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then \
-		VERSION_INPUT="v$$VERSION_INPUT"; \
-	fi; \
-	echo ""; \
-	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
-	echo ""; \
-	BUILD_START=$$(date +%s); \
-	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh; \
+	@BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$(DEFAULT_VERSION)" ./scripts/build/build-release.sh; \
 	BUILD_END=$$(date +%s); \
 	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
 	echo ""; \
@@ -72,12 +57,8 @@ release-help:
 release-linux-amd64:
 	@echo "$(GREEN)构建 Linux x86_64 发布版本...$(NC)"
 	@chmod +x scripts/build/build-release.sh
-	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
-	VERSION_INPUT=$${VERSION_INPUT:-$(DEFAULT_VERSION)}; \
-	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then VERSION_INPUT="v$$VERSION_INPUT"; fi; \
-	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
-	BUILD_START=$$(date +%s); \
-	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh --platform linux-amd64; \
+	@BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$(DEFAULT_VERSION)" ./scripts/build/build-release.sh --platform linux-amd64; \
 	BUILD_END=$$(date +%s); \
 	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
 	echo "$(GREEN)✅ Linux x86_64 构建完成! 用时: $${BUILD_TIME}s$(NC)"
@@ -85,12 +66,8 @@ release-linux-amd64:
 release-linux-arm64:
 	@echo "$(GREEN)构建 Linux ARM64 发布版本...$(NC)"
 	@chmod +x scripts/build/build-release.sh
-	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
-	VERSION_INPUT=$${VERSION_INPUT:-$(DEFAULT_VERSION)}; \
-	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then VERSION_INPUT="v$$VERSION_INPUT"; fi; \
-	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
-	BUILD_START=$$(date +%s); \
-	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh --platform linux-arm64; \
+	@BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$(DEFAULT_VERSION)" ./scripts/build/build-release.sh --platform linux-arm64; \
 	BUILD_END=$$(date +%s); \
 	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
 	echo "$(GREEN)✅ Linux ARM64 构建完成! 用时: $${BUILD_TIME}s$(NC)"
@@ -98,12 +75,8 @@ release-linux-arm64:
 release-darwin-amd64:
 	@echo "$(GREEN)构建 macOS Intel 发布版本...$(NC)"
 	@chmod +x scripts/build/build-release.sh
-	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
-	VERSION_INPUT=$${VERSION_INPUT:-$(DEFAULT_VERSION)}; \
-	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then VERSION_INPUT="v$$VERSION_INPUT"; fi; \
-	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
-	BUILD_START=$$(date +%s); \
-	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh --platform darwin-amd64; \
+	@BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$(DEFAULT_VERSION)" ./scripts/build/build-release.sh --platform darwin-amd64; \
 	BUILD_END=$$(date +%s); \
 	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
 	echo "$(GREEN)✅ macOS Intel 构建完成! 用时: $${BUILD_TIME}s$(NC)"
@@ -111,12 +84,8 @@ release-darwin-amd64:
 release-darwin-arm64:
 	@echo "$(GREEN)构建 macOS Apple Silicon 发布版本...$(NC)"
 	@chmod +x scripts/build/build-release.sh
-	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
-	VERSION_INPUT=$${VERSION_INPUT:-$(DEFAULT_VERSION)}; \
-	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then VERSION_INPUT="v$$VERSION_INPUT"; fi; \
-	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
-	BUILD_START=$$(date +%s); \
-	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh --platform darwin-arm64; \
+	@BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$(DEFAULT_VERSION)" ./scripts/build/build-release.sh --platform darwin-arm64; \
 	BUILD_END=$$(date +%s); \
 	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
 	echo "$(GREEN)✅ macOS Apple Silicon 构建完成! 用时: $${BUILD_TIME}s$(NC)"
@@ -124,12 +93,8 @@ release-darwin-arm64:
 release-windows-amd64:
 	@echo "$(GREEN)构建 Windows x86_64 发布版本...$(NC)"
 	@chmod +x scripts/build/build-release.sh
-	@read -p "版本号 [$(DEFAULT_VERSION)]: " VERSION_INPUT; \
-	VERSION_INPUT=$${VERSION_INPUT:-$(DEFAULT_VERSION)}; \
-	if ! echo "$$VERSION_INPUT" | grep -q '^v'; then VERSION_INPUT="v$$VERSION_INPUT"; fi; \
-	echo "$(CYAN)构建版本: $$VERSION_INPUT$(NC)"; \
-	BUILD_START=$$(date +%s); \
-	RELEASE_VERSION="$$VERSION_INPUT" ./scripts/build/build-release.sh --platform windows-amd64; \
+	@BUILD_START=$$(date +%s); \
+	RELEASE_VERSION="$(DEFAULT_VERSION)" ./scripts/build/build-release.sh --platform windows-amd64; \
 	BUILD_END=$$(date +%s); \
 	BUILD_TIME=$$((BUILD_END - BUILD_START)); \
 	echo "$(GREEN)✅ Windows x86_64 构建完成! 用时: $${BUILD_TIME}s$(NC)"

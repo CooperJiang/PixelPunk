@@ -5,6 +5,7 @@
   import { RecycleScroller } from 'vue-virtual-scroller'
   import { SIZE_LIMITS, TIMING } from '@/constants'
   import { createFileDataURL } from '@/utils/file/heicConverter'
+  import CyberTooltip from '@/components/Tooltip/index.vue'
   import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 
   export interface UploadFile {
@@ -298,8 +299,36 @@
     try {
       await navigator.clipboard.writeText(url)
       toast.success($t('upload.uploadProgress.toast.linkCopied'))
-    } catch (err) {
-      console.error('复制失败:', err)
+    } catch {
+      toast.error($t('upload.uploadProgress.toast.copyFailed'))
+    }
+  }
+
+  const copyMarkdownUrl = async (url: string, name: string) => {
+    try {
+      const markdownText = `![${name}](${url})`
+      await navigator.clipboard.writeText(markdownText)
+      toast.success($t('upload.uploadProgress.toast.markdownLinkCopied'))
+    } catch {
+      toast.error($t('upload.uploadProgress.toast.copyFailed'))
+    }
+  }
+
+  const copyHtmlUrl = async (url: string, name: string) => {
+    try {
+      const htmlTag = `<img src="${url}" alt="${name}" />`
+      await navigator.clipboard.writeText(htmlTag)
+      toast.success($t('upload.uploadProgress.toast.htmlLinkCopied'))
+    } catch {
+      toast.error($t('upload.uploadProgress.toast.copyFailed'))
+    }
+  }
+
+  const copyThumbnailUrl = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url)
+      toast.success($t('upload.uploadProgress.toast.thumbnailLinkCopied'))
+    } catch {
       toast.error($t('upload.uploadProgress.toast.copyFailed'))
     }
   }
@@ -471,14 +500,45 @@
                 <i class="fas fa-external-link-alt" />
               </button>
 
-              <button
+              <CyberTooltip
                 v-if="(file.status === 'success' || file.status === 'completed') && file.full_url"
-                class="upload-action upload-action--brand"
-                :title="$t('upload.uploadProgress.actions.copyLink')"
-                @click="copyImageUrl(file.full_url)"
+                :content="$t('upload.uploadProgress.actions.copyLinkTooltip')"
+                placement="top"
               >
-                <i class="fas fa-link" />
-              </button>
+                <button class="upload-action upload-action--brand" @click="copyImageUrl(file.full_url)">
+                  <i class="fas fa-link" />
+                </button>
+              </CyberTooltip>
+
+              <CyberTooltip
+                v-if="(file.status === 'success' || file.status === 'completed') && file.full_url"
+                :content="$t('upload.uploadProgress.actions.copyMarkdownTooltip')"
+                placement="top"
+              >
+                <button class="upload-action upload-action--brand" @click="copyMarkdownUrl(file.full_url, file.name)">
+                  <i class="fab fa-markdown" />
+                </button>
+              </CyberTooltip>
+
+              <CyberTooltip
+                v-if="(file.status === 'success' || file.status === 'completed') && file.full_url"
+                :content="$t('upload.uploadProgress.actions.copyHtmlTooltip')"
+                placement="top"
+              >
+                <button class="upload-action upload-action--warning" @click="copyHtmlUrl(file.full_url, file.name)">
+                  <i class="fab fa-html5" />
+                </button>
+              </CyberTooltip>
+
+              <CyberTooltip
+                v-if="(file.status === 'success' || file.status === 'completed') && file.full_thumb_url"
+                :content="$t('upload.uploadProgress.actions.copyThumbnailTooltip')"
+                placement="top"
+              >
+                <button class="upload-action upload-action--info" @click="copyThumbnailUrl(file.full_thumb_url)">
+                  <i class="fas fa-image" />
+                </button>
+              </CyberTooltip>
 
               <button
                 v-if="file.status === 'paused'"

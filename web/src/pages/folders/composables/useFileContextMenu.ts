@@ -185,6 +185,48 @@ export function useFileContextMenu(options: ImageContextMenuOptions = {}) {
             }
           },
         },
+        {
+          key: 'copy-markdown',
+          label: $t('folders.fileContextMenu.menu.copyMarkdown'),
+          icon: 'fab fa-markdown',
+          onClick: async () => {
+            if (!selectedImage.value) return
+            const url = selectedImage.value.full_url || selectedImage.value.url || ''
+            const name = selectedImage.value.display_name || selectedImage.value.name || ''
+            if (!url) {
+              toast.error($t('folders.fileContextMenu.toast.noOriginalLink'))
+              return
+            }
+            try {
+              const markdownText = `![${name}](${url})`
+              await navigator.clipboard.writeText(markdownText)
+              toast.success($t('folders.fileContextMenu.toast.markdownLinkCopied'))
+            } catch {
+              toast.error($t('folders.fileContextMenu.toast.copyFailed'))
+            }
+          },
+        },
+        {
+          key: 'copy-html',
+          label: $t('folders.fileContextMenu.menu.copyHtml'),
+          icon: 'fab fa-html5',
+          onClick: async () => {
+            if (!selectedImage.value) return
+            const url = selectedImage.value.full_url || selectedImage.value.url || ''
+            const name = selectedImage.value.display_name || selectedImage.value.name || ''
+            if (!url) {
+              toast.error($t('folders.fileContextMenu.toast.noOriginalLink'))
+              return
+            }
+            try {
+              const htmlTag = `<img src="${url}" alt="${name}" />`
+              await navigator.clipboard.writeText(htmlTag)
+              toast.success($t('folders.fileContextMenu.toast.htmlLinkCopied'))
+            } catch {
+              toast.error($t('folders.fileContextMenu.toast.copyFailed'))
+            }
+          },
+        },
       ],
     },
     {
